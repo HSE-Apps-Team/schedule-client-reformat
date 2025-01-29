@@ -2,12 +2,13 @@ import React from "react";
 
 import { Box, Center } from "@chakra-ui/react";
 
-import Calendar from "./calendar/Calendar";
-import Clock from "./clock/Clock";
-import Countdown from "./countdown/Countdown";
-import Lunch from "./lunch/Lunch";
-import Schedule from "./schedule/Schedule";
+import Calendar from "./calendar/calendar";
+import Clock from "./clock/clock";
+import Countdown from "./countdown/countdown";
+import Settings from "./settings/settings"; // turn this back to lunch
+import Schedule from "./schedule/schedule";
 
+// if you want to add or change a view, you need to change its name in ViewSelector.jsx
 const Views = ( props ) => {
 
     return (
@@ -18,7 +19,7 @@ const Views = ( props ) => {
                 {props.view === "countdown" && <Countdown />}
                 {props.view === "calendar" && <Calendar />}
                 {props.view === "schedule" && <Schedule />}
-                {props.view === "lunch" && <Lunch />}
+                {props.view === "settings" && <Settings />} 
             </Center>
             <Box height={"10%"} width={"100%"} />
         </Box>

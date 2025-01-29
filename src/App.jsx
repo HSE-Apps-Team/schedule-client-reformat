@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import './App.css';
 import { Box } from '@chakra-ui/react';
 import Foreground from './components/foregrounds/Foreground';
 import Views from './components/views/views';
 import Background from './components/backgrounds/Background';
 
 // Listen to John, he's always right
+
 function App() {
 
   const [view, setView] = useState("clock");

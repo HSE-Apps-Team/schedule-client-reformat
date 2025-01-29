@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box } from "@chakra-ui/react";
 
-import Settings from "./settings/Settings";
+import SettingsButton from "./settingsButton/SettingsButton";
 import Logo from "./logo/Logo";
 
 const Navbar = () => {
@@ -12,7 +12,7 @@ const Navbar = () => {
                 <Logo />
             </Box>
             <Box>
-                <Settings />
+                <SettingsButton />
             </Box>
         </Box>
     );
