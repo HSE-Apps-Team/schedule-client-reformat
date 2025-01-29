@@ -5,7 +5,11 @@ import { Box } from "@chakra-ui/react";
 import ThemeBackground from "./theme_backgrounds/ThemeBackground";
 
 const Theme = () => {
-    return <ThemeBackground />;
+    return (
+        <Box>
+            <ThemeBackground />
+        </Box>
+    );
 };
 
 export default Theme;

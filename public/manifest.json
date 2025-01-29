@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "HSE Schedule",
+  "name": "Minimalistic Schedule App for HSE Schools",
   "icons": [
     {
       "src": "favicon.ico",

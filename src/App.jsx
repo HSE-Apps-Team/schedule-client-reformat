@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import './App.css';
 import { Box } from '@chakra-ui/react';
 import Foreground from './components/foregrounds/Foreground';
@@ -6,16 +7,19 @@ import Background from './components/backgrounds/Background';
 
 // Listen to John, he's always right
 function App() {
+
+  const [view, setView] = useState("clock");
+
   return (
     <Box position="relative">
-      <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={1}>
-        <Background/>
+      <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={3}>
+        <Foreground setView={setView}/>
       </Box>
       <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={2}>
-        <Views/>
+        <Views view={view}/>
       </Box>
-      <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={3}>
-        <Foreground/>
+      <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={1}>
+        <Background/>
       </Box>
     </Box>
   );
