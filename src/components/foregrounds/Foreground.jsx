@@ -6,8 +6,8 @@ import ViewSelector from "./view_selector/ViewSelector";
 const Foreground = ( props ) => {
     return (
         <Box>
-            <Box>
-                <Navbar/>
+            <Box height={"10vh"}>
+                <Navbar />
             </Box>
             <Box position="absolute" top={"90vh"} width={"100%"}>
                 <ViewSelector setView={props.setView}/>

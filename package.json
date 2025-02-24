@@ -6,7 +6,10 @@
     "@chakra-ui/react": "^2.x.x",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@pqina/flip": "^1.8.4",
+    "axios": "^1.7.9",
     "cra-template": "1.2.0",
+    "dayjs": "^1.11.13",
     "framer-motion": "^11.16.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -37,7 +40,7 @@
     ]
   },
   "devDependencies": {
-    "web-vitals": "^4.2.4",
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "web-vitals": "^4.2.4"
   }
 }

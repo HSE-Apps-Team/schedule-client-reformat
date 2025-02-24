@@ -1,9 +1,17 @@
 import React from "react";
 
-import { Box } from "@chakra-ui/react";
+import { Box, Image, Text } from "@chakra-ui/react";
 
 const Logo = () => {
-    return <Box>Logo</Box>;
+    return (
+        <a href="hseschedule.app">
+            <Box display={"flex"} flexDirection={"row"} alignItems={"center"} href="https://hseschedule.app/">
+                
+                    <Image src="hseapps.png" width={"40px"}/>
+                    <Text fontWeight={"550"} fontSize={"2xl"} paddingLeft={"10px"}>HSE Schedule</Text> 
+            </Box>
+        </a>
+    );
 };
 
 export default Logo;

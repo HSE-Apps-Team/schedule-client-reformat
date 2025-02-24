@@ -7,13 +7,9 @@ import Logo from "./logo/Logo";
 
 const Navbar = () => {
     return (
-        <Box display={"flex"} flexDirection={"row"} justifyContent={"space-between"}>
-            <Box>
-                <Logo />
-            </Box>
-            <Box>
-                <SettingsButton />
-            </Box>
+        <Box display={"flex"} flexDirection={"row"} justifyContent={"space-between"} height={"100%"} alignItems={"center"} padding={"10px"}>
+            <Logo />
+            <SettingsButton />
         </Box>
     );
 };
