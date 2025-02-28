@@ -3,38 +3,39 @@ import { useColorMode } from "@chakra-ui/react";
 import Tick from "@pqina/flip";
 import "@pqina/flip/dist/flip.min.css";
 
-// create visual counter
 const Flip = ({ to, mobile }) => {
     const { colorMode, toggleColorMode } = useColorMode();
-    const tickRef = useRef(null);
+    const tickRef = useRef(null);  // Ref to hold the tick instance
     const [test, setTest] = useState(0);
-
     const [label, setLabel] = useState(['Days', 'Hours', 'Minutes', 'Seconds']);
-  
-    useEffect(() => {
-        const tick = Tick.DOM.create(tickRef.current, {            
-          didInit: function (tick) {
-            // create the countdown counter
-            var counter = Tick.count.down(to, {
-              format: mobile ? ['d', 'h', 'm'] : ['d', 'h', 'm', 's'],
-            });
-            
-            counter.onupdate = function (value) {
-              tick.value = value;
-              setTest(tick.value);
-            };
-          },
-        });
-        console.log('Tick object created: ', tick);
-        return () => {
-            tick.destroy();
-        };
-      }, [to]);
 
-  return (
-    <div style={{ margin: "0px 20px", width: "80%" }}>
-        <style>
-            {`
+    //useEffect(() => {
+        // Initialize the tick object here
+    //     const tickInstance = Tick.DOM.create(tickRef.current, {            
+    //       didInit: function (tick) {
+    //         // Create countdown counter
+    //         const counter = Tick.count.down(to, {
+    //           format: mobile ? ['d', 'h', 'm'] : ['d', 'h', 'm', 's'],
+    //         });
+
+    //         // Update the tick value and state
+    //         counter.onupdate = function (value) {
+    //           tick.value = value;
+    //           setTest(tick.value);
+    //         };
+    //       },
+    //     });
+
+    //     // Cleanup on unmount
+    //     return () => {
+    //         if (tickInstance) tickInstance.destroy();  // Destroy the tick instance during cleanup
+    //     };
+    // }, [to, mobile]);  // Add dependencies to re-run when `to` or `mobile` changes
+
+    return (
+        <div>
+            {/* <style>
+                            {`
                 .tick {
                     display: flex;
                     justify-content: center;
@@ -111,25 +112,31 @@ const Flip = ({ to, mobile }) => {
                     height: 50%;
                 }
             `}
-        </style>
-        <div ref={tickRef} className="tick">
-            <div
-            data-repeat="true"
-            data-layout="horizontal fit"
-            data-transform="preset(d, h, m, s) -> delay">
-                <div className="tick-group">
-                    <div
-                        data-key="value"
-                        data-repeat="true"
-                        data-transform="pad(00) -> split -> delay">
-                        <span data-view="flip"></span>
+            </style> */}
+            {/* <div ref={tickRef} className="tick">
+                <div
+                    data-repeat="true"
+                    data-layout="horizontal fit"
+                    data-transform="preset(d, h, m, s) -> delay">
+                    <div className="tick-group">
+                        <div
+                            data-key="value"
+                            data-repeat="true"
+                            data-transform="pad(00) -> split -> delay">
+                            <span data-view="flip"></span>
+                        </div>
+                        <span data-key="label" data-view="text" className="tick-label"></span>
                     </div>
-                    <span data-key="label" data-view="text" class="tick-label"></span>
                 </div>
+            </div> */}
+            <div class="tick"
+                data-value="Hello World">
+
+                <span data-view="flip"></span>
+
             </div>
         </div>
-    </div>
-  );
+    );
 };
 
 export default Flip;

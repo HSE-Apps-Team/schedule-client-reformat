@@ -6,7 +6,7 @@
     "@chakra-ui/react": "^2.x.x",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@pqina/flip": "^1.8.4",
+    "@pqina/flip": "^1.8.3",
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
     "dayjs": "^1.11.13",
