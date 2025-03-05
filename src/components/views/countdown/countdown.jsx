@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import Flip from "./flip/flip.jsx";
 
-import { getClock } from "../../../api/api.js";
-// import { use100vh } from "react-div-100vh";
-import useMedia from "../../../hooks/useMedia.js";
+import { getClock } from "../../../api/api";
+//import { use100vh } from "react-div-100vh";
+import useMedia from "../../../hooks/useMedia";
 
 import {
   Text,
@@ -13,7 +13,8 @@ import {
 } from "@chakra-ui/react";
 
 
-const SchoolEnd = () => {
+const Countdown = () => {
+//  const vh = use100vh();
   const mobile = useMedia(
     ["(min-width: 750px)", "(max-width: 750px)"],
     [false, true]
@@ -60,7 +61,7 @@ const SchoolEnd = () => {
   ) : (
     <div
       style={{
-        height: "100%",
+        height: "100vh",
         display: "flex",
         flexDirection: "row",
         width: "100%",
@@ -78,4 +79,4 @@ const SchoolEnd = () => {
 
 };
 
-export default SchoolEnd;
+export default Countdown;
