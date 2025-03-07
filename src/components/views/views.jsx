@@ -16,7 +16,7 @@ const Views = ( props ) => {
             <Box height={"10%"} width={"100%"} />
             <Center height={"80%"} bg={"blue.300"}>
                 {props.view === "clock" && <Clock />}
-                {props.view === "countdown" && <Countdown />}
+                {props.view === "countdown" && <Countdown view={props.view} />}
                 {props.view === "calendar" && <Calendar />}
                 {props.view === "schedule" && <Schedule />}
                 {props.view === "settings" && <Settings />} 

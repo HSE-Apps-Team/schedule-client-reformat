@@ -7,30 +7,31 @@ import "@pqina/flip/dist/flip.min.css";
 const Flip = ({ to, mobile, view }) => {
     const { colorMode, toggleColorMode } = useColorMode();
     const tickRef = useRef(null);
+    const [tickValue, setTickValue] = useState(0);
     const [test, setTest] = useState(0);
 
     const [label, setLabel] = useState(['Days', 'Hours', 'Minutes', 'Seconds']);
   
     useEffect(() => {
-      const tick = Tick.DOM.create(tickRef.current, {
-        didInit: function (tick) {
-          // create the countdown counter
-          var counter = Tick.count.down(to, {
-            format: mobile ? ['d', 'h', 'm'] : ['d', 'h', 'm', 's'],
-          });
-          
-  
-          counter.onupdate = function (value) {
-            tick.value = value;
-            setTest(tick.value);
-          };
-        },
-      });
-  
-      return () => {
-        tick.destroy();
-      };
-    }, [to, ]);
+        const tick = Tick.DOM.create(tickRef.current, {
+            didInit: function (tick) {
+                // create the countdown counter
+                var counter = Tick.count.down(to, {
+                    format: mobile ? ['d', 'h', 'm'] : ['d', 'h', 'm', 's'],
+                });
+                
+        
+                counter.onupdate = function (value) {
+                    tick.value = value;
+                    setTest(tick.value);
+                };
+            },
+        });
+    
+        return () => {
+            tick.destroy();
+        };
+    }, [to, view, mobile]);
 
   return (
     <div style={{ margin: "0px 20px", width: "80%" }}>

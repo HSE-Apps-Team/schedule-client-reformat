@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 
 
-const Countdown = () => {
+const Countdown = (props) => {
 //  const vh = use100vh();
   const mobile = useMedia(
     ["(min-width: 750px)", "(max-width: 750px)"],
@@ -55,7 +55,7 @@ const Countdown = () => {
     <Box display={"flex"} height={"100%"} flexDirection={"column"} justifyContent={"center"} paddingBottom={"200px"}>
       <Text fontSize={mobile ? "3xl" : "6xl"} paddingBottom={"10px"} textAlign={"center"}>{name}</Text>
       <Box display={"flex"} justifyContent={"center"}>
-        <Flip to={endDate} className="shadow" mobile={mobile}/>
+        <Flip to={endDate} className="shadow" mobile={mobile} view={props.view}/>
       </Box>
     </Box>
   ) : (
