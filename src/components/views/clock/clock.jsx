@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import useMedia from "../../../hooks/useMedia";
 import Progress from "./progress.jsx";
-import { getSchedule } from "../../../api/api.js";
+import { getSchedule, getLunch } from "../../../api/api.js";
 import { CircularProgress, Text } from "@chakra-ui/react";
 import { useSettings } from "../../../hooks/useSettings";
 
@@ -111,6 +111,7 @@ const Clock = () => {
         genText={genText}
         period={period}
         nextPeriod={nextPeriod}
+        lunchStatus={getLunch}
         currentTime={currentTime}
       />
     </div>
