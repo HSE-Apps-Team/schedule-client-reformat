@@ -88,11 +88,11 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime }) => 
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+    <div>
       <CircularProgress
         trackColor="#f5f5f5"
         thickness={3.5}
-        size={mobile ? window.innerWidth * 0.85 : 580}
+        size={mobile ? window.innerWidth * 0.85 : 580} // This sets width, I need to fix it
         value={genPercent()}
         capIsRound={true}
       >

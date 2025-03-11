@@ -99,14 +99,14 @@ const Clock = () => {
 
   if (status === "LOADING") {
     return (
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <div>
         <CircularProgress isIndeterminate size={mobile ? "100px" : "150px"} />
       </div>
     );
   }
 
   return status === "SCHOOL_NOW" ? (
-    <div style={{ padding: "20px" }}>
+    <div>
       <Progress
         genText={genText}
         period={period}
@@ -115,7 +115,7 @@ const Clock = () => {
       />
     </div>
   ) : (
-    <div style={{ textAlign: "center", color: "white", padding: "20px" }}>
+    <div>
       <Text fontSize="2xl" mb={4}>
         {noSchoolText || "No School Currently"}
       </Text>
