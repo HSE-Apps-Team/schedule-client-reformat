@@ -1,0 +1,49 @@
+/* Themes are all placed at the top */
+/* Each new theme is a new data-theme */
+/* Assign variables here */
+
+:root {
+    --background: #f7fafc;
+    --background-secondary: #edf2f7;
+    --accent-background: #cbd5e0;
+    --text-primary: #1a202c;
+    --text-secondary: #606a7c;
+    --text-contrast: #f7fafc;
+    --color-primary: #0078d4;
+    --color-muted: #2a5f91;
+    --font-family: 'Segoe UI';
+}
+
+[data-theme="dark"] {
+    --background: #171923;
+    --background-secondary: #1a202c;
+    --accent-background: #2d3748;
+    --text-primary: #edf2f7;
+    --text-secondary: #919dae;
+    --text-contrast: #171923;
+    --color-primary: #63b3ed;
+    --color-muted: #4299e1;
+    --font-family: 'Segoe UI';
+}
+
+/* Styles */
+/* When changing theme based colors use id's because Chakra overides classes */
+/* Only add color based code, add other styles in their respective components */
+
+#button {
+    background-color: var(--color-primary);
+    color: var(--text-contrast);
+}
+#button:hover {
+    background-color: var(--color-muted);
+}
+
+#component {
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
+}
+
+#selector-button {
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
+}

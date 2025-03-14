@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 
 
-const Countdown = (props) => {
+const Countdown = ({ loading, setLoading, view }) => {
 //  const vh = use100vh();
   const mobile = useMedia(
     ["(min-width: 750px)", "(max-width: 750px)"],
@@ -21,8 +21,7 @@ const Countdown = (props) => {
   );
   
   const [endDate, setEndDate] = useState(dayjs().toISOString());
-  const [name, setName] = useState("Break");
-  const [loading, setLoading] = useState(true);
+  const [name, setName] = useState(null);
 
   // useEffect(() => {
 
@@ -42,40 +41,47 @@ const Countdown = (props) => {
         const { data } = clock;
         setEndDate(dayjs(data.End_Date).toISOString());
         setName(data.title);
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [setLoading]);
 
-  return !loading ? (
+  if (loading) {
+    return null;
+  }
+
+  return (
     <Box display={"flex"} height={"100%"} flexDirection={"column"} justifyContent={"center"} paddingBottom={"200px"}>
       <Text fontSize={mobile ? "3xl" : "6xl"} paddingBottom={"10px"} textAlign={"center"}>{name}</Text>
       <Box display={"flex"} justifyContent={"center"}>
-        <Flip to={endDate} className="shadow" mobile={mobile} view={props.view}/>
+        <Flip to={endDate} className="shadow" mobile={mobile} view={view} loading={loading} setLoading={setLoading}/>
       </Box>
     </Box>
-  ) : (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "row",
-        width: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <CircularProgress
-        isIndeterminate
-        size={mobile ? window.innerWidth * 0.5 : 150}
-        thickness={2.5}
-      />
-    </div>
-  );
+  ) 
+  //  (
+  //   <div
+  //     style={{
+  //       height: "100vh",
+  //       display: "flex",
+  //       flexDirection: "row",
+  //       width: "100%",
+  //       alignItems: "center",
+  //       justifyContent: "center",
+  //     }}
+  //   >
+  //     <CircularProgress
+  //       isIndeterminate
+  //       size={mobile ? window.innerWidth * 0.5 : 150}
+  //       thickness={2.5}
+  //     />
+  //   </div>
+  // );
 
 };
 

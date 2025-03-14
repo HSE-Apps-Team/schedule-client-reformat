@@ -16,15 +16,14 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-const Schedule = (props) => {
+const Schedule = ({ overrideLunch, loading, setLoading }) => {
   const MotionBox = motion(Box);
   const mobile = useMedia(
     ["(min-width: 750px)", "(max-width: 750px)"],
     [false, true]
   );
   const { colorMode, toggleColorMode } = useColorMode();
-  const [loading, setLoading] = useState(true);
-  const [schedule, setSchedule] = useState();
+  const [schedule, setSchedule] = useState([]);
   const [lunchType, setLunchType] = useState(null);
   const [webMobile, setwebMobile] = useState(false);
 
@@ -53,9 +52,13 @@ const Schedule = (props) => {
     }
   }, [localStorage.getItem("scheduleSettings")]);
 
-  return !loading ? (
+  if (loading) {
+    return null;
+  };
+
+  return (
     <>
-      <Box style={{ width: "100%", height: "100%", paddingBottom: mobile ? "175px" : "15%", overflowY: "hidden" }}>
+      <Box style={{ width: "100%", height: "100%", overflowY: "hidden" }}>
         <HStack width={"100%"} align={"center"} justify={"center"}>
           <Text fontSize={"xl"} textAlign={"center"}>
             Today is a
@@ -82,7 +85,7 @@ const Schedule = (props) => {
                 <>
                   <MotionBox
                     whileHover={{ x: 10 }}
-                    className="component shadow"
+                    id="component"
                     style={{
                       flexShrink: 0,
                       width: "80%",
@@ -121,7 +124,6 @@ const Schedule = (props) => {
 
                   {period.lunchPeriods && (
                     <div
-                      id="hi"
                       style={{
                         flexShrink: 0,
                         display: "flex",
@@ -136,7 +138,8 @@ const Schedule = (props) => {
                         return (
                           <MotionBox
                             whileHover={{ x: 3 }}
-                            className={!props.overrideLunch && lunch == lunchType ? "current shadow" : "component shadow"}
+                            id="component"
+                            className={!overrideLunch && lunch == lunchType ? "current shadow" : "component shadow"}
                             style={{
                               width: mobile ? "85%" : "24%",
                               maxWidth: "500px",
@@ -293,24 +296,7 @@ const Schedule = (props) => {
         </Box>
       </Box>
     </>
-  ) : (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        width: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <CircularProgress
-        color="accent"
-        isIndeterminate
-        size={mobile ? window.innerWidth * 0.5 : 150}
-        thickness={2.5}
-      />
-    </div>
-  );
+  )
 };
 
 export default Schedule;

@@ -3,7 +3,7 @@ import { Box, Text, Tabs, TabList, Tab, TabPanels, TabPanel, Image } from "@chak
 import { getCalendar2 } from "../../../api/api.js";// Assuming this fetches the data from the API
 import useMedia from "../../../hooks/useMedia.js";
 
-const CalendarSelector = () => {
+const CalendarSelector = ({ loading, setLoading }) => {
     const mobile = useMedia(
         ["(min-width: 750px)", "(max-width: 750px)"],
         [false, true]
@@ -26,6 +26,7 @@ const CalendarSelector = () => {
                 // Ensure the response contains an array in the `data` property
                 if (Array.isArray(data)) {
                     setCalendars(data);
+                    setLoading(false);
                 } else {
                     console.error("Expected an array inside the response data but received:", data);
                 }
@@ -40,6 +41,10 @@ const CalendarSelector = () => {
     useEffect(() => {
         console.log("Calendars state:", calendars); // Log the calendars state whenever it changes
     }, [calendars]);
+
+    if (loading) {
+        return null;
+    }
 
     return (
         <Box width={ mobile ? "90%" : "50%" } margin={"auto"} overflowY={"scroll"} height={"85vh"}

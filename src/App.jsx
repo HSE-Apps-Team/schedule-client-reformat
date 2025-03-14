@@ -4,6 +4,8 @@ import Foreground from './components/foregrounds/Foreground';
 import Views from './components/views/views';
 import Background from './components/backgrounds/Background';
 
+import './themes/theme.css';
+
 // Listen to John, he's always right
 
 function App() {

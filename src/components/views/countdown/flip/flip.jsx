@@ -139,16 +139,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import Tick from "@pqina/flip";
 import "@pqina/flip/dist/flip.min.css";
-import { div } from "framer-motion/client";
 
-const Flip = ({ to }) => {
+const Flip = ({ to, loading, setLoading }) => {
     const divRef = useRef();
     const tickRef = useRef();
-    const [tickValue, setTickValue] = useState(to);
+    const [tickValue, setTickValue] = useState("0000");
+    const [initialized, setInitialized] = useState(false);
 
     useEffect(() => {
         const didInit = (tick) => {
             tickRef.current = tick;
+            setInitialized(true);
         };
 
         const currDiv = divRef.current;

@@ -12,14 +12,14 @@ const ViewSelector = ( props ) => {
                    <i class="bi bi-hourglass-split" />,
                    <i class="bi bi-calendar" />];
 
-    const names = ["settings","schedule", "clock", "countdown", "calendar"];
+    const names = ["settings", "schedule", "clock", "countdown", "calendar"];
 
     const selectorButtons = names.map((name, index) => {
         return<SelectorButton name={name} icon={icons[index]} setView={props.setView} />;
     });
 
     return (
-        <Box display={"flex"} flexDirection={"row"} justifyContent={"space-evenly"}>
+        <Box id="selector-button" display={"flex"} flexDirection={"row"} justifyContent={"center"} borderRadius={"10px"} overflow={"hidden"}>
             {selectorButtons}
         </Box>
     );

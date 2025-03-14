@@ -5,12 +5,13 @@ import Progress from "./progress.jsx";
 import { getSchedule, getLunch } from "../../../api/api.js";
 import { CircularProgress, Text } from "@chakra-ui/react";
 import { useSettings } from "../../../hooks/useSettings";
+import { s } from "framer-motion/client";
 
 
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/duration"));
 
-const Clock = () => {
+const Clock = ({ loading, setLoading }) => {
   const mobile = useMedia(
     ["(min-width: 750px)", "(max-width: 750px)"],
     [false, true]
@@ -43,6 +44,7 @@ const Clock = () => {
       schedule.forEach((period, index) => {
         if (currentTime >= period.startTimeUnix && currentTime < period.endTimeUnix) {
           setStatus("SCHOOL_NOW");
+          setLoading(false);
           setPeriod(period);
           setNextPeriod(schedule[index + 1] || null);
         }
@@ -81,7 +83,8 @@ const Clock = () => {
       const timerId = setInterval(() => {
         setCurrentTime(dayjs().valueOf());
         getPeriod();
-      }, 1000);
+        setLoading(false);
+      }, 500);
       return () => clearInterval(timerId);
     }
   }, [schedule]);
@@ -97,13 +100,9 @@ const Clock = () => {
     }:${duration.seconds().toString().padStart(2, '0')}`;
   };
 
-  if (status === "LOADING") {
-    return (
-      <div>
-        <CircularProgress isIndeterminate size={mobile ? "100px" : "150px"} />
-      </div>
-    );
-  }
+  if (loading) {
+    return null;
+  };
 
   return status === "SCHOOL_NOW" ? (
     <div>

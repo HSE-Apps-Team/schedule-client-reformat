@@ -6,7 +6,7 @@ const SettingsButton = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
-            <Button onClick={onOpen}>Open Modal</Button>
+            <Button id="button" onClick={onOpen}>Open Modal</Button>
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
@@ -18,7 +18,7 @@ const SettingsButton = () => {
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button colorScheme='blue' mr={3} onClick={onClose}>
+                    <Button id="button" mr={3} onClick={onClose}>
                     Close
                     </Button>
             
