@@ -11,14 +11,15 @@ import './themes/theme.css';
 function App() {
 
   const [view, setView] = useState("clock");
+  const [loading, setLoading] = useState(true);
 
   return (
     <Box position="relative">
       <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={3}>
-        <Foreground setView={setView}/>
+        <Foreground setView={setView} setLoading={setLoading}/>
       </Box>
       <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={2}>
-        <Views view={view}/>
+        <Views view={view} loading={loading} setLoading={setLoading}/>
       </Box>
       <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={1}>
         <Background/>

@@ -143,13 +143,11 @@ import "@pqina/flip/dist/flip.min.css";
 const Flip = ({ to, loading, setLoading }) => {
     const divRef = useRef();
     const tickRef = useRef();
-    const [tickValue, setTickValue] = useState("0000");
-    const [initialized, setInitialized] = useState(false);
+    const [tickValue, setTickValue] = useState("0000"); // This creates a 00:00:00:00 format
 
     useEffect(() => {
         const didInit = (tick) => {
             tickRef.current = tick;
-            setInitialized(true);
         };
 
         const currDiv = divRef.current;
@@ -180,14 +178,18 @@ const Flip = ({ to, loading, setLoading }) => {
         }
     }, [tickValue]);
 
-    return (
+    return  (
         <div>
             <style>
             {`
+                .tick * {
+                    display: flex;
+                    justify-content: center;
+                }
                 .tick {
                     display: flex;
                     justify-content: center;
-                    width: 100%;
+                    width: 70vw;
                     max-font-size: 1em;
                     white-space: nowrap;
                     font-family: arial, sans-serif;
@@ -202,6 +204,7 @@ const Flip = ({ to, loading, setLoading }) => {
                     bg: transparent;
                     box-shadow: inset 0 1px hsla(0,0%,100%,.05);
                     width: 10%;
+                    padding: 0 0.5vw;
                 }
                 .tick-flip,
                 .tick-text-inline {
@@ -264,7 +267,6 @@ const Flip = ({ to, loading, setLoading }) => {
 
             <div ref={divRef} className="tick">
                 <div
-                data-transform=""
                 data-repeat="true"
                 data-layout="horizontal fit">
                     <div 
@@ -274,7 +276,8 @@ const Flip = ({ to, loading, setLoading }) => {
                         <span data-view="flip"/>
                     </div>
                 </div>
-                {/* <span data-key="label" data-view="text" class="tick-label"/> */}
+                <span data-key="label" class="tick-label">{}</span>
+
             </div>
         </div>
     );

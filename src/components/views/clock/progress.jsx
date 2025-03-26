@@ -64,11 +64,11 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime }) => 
 
     return (
       <>
-        <Text marginBottom={0} fontSize={mobile ? "3rem" : "80px"}>
+        <Text marginBottom={0} fontSize={mobile ? window.innerWidth * 0.15 : window.innerHeight * 0.15}>
           {genText()}
         </Text>
         <Text
-          fontSize={mobile ? "1.3rem" : "1.5rem"}
+          fontSize={mobile ? window.innerWidth * 0.04 : window.innerHeight * 0.04}
           marginTop="0"
           wordSpacing="3px"
         >
@@ -97,7 +97,7 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime }) => 
         value={genPercent()}
         capIsRound={true}
       >
-        <CircularProgressLabel fontSize={50}>
+        <CircularProgressLabel size="4rem">
           {renderTimerText()}
         </CircularProgressLabel>
       </CircularProgress>

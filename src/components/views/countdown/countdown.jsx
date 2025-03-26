@@ -6,11 +6,7 @@ import { getClock } from "../../../api/api";
 //import { use100vh } from "react-div-100vh";
 import useMedia from "../../../hooks/useMedia";
 
-import {
-  Text,
-  Box,
-  CircularProgress,
-} from "@chakra-ui/react";
+import { Text, Box, Center } from "@chakra-ui/react";
 
 
 const Countdown = ({ loading, setLoading, view }) => {
@@ -41,9 +37,7 @@ const Countdown = ({ loading, setLoading, view }) => {
         const { data } = clock;
         setEndDate(dayjs(data.End_Date).toISOString());
         setName(data.title);
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -54,13 +48,19 @@ const Countdown = ({ loading, setLoading, view }) => {
 
   if (loading) {
     return null;
-  }
+  };
 
   return (
     <Box display={"flex"} height={"100%"} flexDirection={"column"} justifyContent={"center"} paddingBottom={"200px"}>
       <Text fontSize={mobile ? "3xl" : "6xl"} paddingBottom={"10px"} textAlign={"center"}>{name}</Text>
-      <Box display={"flex"} justifyContent={"center"}>
+      <Box display={"flex"} alignItems={"center"} flexDirection={"column"}>
         <Flip to={endDate} className="shadow" mobile={mobile} view={view} loading={loading} setLoading={setLoading}/>
+        <Box display={"flex"} flexDirection={"row"} width={"70vw"} justifyContent={"space-around"} fontSize={"3vw"}>
+          <Center width={"25%"} margin={"0 0.5vw"}>Days</Center>
+          <Center width={"25%"} margin={"0 0.5vw"}>Hours</Center>
+          <Center width={"25%"} margin={"0 0.5vw"}>Minutes</Center>
+          <Center width={"25%"} margin={"0 0.5vw"}>Seconds</Center>
+        </Box>
       </Box>
     </Box>
   ) 

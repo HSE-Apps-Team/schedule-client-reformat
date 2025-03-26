@@ -4,6 +4,8 @@ import { Box, Center, CircularProgress } from "@chakra-ui/react";
 
 import useMedia from "../../hooks/useMedia";
 
+import Loading from "../graphics/loading/loading";
+
 import Calendar from "./calendar/calendar";
 import Clock from "./clock/clock";
 import Countdown from "./countdown/countdown";
@@ -17,22 +19,17 @@ const Views = ( props ) => {
         [false, true]
     );
 
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setLoading(true);
-    }, [props.view]);
-
     return (
         <Box height={"100vh"}>
             <Box height={"10%"} width={"100%"} />
                 <Center height={"80%"}>
-                    {loading && <CircularProgress isIndeterminate size={mobile ? window.innerWidth * 0.85 : window.innerHeight * 0.85} thickness={3.5} capIsRound={true} color="var(--color-primary)" trackColor="var(--background-secondary)"/>}
-                    {props.view === "clock" && <Clock loading={loading} setLoading={setLoading}/>}
-                    {props.view === "countdown" && <Countdown view={props.view} loading={loading} setLoading={setLoading} />}
-                    {props.view === "calendar" && <Calendar loading={loading} setLoading={setLoading}/>}
-                    {props.view === "schedule" && <Schedule loading={loading} setLoading={setLoading}/>}
-                    {props.view === "settings" && <Settings loading={loading} setLoading={setLoading}/>}
+                    {/* {props.loading && <CircularProgress isIndeterminate size={mobile ? window.innerWidth * 0.85 : window.innerHeight * 0.85} thickness={3.5} capIsRound={true} color="var(--color-primary)" trackColor="var(--background-secondary)"/>} */}
+                    {props.loading && <Loading />}
+                    {props.view === "clock" && <Clock loading={props.loading} setLoading={props.setLoading}/>}
+                    {props.view === "countdown" && <Countdown view={props.view} loading={props.loading} setLoading={props.setLoading} />}
+                    {props.view === "calendar" && <Calendar loading={props.loading} setLoading={props.setLoading}/>}
+                    {props.view === "schedule" && <Schedule loading={props.loading} setLoading={props.setLoading}/>}
+                    {props.view === "settings" && <Settings loading={props.loading} setLoading={props.setLoading}/>}
                 </Center>
             <Box height={"10%"} width={"100%"} />
         </Box>

@@ -11,7 +11,7 @@ const Foreground = ( props ) => {
             </Box>
             <Center position="absolute" top={"90vh"} width={"100%"}>
                 <Box>
-                    <ViewSelector setView={props.setView} width={"fit-content"}/>
+                    <ViewSelector setView={props.setView} setLoading={props.setLoading} width={"fit-content"}/>
                 </Box>
             </Center>
         </Box>

@@ -15,7 +15,7 @@ const ViewSelector = ( props ) => {
     const names = ["settings", "schedule", "clock", "countdown", "calendar"];
 
     const selectorButtons = names.map((name, index) => {
-        return<SelectorButton name={name} icon={icons[index]} setView={props.setView} />;
+        return<SelectorButton name={name} icon={icons[index]} setView={props.setView} setLoading={props.setLoading} />;
     });
 
     return (
