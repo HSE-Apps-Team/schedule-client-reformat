@@ -6,11 +6,11 @@ import SelectorButton from "./SelectorButton";
 
 const ViewSelector = ( props ) => {
 
-    const icons = [<i class="bi bi-egg-fried" />, 
-                   <i class="bi bi-list" />, 
-                   <i class="bi bi-clock" />,
-                   <i class="bi bi-hourglass-split" />,
-                   <i class="bi bi-calendar" />];
+    const icons = [<i className="bi bi-egg-fried"/>, 
+                   <i className="bi bi-list" />, 
+                   <i className="bi bi-clock" />,
+                   <i className="bi bi-hourglass-split" />,
+                   <i className="bi bi-calendar" />];
 
     const names = ["settings", "schedule", "clock", "countdown", "calendar"];
 
@@ -19,7 +19,7 @@ const ViewSelector = ( props ) => {
     });
 
     return (
-        <Box id="selector-button" display={"flex"} flexDirection={"row"} justifyContent={"center"} borderRadius={"10px"} overflow={"hidden"}>
+        <Box bg={"green"}id="selector-button" display={"flex"} flexDirection={"row"} justifyContent={"center"} alignItems={"center"} borderRadius={"10px"} overflow={"hidden"}>
             {selectorButtons}
         </Box>
     );

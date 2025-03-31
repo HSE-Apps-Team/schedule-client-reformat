@@ -26,6 +26,12 @@
     --font-family: 'Segoe UI';
 }
 
+/* Global tags */
+i {
+    line-height: 0;
+    font-size: 100%;
+}
+
 /* Styles */
 /* When changing theme based colors use id's because Chakra overides classes */
 /* Only add color based code, add other styles in their respective components */

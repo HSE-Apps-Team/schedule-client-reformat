@@ -9,7 +9,7 @@ const SelectorButton = ( props ) => {
     }
     return (
         <Box id="selector-button" onClick={handleClick}>
-            <Center width={"80px"} height={"45px"} fontSize={"25px"} cursor={"pointer"}>{props.icon}</Center>
+            <Center width={"80px"} height={"100%"} fontSize={"25px"} cursor={"pointer"} padding={"10px"}>{props.icon}</Center>
         </Box>
     );
 };
