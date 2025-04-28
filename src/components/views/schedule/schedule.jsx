@@ -1,298 +1,3 @@
-// import React, { useEffect, useState } from "react";
-
-// import { getSchedule } from "../../../api/api.js";
-// import useMedia from "../../../hooks/useMedia.js";
-
-// import {
-//   Box,
-//   CircularProgress,
-//   HStack,
-//   Stack,
-//   Text,
-//   useColorMode,
-//   VStack,
-// } from "@chakra-ui/react";
-// import { motion } from "framer-motion";
-
-// const Schedule = ({ overrideLunch, loading, setLoading }) => {
-//   const MotionBox = motion(Box);
-//   const mobile = useMedia(
-//     ["(min-width: 750px)", "(max-width: 750px)"],
-//     [false, true]
-//   );
-//   const { colorMode, toggleColorMode } = useColorMode();
-//   const [schedule, setSchedule] = useState([]);
-//   const [lunchType, setLunchType] = useState(null);
-
-//   useEffect(() => {
-//     getSchedule().then((response) => {
-//       if (response.data.data.Type == "Special") {
-//         setSchedule(response.data.data.ScheduleData.data);
-//         setLoading(false);
-//       } else {
-//         const fetchedSchedule = response.data.data.data;
-//         setSchedule(fetchedSchedule);
-//         setLoading(false);
-//       }
-//     });
-//   }, []);
-
-//   useEffect(() => {
-//     const settings = JSON.parse(localStorage.getItem("scheduleSettings"));
-//     const dayType = localStorage.getItem("day-type");
-
-//     if (dayType == "Royal") {
-//       setLunchType(settings.royalDay);
-//     } else if (dayType == "Gray") {
-//       setLunchType(settings.grayDay);
-//     } else {
-//     }
-//   }, [localStorage.getItem("scheduleSettings")]);
-
-//   if (loading) {
-//     return null;
-//   };
-
-//   return (
-//     <>
-//       <Box style={{ width: "100%", height: "100%", overflowY: "hidden" }}>
-//         <HStack width={"100%"} align={"center"} justify={"center"}>
-//           <Text fontSize={"xl"} textAlign={"center"}>
-//             Today is a
-//           </Text>
-//           <Text fontSize="xl" color={localStorage.getItem("day-type") == "Royal" ? "blue" : "gray"}>
-//             {localStorage.getItem("day-type") == "Royal" ? "Blue" : "Gray"}
-//           </Text>
-//           <Text fontSize={"xl"}>Day</Text>
-//         </HStack>
-
-//         <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-//           {schedule.map((period) => {
-//             if (period.periodName != "Passing Period") {
-//               return (
-//                 <>
-//                   <MotionBox
-//                     whileHover={{ x: 10 }}
-//                     // id="component"
-//                     bg={"gray"}
-//                     style={{
-//                       flexShrink: 0,
-//                       width: "80%",
-//                       maxWidth: "500px",
-//                       height: mobile ? "60px" : "80px",
-//                       borderRadius: "10px",
-//                       display: "flex",
-//                       justifyContent: "space-between",
-//                       alignItems: "center",
-//                       padding: "25px",
-//                       marginBottom: "10px",
-//                     }}
-//                   >
-//                     <div>
-//                       <Text
-//                         fontSize="2xl"
-//                         level={mobile ? 4 : 3}
-//                         style={{
-//                           color: colorMode == "dark" ? "white" : "#333",
-//                           marginBottom: "0px",
-//                         }}
-//                       >
-//                         {period.periodName}
-//                       </Text>
-//                     </div>
-//                     <div>
-//                       <Text
-//                         style={{
-//                           color: colorMode == "dark" ? "white" : "#555",
-//                           fontSize: mobile ? "12px" : "14px",
-//                         }}
-//                       >
-//                         {period.startTime} - {period.endTime}
-//                       </Text>
-//                     </div>
-//                   </MotionBox>
-
-//                   {period.lunchPeriods && (
-//                     <div
-//                       style={{
-//                         flexShrink: 0,
-//                         display: "flex",
-//                         alignItems: "flex-end",
-//                         justifyContent: mobile ? "flex-end" : "space-between",
-//                         flexDirection: mobile ? "column" : "row",
-//                         width: "80%",
-//                         maxWidth: "500px",
-//                         marginBottom: "10px",
-//                       }}
-//                     >
-//                       {Object.keys(period.lunchPeriods).map((lunch) => {
-//                         return (
-//                           <MotionBox
-//                             whileHover={{ x: 3 }}
-//                             id="component"
-//                             className={!overrideLunch && lunch == lunchType ? "current shadow" : "component shadow"}
-//                             style={{
-//                               width: mobile ? "85%" : "24%",
-//                               maxWidth: "500px",
-//                               height: mobile ? "60px" : "80px",
-//                               borderRadius: "10px",
-//                               cursor: "pointer",
-//                               display: "flex",
-//                               justifyContent: "space-between",
-//                               alignItems: "center",
-//                               padding: "24px",
-//                             }}
-//                           >
-//                             <div>
-//                               <Text
-//                                 fontSize="2xl"
-//                                 level={mobile ? 4 : 3}
-//                                 style={{
-//                                   color: colorMode == "dark" ? "white" : "#333",
-//                                   marginBottom: "0px",
-//                                 }}
-//                               >
-//                                 {lunch}
-//                               </Text>
-//                             </div>
-//                             <VStack spacing={1}>
-//                               {mobile ? (
-//                                 <Text
-//                                   style={{
-//                                     color:
-//                                       colorMode == "dark" ? "white" : "#555",
-//                                     fontSize: mobile ? "12px" : "14px",
-//                                   }}
-//                                 >
-//                                   {period.lunchPeriods[lunch].startTime} -{" "}
-//                                   {period.lunchPeriods[lunch].endTime}
-//                                 </Text>
-//                               ) : (
-//                                 <>
-//                                   <Text
-//                                     style={{
-//                                       color:
-//                                         colorMode == "dark" ? "white" : "#555",
-//                                       fontSize: mobile ? "10px" : "12px",
-//                                     }}
-//                                   >
-//                                     {period.lunchPeriods[lunch].startTime}
-//                                   </Text>
-//                                   <br />
-//                                   <Text
-//                                     style={{
-//                                       color:
-//                                         colorMode == "dark" ? "white" : "#555",
-//                                       fontSize: mobile ? "10px" : "12px",
-//                                     }}
-//                                   >
-//                                     {period.lunchPeriods[lunch].endTime}
-//                                   </Text>
-//                                 </>
-//                               )}
-//                             </VStack>
-//                           </MotionBox>
-//                         );
-//                       })} 
-//                     </div>
-//                   )}
-//                   {period.pathwaysPeriods && (
-//                         <div
-//                           id="hi"
-//                           style={{
-//                             flexShrink: 0,
-//                             display: "flex",
-//                             alignItems: "flex-end",
-//                             justifyContent: mobile ? "flex-end" : "space-between",
-//                             flexDirection: mobile ? "column" : "row",
-//                             width: "80%",
-//                             maxWidth: "500px",
-//                             marginBottom: "10px",
-//                           }}
-//                         >
-//                           {Object.keys(period.pathwaysPeriods).map((pathwayPeriod) => {
-//                             return (
-//                               <MotionBox
-//                                 className="component shadow"
-//                                 whileHover={{ x: 3 }}
-//                                 style={{
-//                                   flexShrink: 0,
-//                                   width: mobile ? "85%" : "49.5%",
-//                                   maxWidth: "500px",
-//                                   height: mobile ? "60px" : "80px",
-//                                   borderRadius: "10px",
-//                                   cursor: "pointer",
-//                                   display: "flex",
-//                                   justifyContent: "space-between",
-//                                   alignItems: "center",
-//                                   padding: "24px",
-//                                 }}
-//                               >
-//                                 <div>
-//                                   <Text
-//                                     fontSize="2xl"
-//                                     level={mobile ? 4 : 3}
-//                                     style={{
-//                                       color: colorMode == "dark" ? "white" : "#333",
-//                                       marginBottom: "0px",
-//                                     }}
-//                                   >
-//                                     {pathwayPeriod}
-//                                   </Text>
-//                                 </div>
-//                                 <VStack spacing={1}>
-//                                   {mobile ? (
-//                                     <Text
-//                                       style={{
-//                                         color:
-//                                           colorMode == "dark" ? "white" : "#555",
-//                                         fontSize: mobile ? "12px" : "14px",
-//                                       }}
-//                                     >
-//                                       {period.pathwaysPeriods[pathwayPeriod].startTime} -{" "}
-//                                       {period.pathwaysPeriods[pathwayPeriod].endTime}
-//                                     </Text>
-//                                   ) : (
-//                                     <>
-//                                       <Text
-//                                         style={{
-//                                           color:
-//                                             colorMode == "dark" ? "white" : "#555",
-//                                           fontSize: mobile ? "10px" : "12px",
-//                                         }}
-//                                       >
-//                                         {period.pathwaysPeriods[pathwayPeriod].startTime}
-//                                       </Text>
-//                                       <br />
-//                                       <Text
-//                                         style={{
-//                                           color:
-//                                             colorMode == "dark" ? "white" : "#555",
-//                                           fontSize: mobile ? "10px" : "12px",
-//                                         }}
-//                                       >
-//                                         {period.pathwaysPeriods[pathwayPeriod].endTime}
-//                                       </Text>
-//                                     </>
-//                                   )}
-//                                 </VStack>
-//                               </MotionBox>
-//                             );
-//                           })}
-//                         </div>
-//                       )}
-//                 </>
-//               );
-//             }
-//           })}
-//         </Box>
-//       </Box>
-//     </>
-//   )
-// };
-
-// export default Schedule;
-
 import React, { useEffect, useState } from "react";
 import { getSchedule } from "../../../api/api.js";
 import useMedia from "../../../hooks/useMedia.js";
@@ -325,8 +30,8 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
 
   if (loading) return null;
 
-  const renderTimeDisplay = (start, end) => (
-      <Text fontSize="md">{start} {mobile ? "-" : "-"} {end}</Text>
+  const renderTimeDisplay = (start, end, addDash = true) => (
+      <Text fontSize="md">{start} {addDash ? "-" : ""} {end}</Text>
   );
 
   const renderPeriodBox = (name, startTime, endTime) => (
@@ -349,10 +54,10 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
 
   return (
     <Box width="100%" height="100%" overflowY="scroll" paddingBottom="20px">
-      <HStack width="100%" justify="center">
+      <HStack width="100%" justify="center" marginBottom={"10px"}>
         <Text fontSize="xl">Today is a</Text>
         <Text fontSize="xl" color={localStorage.getItem("day-type") === "Royal" ? "blue" : "gray"}>
-          {localStorage.getItem("day-type") === "Royal" ? "Blue" : "Gray"}
+          {localStorage.getItem("day-type")}
         </Text>
         <Text fontSize="xl">Day</Text>
       </HStack>
@@ -385,13 +90,14 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
 
                         display="flex"
                         justifyContent="space-between"
+                        alignItems="center"
                         p={3}
                         mb={mobile ? 2 : 0}
                         marginLeft={mobile ? 5 : 0}
                       >
-                        <Text fontSize="xl">{lunch}</Text>
-                        <VStack>
-                          {renderTimeDisplay(times.startTime, times.endTime)}
+                        <Text fontSize="xl" >{lunch}</Text>
+                        <VStack display={mobile ? "none" : "flex"} justifyContent={"flex-end"}>
+                          {renderTimeDisplay(times.startTime, times.endTime, false)}
                         </VStack>
                       </MotionBox>
                     ))}
@@ -414,7 +120,6 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
                       borderRadius={"10px"}
                       key={pathway}
                       whileHover={{ x: 3 }}
-                      className="shadow"
                       width={"100%"}
                       display={"flex"}
                       justifyContent="space-between"
