@@ -19,7 +19,7 @@ const ViewSelector = ( props ) => {
     });
 
     return (
-        <Box bg={"green"}id="selector-button" display={"flex"} flexDirection={"row"} justifyContent={"center"} alignItems={"center"} borderRadius={"10px"} overflow={"hidden"}>
+        <Box id="selector-button" className="shadow" display={"flex"} flexDirection={"row"} justifyContent={"center"} alignItems={"center"} borderRadius={"10px"} overflow={"hidden"}>
             {selectorButtons}
         </Box>
     );

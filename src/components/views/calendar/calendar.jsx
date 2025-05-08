@@ -69,7 +69,7 @@ const CalendarSelector = ({ loading, setLoading }) => {
                         <>
                             <Tab
                                 key={calendar._id}
-                                className={selectedCalendarIndex === index ? "component selected" : "component"}
+                                bg={selectedCalendarIndex === index ? "var(--accent-background)" : "var(--background-secondary)"}
                                 borderColor={"none"}
                                 borderRadius={"10px 10px 0 0"}
                                 sx={{ // I have absolutely no clue how pseudo elements work
@@ -80,7 +80,7 @@ const CalendarSelector = ({ loading, setLoading }) => {
                                         content: '""',
                                         display: 'block',
                                         height: '10px',
-                                        backgroundColor: selectedCalendarIndex === index ? 'bg-muted' : 'bg-box',
+                                        backgroundColor: selectedCalendarIndex === index ? 'var(--accent-background)' : 'var(--background)',
                                         position: 'absolute',
                                         bottom: '-10px',
                                         left: 0,
@@ -94,10 +94,10 @@ const CalendarSelector = ({ loading, setLoading }) => {
                     ))}
                 </TabList>
 
-                <TabPanels className="component selected" position={"relative"} zIndex={1} borderRadius={"0 10px 10px 10px"}>
+                <TabPanels bg={"var(--accent-background)"} position={"relative"} zIndex={1} borderRadius={"0 10px 10px 10px"}>
                     {/* Dynamically generate tab panels with corresponding imgUrl */}
                     {calendars.map((calendar) => (
-                        <TabPanel key={calendar._id} >
+                        <TabPanel key={calendar._id}>
                             <Image 
                                 src={calendar.imgUrl} 
                                 alt={`Calendar ${calendar._id}`} 

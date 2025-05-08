@@ -6,7 +6,7 @@ import Theme from "./theme/theme";
 
 const Background = () => {
     return (
-        <Box>
+        <Box id="component">
             <Theme />
         </Box>
     );

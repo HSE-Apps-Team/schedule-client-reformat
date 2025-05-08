@@ -30,8 +30,8 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
 
   if (loading) return null;
 
-  const renderTimeDisplay = (start, end, addDash = true) => (
-      <Text fontSize="md">{start} {addDash ? "-" : ""} {end}</Text>
+  const renderTimeDisplay = (start, end, addDash = true, fontSize = "sm") => (
+      <Text justifyContent={"flex-end"} fontSize={fontSize}>{start} {addDash ? "-" : ""} {end}</Text>
   );
 
   const renderPeriodBox = (name, startTime, endTime) => (
@@ -56,8 +56,8 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
     <Box width="100%" height="100%" overflowY="scroll" paddingBottom="20px">
       <HStack width="100%" justify="center" marginBottom={"10px"}>
         <Text fontSize="xl">Today is a</Text>
-        <Text fontSize="xl" color={localStorage.getItem("day-type") === "Royal" ? "blue" : "gray"}>
-          {localStorage.getItem("day-type")}
+        <Text fontSize="xl" color={localStorage.getItem("day-type") == "Royal" ? "blue" : "gray"}>
+            {localStorage.getItem("day-type") == "Royal" ? "Blue" : "Gray"}
         </Text>
         <Text fontSize="xl">Day</Text>
       </HStack>
@@ -86,18 +86,19 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
                         key={lunch}
                         whileHover={{ x: 3 }}
                         className={!overrideLunch && lunch === lunchType ? "current shadow" : "shadow"}
-                        width={mobile ? "100%" : "auto"}
+                        width={mobile ? "90%" : "auto"}
 
                         display="flex"
                         justifyContent="space-between"
                         alignItems="center"
-                        p={3}
+                        p={5}
                         mb={mobile ? 2 : 0}
-                        marginLeft={mobile ? 5 : 0}
+                        marginLeft={mobile ? "10%" : 0}
+                        
                       >
                         <Text fontSize="xl" >{lunch}</Text>
-                        <VStack display={mobile ? "none" : "flex"} justifyContent={"flex-end"}>
-                          {renderTimeDisplay(times.startTime, times.endTime, false)}
+                        <VStack display={"flex"} marginLeft={"10px"} alignItems="flex-end">
+                          {mobile ? renderTimeDisplay(times.startTime, times.endTime, true, "xs") : renderTimeDisplay(times.startTime, times.endTime, false, "xs")}
                         </VStack>
                       </MotionBox>
                     ))}
@@ -117,19 +118,21 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
                   {Object.entries(period.pathwaysPeriods).map(([pathway, times]) => (
                     <MotionBox
                       id={"component"}
+                      className={"shadow"}
                       borderRadius={"10px"}
                       key={pathway}
                       whileHover={{ x: 3 }}
-                      width={"100%"}
+                      width={mobile ? "90%" : "100%"}
                       display={"flex"}
                       justifyContent="space-between"
-                      marginLeft={mobile ? 5 : 0}
-                      p={2}
+                      alignItems="center"
+                      marginLeft={mobile ? "10%" : 0}
+                      p={5}
                       mb={mobile ? 2 : 0}
                     >
                       <Text fontSize="xl">{pathway}</Text>
                       <VStack>
-                        {renderTimeDisplay(times.startTime, times.endTime)}
+                        {renderTimeDisplay(times.startTime, times.endTime, true, "xs")}
                       </VStack>
                     </MotionBox>
                   ))}
