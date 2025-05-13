@@ -12,17 +12,18 @@ function App() {
 
   const [view, setView] = useState("clock");
   const [loading, setLoading] = useState(true);
+  const [confetti, setConfetti] = useState(false);
 
   return (
     <Box position="relative">
       <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={3}>
-        <Foreground setView={setView} setLoading={setLoading}/>
+        <Foreground view={view} setView={setView} setLoading={setLoading}/>
       </Box>
       <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={2}>
-        <Views view={view} loading={loading} setLoading={setLoading}/>
+        <Views view={view} loading={loading} setLoading={setLoading} setConfetti={setConfetti}/>
       </Box>
       <Box position="absolute" top="0" left="0" right="0" bottom="0" zIndex={1}>
-        <Background/>
+        <Background confetti={confetti}/>
       </Box>
     </Box>
   );

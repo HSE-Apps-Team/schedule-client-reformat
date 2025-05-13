@@ -9,7 +9,7 @@ import useMedia from "../../../hooks/useMedia";
 import { Text, Box, Center } from "@chakra-ui/react";
 
 
-const Countdown = ({ loading, setLoading, view }) => {
+const Countdown = ({ loading, setLoading, view, setConfetti }) => {
 //  const vh = use100vh();
   const mobile = useMedia(
     ["(min-width: 750px)", "(max-width: 750px)"],
@@ -19,17 +19,6 @@ const Countdown = ({ loading, setLoading, view }) => {
   const [endDate, setEndDate] = useState(dayjs().toISOString());
   const [name, setName] = useState(null);
 
-  // useEffect(() => {
-
-  //   getClock().then((result) => {
-  //     console.log(result.data);
-  //     // Update state with the fetched data
-  //     setEndDate(dayjs(result.data.End_Date).format("YYYY-MM-DD"));
-  //     setName(result.data.title);
-  //     setLoading(false);
-  //   });
-  // }, []);
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -54,7 +43,7 @@ const Countdown = ({ loading, setLoading, view }) => {
     <Box display={"flex"} height={"100%"} flexDirection={"column"} justifyContent={"center"} paddingBottom={"200px"}>
       <Text fontSize={mobile ? "3xl" : "6xl"} paddingBottom={"10px"} textAlign={"center"}>{name}</Text>
       <Box display={"flex"} alignItems={"center"} flexDirection={"column"}>
-        <Flip to={endDate} className="shadow" mobile={mobile} view={view} loading={loading} setLoading={setLoading}/>
+        <Flip to={endDate} mobile={mobile} view={view} loading={loading} setLoading={setLoading} setConfetti={setConfetti}/>
         <Box display={"flex"} flexDirection={"row"} width={"70vw"} justifyContent={"space-around"} fontSize={"3vw"}>
           <Center width={"25%"} margin={"0 0.5vw"}>Days</Center>
           <Center width={"25%"} margin={"0 0.5vw"}>Hours</Center>

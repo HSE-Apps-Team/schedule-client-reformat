@@ -4,7 +4,7 @@ import { useSettings } from "../../../hooks/useSettings";
 
 import { Box, Input, Radio, RadioGroup, Switch, Button, Stack } from "@chakra-ui/react";
 
-const Settings = ({ loading, setLoading }) => {
+const Settings = () => {
     const { settings, updateSettings } = useSettings();
 
     // Local state for form inputs to control them
@@ -13,8 +13,7 @@ const Settings = ({ loading, setLoading }) => {
     useEffect(() => {
         // Update local settings when context settings change
         setLocalSettings(settings);
-        setLoading(false);
-    }, [settings, setLoading]);
+    }, [settings]);
 
     const handleUpdateSettings = () => {
         updateSettings(localSettings); // Pass the entire localSettings object
@@ -25,10 +24,6 @@ const Settings = ({ loading, setLoading }) => {
             ...prev,
             [key]: value
         }));
-    };
-
-    if (loading) {
-        return null;
     };
 
     return (

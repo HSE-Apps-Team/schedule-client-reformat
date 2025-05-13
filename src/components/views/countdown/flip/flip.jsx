@@ -140,7 +140,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Tick from "@pqina/flip";
 import "@pqina/flip/dist/flip.min.css";
 
-const Flip = ({ to, loading, setLoading }) => {
+const Flip = ({ to, loading, setLoading, setConfetti }) => {
     const divRef = useRef();
     const tickRef = useRef();
     const [tickValue, setTickValue] = useState("0000"); // This creates a 00:00:00:00 format
@@ -169,6 +169,9 @@ const Flip = ({ to, loading, setLoading }) => {
         counter.onupdate = function(value) {
             setTickValue(value);
         };
+        counter.onend = function() {
+            setConfetti(true);
+        };
 
     }, [to]);
 
@@ -178,6 +181,7 @@ const Flip = ({ to, loading, setLoading }) => {
         }
     }, [tickValue]);
 
+    // Shadow is on .tick-flip
     return  (
         <div>
             <style>
@@ -202,7 +206,7 @@ const Flip = ({ to, loading, setLoading }) => {
                 .tick-flip {
                     display: block;
                     bg: transparent;
-                    boxShadow: inset 0 1px hsla(0,0%,100%,.05), rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+                    box-shadow: inset 0 1px hsla(0,0%,100%,.05), rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
                     width: 10%;
                     padding: 0 0.5vw;
                 }
@@ -213,7 +217,6 @@ const Flip = ({ to, loading, setLoading }) => {
 
                 .tick-flip-panel {
                     padding: 0;
-                    box-shadow: none;
                 }
                 .tick-flip-card {
                     width: 101%;

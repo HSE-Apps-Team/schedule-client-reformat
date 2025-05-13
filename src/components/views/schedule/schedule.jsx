@@ -36,7 +36,7 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
 
   const renderPeriodBox = (name, startTime, endTime) => (
     <MotionBox
-      id={"component"}
+      id={"schedule"}
       borderRadius={"10px"}
       whileHover={{ x: 10 }}
       className="component shadow"
@@ -81,20 +81,18 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
                   <Box marginTop={"10px"} width={mobile ? "100%" : "auto"} display="flex" flexDirection={mobile ? "column" : "row"} gap={mobile ? 0 :"10px"} marginBottom={mobile ? "-10px" : "0px"}>
                     {Object.entries(period.lunchPeriods).map(([lunch, times]) => (
                       <MotionBox
-                        id={"component"}
+                        id={"schedule"}
                         borderRadius={"10px"}
                         key={lunch}
                         whileHover={{ x: 3 }}
                         className={!overrideLunch && lunch === lunchType ? "current shadow" : "shadow"}
                         width={mobile ? "90%" : "auto"}
-
                         display="flex"
                         justifyContent="space-between"
                         alignItems="center"
                         p={5}
                         mb={mobile ? 2 : 0}
                         marginLeft={mobile ? "10%" : 0}
-                        
                       >
                         <Text fontSize="xl" >{lunch}</Text>
                         <VStack display={"flex"} marginLeft={"10px"} alignItems="flex-end">
@@ -117,7 +115,7 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
                 >
                   {Object.entries(period.pathwaysPeriods).map(([pathway, times]) => (
                     <MotionBox
-                      id={"component"}
+                      id={"schedule"}
                       className={"shadow"}
                       borderRadius={"10px"}
                       key={pathway}

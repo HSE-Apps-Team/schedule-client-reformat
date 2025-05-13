@@ -1,12 +1,14 @@
 import React from "react";
 
-import { Box, Button, Modal, ModalBody, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalCloseButton, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Modal, ModalBody, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalCloseButton, useDisclosure, IconButton } from "@chakra-ui/react";
+
+import Settings from "../../../views/settings/settings.jsx"
 
 const SettingsButton = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
-            <Button id="button" onClick={onOpen}>Open Modal</Button>
+            <IconButton id="button" onClick={onOpen} isRound="True"><i className="bi bi-gear"/></IconButton>
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
@@ -14,7 +16,7 @@ const SettingsButton = () => {
                 <ModalHeader>Settings</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    Settings
+                    <Settings/>
                 </ModalBody>
 
                 <ModalFooter>
