@@ -3,11 +3,12 @@ import { getSchedule } from "../../../api/api.js";
 import useMedia from "../../../hooks/useMedia.js";
 import { Box, Text, VStack, HStack, useColorMode } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { useSettings } from "../../../hooks/useSettings.jsx";
 
 const Schedule = ({ overrideLunch, loading, setLoading }) => {
   const MotionBox = motion(Box);
   const mobile = useMedia(["(min-width: 750px)", "(max-width: 750px)"], [false, true]);
-  const { colorMode } = useColorMode();
+  const {settings } = useSettings();
   const [schedule, setSchedule] = useState([]);
   const [lunchType, setLunchType] = useState(null);
 
@@ -23,10 +24,8 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
   }, []);
 
   useEffect(() => {
-    const settings = JSON.parse(localStorage.getItem("scheduleSettings"));
-    const dayType = localStorage.getItem("day-type");
-    setLunchType(dayType === "Royal" ? settings.royalDay : settings.grayDay);
-  }, [localStorage.getItem("scheduleSettings")]);
+    setLunchType(settings.dayType === "Royal" ? settings.royalDay : settings.grayDay);
+  }, [settings]);
 
   if (loading) return null;
 
@@ -56,8 +55,8 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
     <Box width="100%" height="100%" overflowY="scroll" paddingBottom="20px">
       <HStack width="100%" justify="center" marginBottom={"10px"}>
         <Text fontSize="xl">Today is a</Text>
-        <Text fontSize="xl" color={localStorage.getItem("day-type") == "Royal" ? "blue" : "gray"}>
-            {localStorage.getItem("day-type") == "Royal" ? "Blue" : "Gray"}
+        <Text fontSize="xl" color={settings.dayType == "Royal" ? "blue" : "gray"}>
+            {settings.dayType == "Royal" ? "Blue" : "Gray"}
         </Text>
         <Text fontSize="xl">Day</Text>
       </HStack>
