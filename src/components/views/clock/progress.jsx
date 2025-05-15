@@ -7,41 +7,48 @@ import { useSettings } from "../../../hooks/useSettings";
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/duration"));
 
-const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime }) => {
+const Progress = ({ genText, period, nextPeriod, currentTime, lunchStatus }) => {
   const mobile = useMedia(["(min-width: 750px)", "(max-width: 750px)"], [false, true]);
   const [lunchText, setLunchText] = useState("");
-
+  
   const {settings, updateSettings} = useSettings();
-
   useEffect(() => {
     const dayType = settings.dayType;
-    setLunchText(dayType === "Royal" ? settings.royalDay : settings.grayDay);
+    // Check if the settings have the appropriate lunch properties before using them
+    if (settings.royalLunch && settings.grayLunch) {
+      setLunchText(dayType === "Royal" ? settings.royalLunch : settings.grayLunch);
+    }
   }, [settings]);
 
-  const genPercent = () => {
+    const genPercent = () => {
     if (!period) return 0;
 
-    let range, diffFromStart;
-
+    let range, diffFromStart;    
     if (period.lunchPeriods) {
       const userLunchPeriod = period.lunchPeriods[lunchText];
 
-      switch (lunchStatus()) {
-        case "DURING":
-          range = userLunchPeriod.endTimeUnix - userLunchPeriod.startTimeUnix;
-          diffFromStart = currentTime - userLunchPeriod.startTimeUnix;
-          break;
-        case "BEFORE":
-          range = userLunchPeriod.startTimeUnix - period.startTimeUnix;
-          diffFromStart = currentTime - period.startTimeUnix;
-          break;
-        case "AFTER":
-          range = period.endTimeUnix - userLunchPeriod.endTimeUnix;
-          diffFromStart = currentTime - userLunchPeriod.endTimeUnix;
-          break;
-        default:
-          range = period.endTimeUnix - period.startTimeUnix;
-          diffFromStart = currentTime - period.startTimeUnix;
+      // If userLunchPeriod is undefined, fallback to regular period calculation
+      if (!userLunchPeriod) {
+        range = period.endTimeUnix - period.startTimeUnix;
+        diffFromStart = currentTime - period.startTimeUnix;
+      } else {
+        switch (lunchStatus()) {
+          case "DURING":
+            range = userLunchPeriod.endTimeUnix - userLunchPeriod.startTimeUnix;
+            diffFromStart = currentTime - userLunchPeriod.startTimeUnix;
+            break;
+          case "BEFORE":
+            range = userLunchPeriod.startTimeUnix - period.startTimeUnix;
+            diffFromStart = currentTime - period.startTimeUnix;
+            break;
+          case "AFTER":
+            range = period.endTimeUnix - userLunchPeriod.endTimeUnix;
+            diffFromStart = currentTime - userLunchPeriod.endTimeUnix;
+            break;
+          default:
+            range = period.endTimeUnix - period.startTimeUnix;
+            diffFromStart = currentTime - period.startTimeUnix;
+        }
       }
     } else {
       range = period.endTimeUnix - period.startTimeUnix;
@@ -72,10 +79,9 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime }) => 
           marginTop="0"
           wordSpacing="3px"
         >
-          {/* {period.lunchPeriods && lunchStatus() === "DURING"
+          {/* {period.lunchPeriods && getLunch() === "DURING"
             ? `${lunchText} Lunch`
-            : period.periodName}{" "} */}
-          {period.lunchPeriods
+            : period.periodName}{" "} */}          {period.lunchPeriods && period.lunchPeriods[lunchText]
             ? {
                 DURING: "Until Lunch Ends",
                 BEFORE: `Until ${lunchText} Lunch`,
