@@ -4,8 +4,11 @@ import { Box, Center } from "@chakra-ui/react";
 
 const SelectorButton = ( props ) => {
     const handleClick = () => {
-        props.setView(props.name);
-        props.setLoading(true);
+        // Only set loading to true if changing to a different view
+        if (props.name !== props.view) {
+            props.setView(props.name);
+            props.setLoading(true);
+        }
     }
 
     return (
