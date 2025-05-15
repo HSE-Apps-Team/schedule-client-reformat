@@ -28,7 +28,6 @@ const Settings = () => {
 
     return (
         <Box>
-            <Box>Settings</Box>
             <Box>
                 <Box>
                     <label>Darkmode</label>
@@ -36,14 +35,16 @@ const Settings = () => {
                         id="darkmode"
                         isChecked={localSettings.darkmode}
                         onChange={(e) => handleChange("darkmode", e.target.checked)}
+                        colorScheme="colorScheme"
                     />
                 </Box>
                 <Box>
-                    <label>Royal Lunch (Blue Day)</label>
+                    <label>Blue Lunch</label>
                     <RadioGroup
                         id="royalLunch"
                         value={localSettings.royalLunch}
                         onChange={(value) => handleChange("royalLunch", value)}
+                        colorScheme="colorScheme"
                     >
                         <Stack direction="row">
                             <Radio value="A">A</Radio>
@@ -59,6 +60,7 @@ const Settings = () => {
                         id="grayLunch"
                         value={localSettings.grayLunch}
                         onChange={(value) => handleChange("grayLunch", value)}
+                        colorScheme="colorScheme"
                     >
                         <Stack direction="row">
                             <Radio value="A">A</Radio>
@@ -74,11 +76,25 @@ const Settings = () => {
                         id="snow"
                         isChecked={localSettings.snow}
                         onChange={(e) => handleChange("snow", e.target.checked)}
+                        colorScheme="colorScheme"
                     />
+                </Box>
+                <Box>
+                    <label>Theme</label>
+                    <RadioGroup
+                        id="theme"
+                        value={localSettings.theme}
+                        onChange={(value) => handleChange("theme", value)}
+                    >
+                        <Stack direction="row">
+                            <Radio value="light">light</Radio>
+                            <Radio value="dark">dark</Radio>
+                            <Radio value="earth-tones">earth tones</Radio>
+                        </Stack>
+                    </RadioGroup>
                 </Box>
             </Box>
             <Box>
-                <Button>Cancel</Button>
                 <Button onClick={handleUpdateSettings}>Update Settings</Button>
             </Box>
         </Box>

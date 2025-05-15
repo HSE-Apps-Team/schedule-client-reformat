@@ -75,12 +75,13 @@ const CalendarSelector = ({ loading, setLoading }) => {
                                 sx={{ // I have absolutely no clue how pseudo elements work
                                       // but this adds extra background below the tabs
                                       // the top right of the border radius is able to fill in when the tabs extend all the way
+                                      // yes this is very unnecessary, but I like it anyways
                                     position: 'relative',
                                     '&::after': {
                                         content: '""',
                                         display: 'block',
                                         height: '10px',
-                                        backgroundColor: selectedCalendarIndex === index ? 'var(--accent-background)' : 'var(--background)',
+                                        backgroundColor: selectedCalendarIndex === index ? 'var(--accent-background)' : 'var(--background-secondary)',
                                         position: 'absolute',
                                         bottom: '-10px',
                                         left: 0,

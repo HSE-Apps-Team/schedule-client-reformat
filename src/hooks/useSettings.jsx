@@ -5,6 +5,7 @@ const defaultSettings = {
     royalLunch: "A",
     grayLunch: "A",
     snow: true,
+    theme: "dark",
 };
 
 const SettingsContext = createContext();
