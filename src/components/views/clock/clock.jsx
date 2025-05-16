@@ -256,11 +256,11 @@ const Clock = ({ loading, setLoading }) => {
         />
         
         {/* Optional: Add extra information below the progress circle */}
-        {nextPeriod && (
+        {/* {nextPeriod && (
           <Text fontSize="lg" mt={4} opacity={0.8}>
             Next: {nextPeriod.periodName} at {nextPeriod.startTime}
           </Text>
-        )}
+        )} */}
       </Box>
     );
   }
