@@ -119,7 +119,6 @@ const Clock = ({ loading, setLoading }) => {
       setSchedule([]);
     }
   }, [processScheduleData]);
-
   // Find current period based on time
   const updateCurrentPeriod = useCallback(() => {
     const now = dayjs().valueOf();
@@ -157,10 +156,6 @@ const Clock = ({ loading, setLoading }) => {
           const remaining = currentPeriod.endTimeUnix - now;
           setRemainingTime(remaining);
           
-          // Update lunch status
-          const currentLunchStatus = getLunchStatus();
-          setLunchStatus(currentLunchStatus);
-          
           currentPeriodFound = true;
           break;
         }
@@ -184,7 +179,7 @@ const Clock = ({ loading, setLoading }) => {
     }
     
     setLoading(false);
-  }, [schedule, getLunchStatus, setLoading]);
+  }, [schedule, setLoading]);
 
   // Format time remaining in current period
   const formatTimeRemaining = useCallback((ms) => {
@@ -245,9 +240,11 @@ const Clock = ({ loading, setLoading }) => {
       </Box>
     );
   }
-
   // During school hours - show progress
   if (status === STATUS.SCHOOL_NOW) {
+    // Calculate lunch status once before rendering
+    const currentLunchStatus = getLunchStatus();
+    
     return (
       <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
         <Progress
@@ -255,7 +252,7 @@ const Clock = ({ loading, setLoading }) => {
           period={period}
           nextPeriod={nextPeriod}
           currentTime={currentTime}
-          lunchStatus={() => lunchStatus}
+          lunchStatus={currentLunchStatus}
         />
         
         {/* Optional: Add extra information below the progress circle */}

@@ -4,7 +4,7 @@ import { Box, Image, Text } from "@chakra-ui/react";
 
 const Logo = () => {
     return (
-        <a href="hseschedule.app">
+        <a href="/">
             <Box display={"flex"} flexDirection={"row"} alignItems={"center"} href="https://hseschedule.app/">
                 
                     <Image src="hseapps.png" width={"40px"}/>

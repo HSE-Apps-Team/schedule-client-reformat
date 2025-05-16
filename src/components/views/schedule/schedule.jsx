@@ -10,11 +10,13 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
   const mobile = useMedia(["(min-width: 750px)", "(max-width: 750px)"], [false, true]);
   const {settings } = useSettings();
   const [schedule, setSchedule] = useState([]);
+  const [data, setData] = useState(null);
   const [lunchType, setLunchType] = useState(null);
 
   const fetchSchedule = async () => {
     const response = await getSchedule();
     const data = response.data.data;
+    setData(data);
     setSchedule(data.Type === "Special" ? data.ScheduleData.data : data.data);
     setLoading(false);
   };
@@ -24,7 +26,7 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
   }, []);
 
   useEffect(() => {
-    setLunchType(settings.dayType === "Royal" ? settings.royalDay : settings.grayDay);
+    setLunchType(data?.Type === "Royal" ? settings.royalDay : settings.grayDay);
   }, [settings]);
 
   if (loading) return null;
@@ -55,8 +57,8 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
     <Box width="100%" height="100%" overflowY="scroll" paddingBottom="20px">
       <HStack width="100%" justify="center" marginBottom={"10px"}>
         <Text fontSize="xl">Today is a</Text>
-        <Text fontSize="xl" color={settings.dayType == "Royal" ? "blue" : "gray"}>
-            {settings.dayType == "Royal" ? "Blue" : "Gray"}
+        <Text fontSize="xl" color={data?.dayType == "Royal" ? "blue" : "gray"}>
+            {data?.dayType == "Royal" ? "Blue" : "Gray"}
         </Text>
         <Text fontSize="xl">Day</Text>
       </HStack>

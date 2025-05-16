@@ -29,7 +29,7 @@ const Settings = () => {
     return (
         <Box>
             <Box>
-                <Box>
+                {/* <Box>
                     <label>Darkmode</label>
                     <Switch
                         id="darkmode"
@@ -37,8 +37,8 @@ const Settings = () => {
                         onChange={(e) => handleChange("darkmode", e.target.checked)}
                         colorScheme="colorScheme"
                     />
-                </Box>
-                <Box>
+                </Box> */}
+                {/* <Box>
                     <label>Blue Lunch</label>
                     <RadioGroup
                         id="royalLunch"
@@ -69,13 +69,23 @@ const Settings = () => {
                             <Radio value="D">D</Radio>
                         </Stack>
                     </RadioGroup>
-                </Box>
-                <Box>                    
+                </Box> */}
+                {/* <Box>                    
                     <label>Snow</label>
                     <Switch
                         id="snow"
                         isChecked={localSettings.snow}
                         onChange={(e) => handleChange("snow", e.target.checked)}
+                        colorScheme="colorScheme"
+                    />
+                </Box> */}
+
+                <Box>
+                    <label>Senior Prank</label>
+                    <Switch
+                        id="seniorPrank"
+                        isChecked={localSettings.seniorPrank}
+                        onChange={(e) => handleChange("seniorPrank", e.target.checked)}
                         colorScheme="colorScheme"
                     />
                 </Box>
@@ -87,9 +97,9 @@ const Settings = () => {
                         onChange={(value) => handleChange("theme", value)}
                     >
                         <Stack direction="row">
-                            <Radio value="light">light</Radio>
-                            <Radio value="dark">dark</Radio>
-                            <Radio value="earth-tones">earth tones</Radio>
+                            <Radio value="light">Light</Radio>
+                            <Radio value="dark">Dark</Radio>
+                            <Radio value="earth-tones">Earth Tones</Radio>
                         </Stack>
                     </RadioGroup>
                 </Box>
