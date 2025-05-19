@@ -220,11 +220,7 @@ const Clock = ({ loading, setLoading }) => {
 
   // Loading state
   if (loading) {
-    return (
-      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" h="100%">
-        <Skeleton height="300px" width="300px" borderRadius="full" />
-      </Box>
-    );
+    return null;
   }
   
   // Error state

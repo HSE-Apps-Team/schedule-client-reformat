@@ -18,6 +18,8 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
     const data = response.data.data;
     setData(data);
     setSchedule(data.Type === "Special" ? data.ScheduleData.data : data.data);
+    console.log("data", data);
+    console.log(data.data);
     setLoading(false);
   };
 
@@ -54,11 +56,11 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
   );
 
   return (
-    <Box width="100%" height="100%" overflowY="scroll" paddingBottom="20px">
+    <Box width="100%" height="100%" overflowY="scroll" paddingBottom="25px">
       <HStack width="100%" justify="center" marginBottom={"10px"}>
         <Text fontSize="xl">Today is a</Text>
-        <Text fontSize="xl" color={data?.dayType == "Royal" ? "blue" : "gray"}>
-            {data?.dayType == "Royal" ? "Blue" : "Gray"}
+        <Text fontSize="xl" color={data?.Type == "Royal" ? "blue.500" : "gray.500"}>
+            {data?.Type === "Royal" ? "Blue" : data?.Type === "Special" ? data?.Type : "Gray"}
         </Text>
         <Text fontSize="xl">Day</Text>
       </HStack>

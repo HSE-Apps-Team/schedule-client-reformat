@@ -12,19 +12,19 @@ const SettingsButton = () => {
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
-                <ModalContent>
-                <ModalHeader>Settings</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                    <Settings/>
-                </ModalBody>
+                <ModalContent bg={"var(--background-secondary)"} className="shadow">
+                    <ModalHeader>Settings</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Settings/>
+                    </ModalBody>
 
-                <ModalFooter>
-                    <Button id="button" mr={3} onClick={onClose}>
-                    Close
-                    </Button>
-            
-                </ModalFooter>
+                    <ModalFooter>
+                        <Button id="button" mr={3} onClick={onClose}>
+                        Close
+                        </Button>
+                
+                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </>

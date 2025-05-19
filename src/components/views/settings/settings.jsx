@@ -65,6 +65,7 @@ const Settings = () => {
                 {/* Save Button */}
                                 <Box textAlign="right">
                                     <Button 
+                                        id="button"
                                         onClick={handleUpdateSettings} 
                                         px={6}
                                     >
@@ -104,7 +105,6 @@ const Settings = () => {
                             target="_blank" 
                             rel="noopener noreferrer"
                             size="sm"
-                            colorScheme="blue"
                             variant="outline"
                         >
                             Provide Feedback

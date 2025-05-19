@@ -4,7 +4,7 @@ import { extendTheme, withDefaultColorScheme } from "@chakra-ui/react"
 const colorScheme = extendTheme({
     colors: {
         colorScheme: {
-            50: "var(--background-secondary)",
+            50: "var(--background)",
             100: "var(--background-secondary)",
             200: "var(--color-light)",
             300: "var(--color-light)",
