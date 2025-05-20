@@ -2,10 +2,12 @@ import React from "react";
 import { Box, Center } from "@chakra-ui/react";
 import Navbar from "./navbar/Navbar";
 import ViewSelector from "./view_selector/ViewSelector";
+import Announcements from "./announcements/Announcements";
 
 const Foreground = ( props ) => {
     return (
         <Box>
+            <Announcements />
             <Box height={"10vh"}>
                 <Navbar />
             </Box>
