@@ -6,7 +6,7 @@ const defaultSettings = {
     grayLunch: "A",
     snow: true,
     theme: "dark",
-    seniorPrank: true
+    seniorPrank: false
 };
 
 const SettingsContext = createContext();
