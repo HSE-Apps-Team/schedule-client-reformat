@@ -91,6 +91,7 @@ const Settings = () => {
                                             "Update Settings"
                                         )}
                                     </Button>
+                                    
                                 </Box>
 
                                 {/* Feedback Section */}

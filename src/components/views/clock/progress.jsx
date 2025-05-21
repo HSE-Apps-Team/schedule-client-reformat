@@ -18,9 +18,7 @@ const Progress = ({ genText, period, nextPeriod, currentTime, lunchStatus }) => 
     if (settings.royalLunch && settings.grayLunch) {
       setLunchText(dayType === "Royal" ? settings.royalLunch : settings.grayLunch);
     }
-  }, [settings]);
-
-    const genPercent = () => {
+  }, [settings]);    const genPercent = () => {
     if (!period) return 0;
 
     let range, diffFromStart;    
@@ -32,7 +30,7 @@ const Progress = ({ genText, period, nextPeriod, currentTime, lunchStatus }) => 
         range = period.endTimeUnix - period.startTimeUnix;
         diffFromStart = currentTime - period.startTimeUnix;
       } else {
-        switch (lunchStatus()) {
+        switch (lunchStatus) {
           case "DURING":
             range = userLunchPeriod.endTimeUnix - userLunchPeriod.startTimeUnix;
             diffFromStart = currentTime - userLunchPeriod.startTimeUnix;
@@ -86,7 +84,7 @@ const Progress = ({ genText, period, nextPeriod, currentTime, lunchStatus }) => 
                 DURING: "Until Lunch Ends",
                 BEFORE: `Until ${lunchText} Lunch`,
                 AFTER: nextPeriod ? `Until ${period.periodName} Ends` : `Until School Ends`,
-              }[lunchStatus()]
+              }[lunchStatus]
             : `Until ${period.periodName} Ends`}
         </Text>
       </>
