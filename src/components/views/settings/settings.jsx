@@ -13,21 +13,22 @@ const Settings = () => {
     useEffect(() => {
         // Update local settings when context settings change
         setLocalSettings(settings);
-    }, [settings]);
+    }, [settings]);    const [saved, setSaved] = React.useState(false);
 
     const handleChange = (key, value) => {
-        setLocalSettings(prev => ({
-            ...prev,
+        // Update local state
+        const newSettings = {
+            ...localSettings,
             [key]: value
-        }));
-    };
-
-    const [saved, setSaved] = React.useState(false);
-
-    const handleUpdateSettings = () => {
-        updateSettings(localSettings); // Pass the entire localSettings object
+        };
+        setLocalSettings(newSettings);
+        
+        // Immediately save to global settings
+        updateSettings({[key]: value});
+        
+        // Show saved indicator
         setSaved(true);
-        setTimeout(() => setSaved(false), 2000); // Reset after 2 seconds
+        setTimeout(() => setSaved(false), 1000); // Reset after 1 second
     };
 
     return (
@@ -46,53 +47,114 @@ const Settings = () => {
                     </Flex>
 
                     {/* Theme Setting */}
-                    <Flex justify="space-between" align="center">
-                        <Box fontWeight="medium">Theme</Box>
-                        <RadioGroup
-                            id="theme"
-                            value={localSettings.theme}
-                            onChange={(value) => handleChange("theme", value)}
-                        >
-                            <Stack direction="row" spacing={3}>
-                                <Radio value="light">Light</Radio>
-                                <Radio value="dark">Dark</Radio>
-                                <Radio value="earth-tones">Earth Tones</Radio>
-                            </Stack>
-                        </RadioGroup>
-                    </Flex>
-                </Stack>
+                        <Flex justify="space-between" align="center">
+                            <Box fontWeight="medium">Theme</Box>
+                            <RadioGroup
+                                id="theme"
+                                value={localSettings.theme}
+                                onChange={(value) => handleChange("theme", value)}
+                            >
+                                <Stack direction="row" spacing={3}>
+                                    {['light', 'dark', 'earth-tones'].map((value) => (
+                                        <Box 
+                                            key={value} 
+                                            px={3} 
+                                            py={1} 
+                                            borderRadius="md" 
+                                            bg={localSettings.theme === value ? "var(--color-primary)" : "var(--accent-background)"} 
+                                            color={localSettings.theme === value ? 'var(--text-contrast)' : 'var(--text-secondary)'}
+                                            cursor="pointer"
+                                            onClick={() => handleChange("theme", value)}
+                                        >
+                                            {value.charAt(0).toUpperCase() + value.slice(1).replace('-', ' ')}
+                                        </Box>
+                                    ))}
+                                </Stack>
+                            </RadioGroup>
+                        </Flex>
+                                    <Flex justify="space-between" align="center">
+                                        <Box fontWeight="medium">Blue day lunch</Box>
+                                        <RadioGroup
+                                            id="blueDayLunch"
+                                            value={localSettings.blueDayLunch}
+                                            onChange={(value) => handleChange("blueDayLunch", value)}
+                                        >
+                                            <Stack direction="row" spacing={3}>
+                                                {['a', 'b', 'c', 'd'].map((value) => (
+                                                    <Box 
+                                                        key={value} 
+                                                        px={3} 
+                                                        py={1} 
+                                                        borderRadius="md" 
+                                                        bg={localSettings.blueDayLunch === value ? "var(--color-primary)" : "var(--accent-background)"} 
+                                                        color={localSettings.blueDayLunch === value ? 'var(--text-contrast)' : 'var(--text-secondary)'}
+                                                        cursor="pointer"
+                                                        onClick={() => handleChange("blueDayLunch", value)}
+                                                    >
+                                                        {value.toUpperCase()}
+                                                    </Box>
+                                                ))}
+                                            </Stack>
+                                        </RadioGroup>
+                                    </Flex>
+                                    <Flex justify="space-between" align="center">
+                                        <Box fontWeight="medium">Gray Day Lunch</Box>
+                                        <RadioGroup
+                                            id="grayDayLunch"
+                                            value={localSettings.grayDayLunch}
+                                            onChange={(value) => handleChange("grayDayLunch", value)}
+                                        >
+                                            <Stack direction="row" spacing={3}>
+                                                {['a', 'b', 'c', 'd'].map((value) => (
+                                                    <Box 
+                                                        key={value} 
+                                                        px={3} 
+                                                        py={1} 
+                                                        borderRadius="md" 
+                                                        bg={localSettings.grayDayLunch === value ? "var(--color-primary)" : "var(--accent-background)"} 
+                                                        color={localSettings.grayDayLunch === value ? 'var(--text-contrast)' : 'var(--text-secondary)'}
+                                                        cursor="pointer"
+                                                        onClick={() => handleChange("grayDayLunch", value)}
+                                                    >
+                                                        {value.toUpperCase()}
+                                                    </Box>
+                                                ))}
+                                            </Stack>
+                                        </RadioGroup>
+                                    </Flex>                                </Stack>
 
-                {/* Save Button */}
-                                <Box textAlign="right">
-                                    <Button 
-                                        id="button"
-                                        onClick={handleUpdateSettings} 
-                                        px={6}
+                                {/* Save Indicator */}
+                                {saved && (
+                                    <Box 
+                                        position="fixed" 
+                                        bottom="20px" 
+                                        right="20px" 
+                                        bg="var(--color-primary)" 
+                                        color="var(--text-contrast)" 
+                                        py={2} 
+                                        px={4} 
+                                        borderRadius="md"
+                                        display="flex"
+                                        alignItems="center"
                                     >
-                                        {saved ? (
-                                            <Box as="span" display="flex" alignItems="center">
-                                                <Box
-                                                    as="span"
-                                                    transform="scale(1)"
-                                                    animation="pulse 1s ease-in-out"
-                                                    sx={{
-                                                        "@keyframes pulse": {
-                                                            "0%": { transform: "scale(1)" },
-                                                            "50%": { transform: "scale(1.3)" },
-                                                            "100%": { transform: "scale(1)" }
-                                                        }
-                                                    }}
-                                                >
-                                                    ✓
-                                                </Box>
-                                                <Box as="span" ml={2}>Saved</Box>
-                                            </Box>
-                                        ) : (
-                                            "Update Settings"
-                                        )}
-                                    </Button>
-                                    
-                                </Box>
+                                        <Box
+                                            as="span"
+                                            transform="scale(1)"
+                                            animation="pulse 1s ease-in-out"
+                                            mr={2}
+                                            sx={{
+                                                "@keyframes pulse": {
+                                                    "0%": { transform: "scale(1)" },
+                                                    "50%": { transform: "scale(1.3)" },
+                                                    "100%": { transform: "scale(1)" }
+                                                }
+                                            }}
+                                        >
+                                            ✓
+                                        </Box>
+                                        Settings Saved
+                                    </Box>
+                                )}
 
                                 {/* Feedback Section */}
                 <Box mt={4} borderTop="1px" borderColor="gray.300" pt={4}>
