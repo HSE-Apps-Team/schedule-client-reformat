@@ -1,107 +1,108 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react"; // Added useCallback
 import { CircularProgress, CircularProgressLabel, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import useMedia from "../../../hooks/useMedia";
-import { useSettings } from "../../../hooks/useSettings";
+// useSettings is not strictly needed in Progress anymore if lunchType is passed from Clock
 
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/duration"));
 
-const Progress = ({ genText, period, nextPeriod, currentTime, lunchStatus }) => {
+// Pass userLunchType as a prop
+const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime, userLunchType }) => {
   const mobile = useMedia(["(min-width: 750px)", "(max-width: 750px)"], [false, true]);
-  const [lunchText, setLunchText] = useState("");
-  
-  const {settings, updateSettings} = useSettings();
-  useEffect(() => {
-    const dayType = settings.dayType;
-    // Check if the settings have the appropriate lunch properties before using them
-    if (settings.royalLunch && settings.grayLunch) {
-      setLunchText(dayType === "Royal" ? settings.royalLunch : settings.grayLunch);
-    }
-  }, [settings]);    const genPercent = () => {
+
+  // No longer need local state for lunchText, use userLunchType prop directly
+  // const [lunchText, setLunchText] = useState("");
+  // const {settings, updateSettings} = useSettings(); // No longer needed here
+
+  // useEffect(() => {
+  //   const dayType = settings.dayType;
+  //   setLunchText(dayType === "Royal" ? settings.royalDay : settings.grayDay);
+  // }, [settings]);
+
+
+  const genPercent = useCallback(() => { // Wrap in useCallback for performance
     if (!period) return 0;
 
-    let range, diffFromStart;    
-    if (period.lunchPeriods) {
-      const userLunchPeriod = period.lunchPeriods[lunchText];
+    let range, diffFromStart;
+    let targetPeriod = period; // Default to the current period
 
-      // If userLunchPeriod is undefined, fallback to regular period calculation
-      if (!userLunchPeriod) {
-        range = period.endTimeUnix - period.startTimeUnix;
-        diffFromStart = currentTime - period.startTimeUnix;
-      } else {
-        switch (lunchStatus) {
-          case "DURING":
-            range = userLunchPeriod.endTimeUnix - userLunchPeriod.startTimeUnix;
-            diffFromStart = currentTime - userLunchPeriod.startTimeUnix;
-            break;
-          case "BEFORE":
-            range = userLunchPeriod.startTimeUnix - period.startTimeUnix;
-            diffFromStart = currentTime - period.startTimeUnix;
-            break;
-          case "AFTER":
-            range = period.endTimeUnix - userLunchPeriod.endTimeUnix;
-            diffFromStart = currentTime - userLunchPeriod.endTimeUnix;
-            break;
-          default:
-            range = period.endTimeUnix - period.startTimeUnix;
-            diffFromStart = currentTime - period.startTimeUnix;
-        }
+    // If there are lunch periods and a specific userLunchType is provided
+    if (period.lunchPeriods && userLunchType && period.lunchPeriods[userLunchType]) {
+      const userLunchPeriod = period.lunchPeriods[userLunchType];
+
+      switch (lunchStatus) { // Use lunchStatus directly as a string
+        case "DURING":
+          // Progress within the user's specific lunch period
+          range = userLunchPeriod.endTimeUnix - userLunchPeriod.startTimeUnix;
+          diffFromStart = currentTime - userLunchPeriod.startTimeUnix;
+          targetPeriod = userLunchPeriod; // Set target to lunch period for percentage calculation
+          break;
+        case "BEFORE":
+          // Progress from the start of the current period until the start of lunch
+          range = userLunchPeriod.startTimeUnix - period.startTimeUnix;
+          diffFromStart = currentTime - period.startTimeUnix;
+          break;
+        case "AFTER":
+          // Progress from the end of lunch until the end of the current period
+          range = period.endTimeUnix - userLunchPeriod.endTimeUnix;
+          diffFromStart = currentTime - userLunchPeriod.endTimeUnix;
+          // Ensure diffFromStart doesn't go negative if currentTime is exactly at lunch end
+          if (diffFromStart < 0) diffFromStart = 0;
+          break;
+        default:
+          // No specific lunch status, treat as a regular period
+          range = period.endTimeUnix - period.startTimeUnix;
+          diffFromStart = currentTime - period.startTimeUnix;
       }
     } else {
+      // No lunch periods or userLunchType, calculate for the entire period
       range = period.endTimeUnix - period.startTimeUnix;
       diffFromStart = currentTime - period.startTimeUnix;
     }
 
-    return (diffFromStart / range) * 100;
-  };
+    // Handle division by zero for very short periods or if range is 0 for some reason
+    if (range <= 0) return 100; // Or 0, depending on desired behavior for zero-length periods
+
+    const percentage = (diffFromStart / range) * 100;
+    return Math.min(100, Math.max(0, percentage)); // Clamp between 0 and 100
+  }, [period, currentTime, lunchStatus, userLunchType]); // Add dependencies
 
   const renderTimerText = () => {
     if (!period) return "Loading...";
 
-    // if (settings.display === "Timer") {
-    //   return (
-    //     <Text marginBottom={0} fontSize={mobile ? "3rem" : "100px"}>
-    //       {genText()}
-    //     </Text>
-    //   );
-    // }
-
     return (
       <>
-        <Text marginBottom={0} fontSize={mobile ? window.innerWidth * 0.15 : window.innerHeight * 0.15}>
+        <Text marginBottom={0} fontSize={mobile ? "3rem" : "80px"}>
           {genText()}
         </Text>
         <Text
-          fontSize={mobile ? window.innerWidth * 0.04 : window.innerHeight * 0.04}
+          fontSize={mobile ? "1.3rem" : "1.5rem"}
           marginTop="0"
           wordSpacing="3px"
         >
-          {/* {period.lunchPeriods && getLunch() === "DURING"
-            ? `${lunchText} Lunch`
-            : period.periodName}{" "} */}          {period.lunchPeriods && period.lunchPeriods[lunchText]
+          {period.lunchPeriods && userLunchType // Use userLunchType for display
             ? {
-                DURING: "Until Lunch Ends",
-                BEFORE: `Until ${lunchText} Lunch`,
-                AFTER: nextPeriod ? `Until ${period.periodName} Ends` : `Until School Ends`,
-              }[lunchStatus]
+              DURING: `Until ${userLunchType} Lunch Ends`,
+              BEFORE: `Until ${userLunchType} Lunch`,
+              AFTER: nextPeriod ? `Until ${period.periodName} Ends` : `Until School Ends`,
+            }[lunchStatus] // Use lunchStatus directly
             : `Until ${period.periodName} Ends`}
         </Text>
       </>
     );
   };
-
   return (
     <div>
       <CircularProgress
-        color="var(--color-primary)"
         trackColor="var(--background-secondary)"
+        color="var(--color-primary)"
         thickness={3.5}
-        size={mobile ? window.innerWidth * 0.85 : window.innerHeight * 0.85} // This sets width, I need to fix it
+        size={mobile ? window.innerWidth * 0.85 : 580}
         value={genPercent()}
         capIsRound={true}
       >
-        <CircularProgressLabel size="4rem">
+        <CircularProgressLabel fontSize={50}>
           {renderTimerText()}
         </CircularProgressLabel>
       </CircularProgress>

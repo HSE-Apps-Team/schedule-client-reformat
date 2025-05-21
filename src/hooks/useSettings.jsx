@@ -2,8 +2,10 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 
 const defaultSettings = {
     darkmode: false,
-    royalLunch: "A",
-    grayLunch: "A",
+    royalLunch: "A",  // Old setting key
+    grayLunch: "A",   // Old setting key
+    blueDayLunch: "a", // New setting key (lowercase to match the settings UI)
+    grayDayLunch: "a", // New setting key (lowercase to match the settings UI)
     snow: true,
     theme: "dark",
     seniorPrank: false
