@@ -46,23 +46,85 @@ const Settings = () => {
                     </Flex>
 
                     {/* Theme Setting */}
-                    <Flex justify="space-between" align="center">
-                        <Box fontWeight="medium">Theme</Box>
-                        <RadioGroup
-                            id="theme"
-                            value={localSettings.theme}
-                            onChange={(value) => handleChange("theme", value)}
-                        >
-                            <Stack direction="row" spacing={3}>
-                                <Radio value="light">Light</Radio>
-                                <Radio value="dark">Dark</Radio>
-                                <Radio value="earth-tones">Earth Tones</Radio>
-                            </Stack>
-                        </RadioGroup>
-                    </Flex>
-                </Stack>
+                        <Flex justify="space-between" align="center">
+                            <Box fontWeight="medium">Theme</Box>
+                            <RadioGroup
+                                id="theme"
+                                value={localSettings.theme}
+                                onChange={(value) => handleChange("theme", value)}
+                            >
+                                <Stack direction="row" spacing={3}>
+                                    {['light', 'dark', 'earth-tones'].map((value) => (
+                                        <Box 
+                                            key={value} 
+                                            px={3} 
+                                            py={1} 
+                                            borderRadius="md" 
+                                            bg={localSettings.theme === value ? "var(--color-primary)" : "var(--accent-background)"} 
+                                            color={localSettings.theme === value ? 'var(--text-contrast)' : 'var(--text-secondary)'}
+                                            cursor="pointer"
+                                            onClick={() => handleChange("theme", value)}
+                                        >
+                                            {value.charAt(0).toUpperCase() + value.slice(1).replace('-', ' ')}
+                                        </Box>
+                                    ))}
+                                </Stack>
+                            </RadioGroup>
+                        </Flex>
+                                    <Flex justify="space-between" align="center">
+                                        <Box fontWeight="medium">Blue day lunch</Box>
+                                        <RadioGroup
+                                            id="blueDayLunch"
+                                            value={localSettings.blueDayLunch}
+                                            onChange={(value) => handleChange("blueDayLunch", value)}
+                                        >
+                                            <Stack direction="row" spacing={3}>
+                                                {['a', 'b', 'c', 'd'].map((value) => (
+                                                    <Box 
+                                                        key={value} 
+                                                        px={3} 
+                                                        py={1} 
+                                                        borderRadius="md" 
+                                                        bg={localSettings.blueDayLunch === value ? "var(--color-primary)" : "var(--accent-background)"} 
+                                                        color={localSettings.blueDayLunch === value ? 'var(--text-contrast)' : 'var(--text-secondary)'}
+                                                        cursor="pointer"
+                                                        onClick={() => handleChange("blueDayLunch", value)}
+                                                    >
+                                                        {value.toUpperCase()}
+                                                    </Box>
+                                                ))}
+                                            </Stack>
+                                        </RadioGroup>
+                                    </Flex>
+                                    <Flex justify="space-between" align="center">
+                                        <Box fontWeight="medium">Gray Day Lunch</Box>
+                                        <RadioGroup
+                                            id="grayDayLunch"
+                                            value={localSettings.grayDayLunch}
+                                            onChange={(value) => handleChange("grayDayLunch", value)}
+                                        >
+                                            <Stack direction="row" spacing={3}>
+                                                {['a', 'b', 'c', 'd'].map((value) => (
+                                                    <Box 
+                                                        key={value} 
+                                                        px={3} 
+                                                        py={1} 
+                                                        borderRadius="md" 
+                                                        bg={localSettings.grayDayLunch === value ? "var(--color-primary)" : "var(--accent-background)"} 
+                                                        color={localSettings.grayDayLunch === value ? 'var(--text-contrast)' : 'var(--text-secondary)'}
+                                                        cursor="pointer"
+                                                        onClick={() => handleChange("grayDayLunch", value)}
+                                                    >
+                                                        {value.toUpperCase()}
+                                                    </Box>
+                                                ))}
+                                            </Stack>
+                                        </RadioGroup>
+                                    </Flex>
 
-                {/* Save Button */}
+                                </Stack>
+
+                                    {/* Save Button */}
                                 <Box textAlign="right">
                                     <Button 
                                         id="button"

@@ -6,7 +6,8 @@ import SelectorButton from "./SelectorButton";
 
 const ViewSelector = ( props ) => {
 
-    const icons = [<i className="bi bi-fork-knife"/>, 
+    const icons = [
+                    <i className="bi bi-fork-knife"/>, 
                    <i className="bi bi-list" />, 
                    <i className="bi bi-clock" />,
                    <i className="bi bi-hourglass-split" />,
