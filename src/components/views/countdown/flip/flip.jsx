@@ -140,7 +140,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Tick from "@pqina/flip";
 import "@pqina/flip/dist/flip.min.css";
 
-const Flip = ({ to, loading, setLoading, setConfetti }) => {
+const Flip = ({ to, loading, setLoading }) => {
     const divRef = useRef();
     const tickRef = useRef();
     const [tickValue, setTickValue] = useState("0000"); // This creates a 00:00:00:00 format
@@ -170,7 +170,7 @@ const Flip = ({ to, loading, setLoading, setConfetti }) => {
             setTickValue(value);
         };
         counter.onend = function() {
-            setConfetti(true);
+            // setConfetti(true);
         };
 
     }, [to]);

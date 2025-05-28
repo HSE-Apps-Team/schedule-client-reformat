@@ -5,10 +5,10 @@ import { Box } from "@chakra-ui/react";
 import ThemeBackground from "./theme_backgrounds/ThemeBackground";
 import ThemeEffect from "./theme_effects/ThemeEffect";
 
-const Theme = ( props ) => {
+const Theme = () => {
     return (
         <Box>
-            <ThemeEffect confetti={props.confetti}/>
+            <ThemeEffect/>
             <ThemeBackground />
         </Box>
     );

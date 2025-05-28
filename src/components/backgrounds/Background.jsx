@@ -7,7 +7,7 @@ import Theme from "./theme/theme";
 const Background = ( props ) => {
     return (
         <Box id="component">
-            <Theme confetti={props.confetti}/>
+            <Theme/>
         </Box>
     );
 };

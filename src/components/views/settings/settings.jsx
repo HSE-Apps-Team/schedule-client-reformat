@@ -45,7 +45,14 @@ const Settings = () => {
                             onChange={(e) => handleChange("seniorPrank", e.target.checked)}
                         />
                     </Flex>
-
+                    <Flex justify="space-between" align="center">
+                        <Box fontWeight="medium">Confetti</Box>
+                        <Switch
+                            id="confetti"
+                            isChecked={localSettings.confetti}
+                            onChange={(e) => handleChange("confetti", e.target.checked)}
+                        />
+                    </Flex>
                     {/* Theme Setting */}
                         <Flex justify="space-between" align="center">
                             <Box fontWeight="medium">Theme</Box>

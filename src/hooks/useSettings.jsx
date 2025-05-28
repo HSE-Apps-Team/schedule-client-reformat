@@ -8,7 +8,8 @@ const defaultSettings = {
     grayDayLunch: "a", // New setting key (lowercase to match the settings UI)
     snow: true,
     theme: "dark",
-    seniorPrank: false
+    seniorPrank: false,
+    confetti: true
 };
 
 const SettingsContext = createContext();
