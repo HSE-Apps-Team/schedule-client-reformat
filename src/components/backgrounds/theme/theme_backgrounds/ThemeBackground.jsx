@@ -17,7 +17,7 @@ const ThemeBackground = () => {
         <Box 
             height="100vh" 
             width="100vw" 
-            bgImg={mobile ? settings?.seniorPrank ? "/gigachad.gif" : null : settings?.seniorPrank ? "/miku.png" : null} 
+            // bgImg={mobile ? settings?.seniorPrank ? "/gigachad.gif" : null : settings?.seniorPrank ? "/miku.png" : null} 
             backgroundSize="cover"
             onError={(e) => {
                 e.target.style.backgroundImage = 'none';

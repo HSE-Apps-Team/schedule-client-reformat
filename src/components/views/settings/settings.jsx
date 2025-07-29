@@ -37,22 +37,22 @@ const Settings = () => {
                 {/* Settings Options */}
                 <Stack spacing={4} p={4}>
                     {/* Senior Prank Setting */}
-                    <Flex justify="space-between" align="center">
+                    {/* <Flex justify="space-between" align="center">
                         <Box fontWeight="medium">Senior Prank</Box>
                         <Switch
                             id="seniorPrank"
                             isChecked={localSettings.seniorPrank}
                             onChange={(e) => handleChange("seniorPrank", e.target.checked)}
                         />
-                    </Flex>
-                    <Flex justify="space-between" align="center">
+                    </Flex> */}
+                    {/* <Flex justify="space-between" align="center">
                         <Box fontWeight="medium">Confetti</Box>
                         <Switch
                             id="confetti"
                             isChecked={localSettings.confetti}
                             onChange={(e) => handleChange("confetti", e.target.checked)}
                         />
-                    </Flex>
+                    </Flex> */}
                     {/* Theme Setting */}
                         <Flex justify="space-between" align="center">
                             <Box fontWeight="medium">Theme</Box>

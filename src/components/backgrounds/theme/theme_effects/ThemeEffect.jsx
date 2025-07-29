@@ -8,7 +8,7 @@ const ThemeEffect = ( props ) => {
     const { settings } = useSettings();
     return (
         <Box height="100%" width="100%">
-            {settings.confetti && <Confetti />}
+            {/* {settings.confetti && <Confetti />} */}
         </Box>
     );
 };
