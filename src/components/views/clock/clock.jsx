@@ -252,12 +252,6 @@ const Clock = ({ loading, setLoading }) => {
             time: currentSchedPeriod.endTimeUnix,
             name: `${currentSchedPeriod.periodName} ends`
           });
-
-          if (settings?.showTimerInTitle) {
-            document.title = getTitleText(remaining, currentSchedPeriod, now);
-          } else {
-            document.title = "HSE Schedule";
-          }
   
           currentPeriodFound = true;
           break;
@@ -285,9 +279,22 @@ const Clock = ({ loading, setLoading }) => {
         }
       }
     }
-    
 
-  }, [schedule, getLunchStatus, settings, getTitleText]); // Dependencies are stable: schedule (when fetched), getLunchStatus (memoized)
+    // Move title update logic here to always run regardless of period state
+    if (settings?.showTimerInTitle) {
+      if (period) {
+        const remaining = period.endTimeUnix - now;
+        document.title = getTitleText(remaining, period, now);
+      } else if (remainingTime !== null) {
+        document.title = `${formatTimeRemaining(remainingTime)} remaining`;
+      } else {
+        document.title = "HSE Schedule";
+      }
+    } else {
+      document.title = "HSE Schedule";
+    }
+
+  }, [schedule, getLunchStatus, settings, getTitleText, formatTimeRemaining]); // Dependencies are stable: schedule (when fetched), getLunchStatus (memoized)
 
   // Format time remaining in current period or until next event
 
