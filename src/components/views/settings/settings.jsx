@@ -128,7 +128,33 @@ const Settings = () => {
                                                 ))}
                                             </Stack>
                                         </RadioGroup>
-                                    </Flex>                                </Stack>
+                                    </Flex>
+                                    <Flex justify="space-between" align="center">
+                                        <Box fontWeight="medium">Timer in Tab Title</Box>
+                                        <RadioGroup
+                                            id="showTimerInTitle"
+                                            value={String(localSettings.showTimerInTitle)}
+                                            onChange={(value) => handleChange("showTimerInTitle", value === "true")}
+                                        >
+                                            <Stack direction="row" spacing={3}>
+                                                {[{label: 'On', value: true}, {label: 'Off', value: false}].map((option) => (
+                                                    <Box 
+                                                        key={option.label}
+                                                        px={3}
+                                                        py={1}
+                                                        borderRadius="md"
+                                                        bg={localSettings.showTimerInTitle === option.value ? "var(--color-primary)" : "var(--accent-background)"}
+                                                        color={localSettings.showTimerInTitle === option.value ? 'var(--text-contrast)' : 'var(--text-secondary)'}
+                                                        cursor="pointer"
+                                                        onClick={() => handleChange("showTimerInTitle", option.value)}
+                                                    >
+                                                        {option.label}
+                                                    </Box>
+                                                ))}
+                                            </Stack>
+                                        </RadioGroup>
+                                    </Flex>
+                                </Stack>
 
                                 {/* Save Indicator */}
                                 {saved && (

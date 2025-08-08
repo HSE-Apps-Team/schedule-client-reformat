@@ -127,6 +127,15 @@ const Clock = ({ loading, setLoading }) => {
     });
   }, []);
 
+ const formatTimeRemaining = useCallback((ms) => {
+    if (ms === null || ms === undefined || ms < 0) return "00:00";
+    const duration = dayjs.duration(ms);
+
+    return `${duration.hours() > 0 ? `${duration.hours()}:` : ""}${
+      duration.minutes().toString().padStart(2, '0')
+    }:${duration.seconds().toString().padStart(2, '0')}`;
+  }, []);
+
   // Fetch schedule data
   const fetchSchedule = useCallback(async () => {
     setLoading(true);
@@ -161,6 +170,27 @@ const Clock = ({ loading, setLoading }) => {
       setLoading(false);
     }
   }, [processScheduleData, setLoading]); // `setLoading` is a stable React dispatch function, safe dependency.
+
+
+  const getTitleText = useCallback((remaining, currentPeriod, currentTime) => {
+    if (!currentPeriod) return `${formatTimeRemaining(remaining)} remaining`;
+    
+    const currentLunchStatus = getLunchStatus(currentPeriod, currentTime);
+    const userSpecificLunchPeriod = currentPeriod.lunchPeriods ? currentPeriod.lunchPeriods[userLunchType] : null;
+    
+    if (userSpecificLunchPeriod && currentLunchStatus === LUNCH_STATUS.DURING) {
+      // Calculate time until lunch ends
+      const lunchRemaining = userSpecificLunchPeriod.endTimeUnix - currentTime;
+      return `${formatTimeRemaining(lunchRemaining)} until lunch ends`;
+    } else if (userSpecificLunchPeriod && currentLunchStatus === LUNCH_STATUS.BEFORE) {
+      // Calculate time until lunch starts
+      const timeToLunch = userSpecificLunchPeriod.startTimeUnix - currentTime;
+      return `${formatTimeRemaining(timeToLunch)} until lunch starts`;
+    } else {
+      return `${formatTimeRemaining(remaining)} until ${currentPeriod.periodName} ends`;
+    }
+  }, [formatTimeRemaining, getLunchStatus, userLunchType]);
+
 
 
   // This is the core logic that updates all period-related states.
@@ -209,7 +239,6 @@ const Clock = ({ loading, setLoading }) => {
           setStatus(STATUS.SCHOOL_NOW);
           setPeriod(currentSchedPeriod);
           setNextPeriod(schedule[i + 1] || null);
-
           const remaining = currentSchedPeriod.endTimeUnix - now;
           setRemainingTime(remaining);
 
@@ -223,6 +252,13 @@ const Clock = ({ loading, setLoading }) => {
             time: currentSchedPeriod.endTimeUnix,
             name: `${currentSchedPeriod.periodName} ends`
           });
+
+          if (settings?.showTimerInTitle) {
+            document.title = getTitleText(remaining, currentSchedPeriod, now);
+          } else {
+            document.title = "HSE Schedule";
+          }
+  
           currentPeriodFound = true;
           break;
         }
@@ -249,17 +285,12 @@ const Clock = ({ loading, setLoading }) => {
         }
       }
     }
-  }, [schedule, getLunchStatus]); // Dependencies are stable: schedule (when fetched), getLunchStatus (memoized)
+    
+
+  }, [schedule, getLunchStatus, settings, getTitleText]); // Dependencies are stable: schedule (when fetched), getLunchStatus (memoized)
 
   // Format time remaining in current period or until next event
-  const formatTimeRemaining = useCallback((ms) => {
-    if (ms === null || ms === undefined || ms < 0) return "00:00";
-    const duration = dayjs.duration(ms);
 
-    return `${duration.hours() > 0 ? `${duration.hours()}:` : ""}${
-      duration.minutes().toString().padStart(2, '0')
-    }:${duration.seconds().toString().padStart(2, '0')}`;
-  }, []);
 
   // Text to display in the progress component (now depends on currentTime state directly)
   const timeDisplayText = useMemo(() => {

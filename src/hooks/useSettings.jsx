@@ -6,10 +6,11 @@ const defaultSettings = {
     grayLunch: "A",   // Old setting key
     blueDayLunch: "a", // New setting key (lowercase to match the settings UI)
     grayDayLunch: "a", // New setting key (lowercase to match the settings UI)
-    snow: true,
-    theme: "dark",
-    seniorPrank: false,
-    confetti: true
+    snow: true, //for winter
+    theme: "dark", // 
+    seniorPrank: false, // for end of school
+    confetti: true, // for end of school
+    showTimerInTitle: false // for showing timer in title
 };
 
 const SettingsContext = createContext();
