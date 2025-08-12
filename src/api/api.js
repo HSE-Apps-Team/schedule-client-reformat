@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = process.env.API_URL;
+const url = process.env.REACT_APP_API_URL;
 
 // const url = "https://schedule-client-api.herokuapp.com";
 // const url = "http://localhost:5000"
