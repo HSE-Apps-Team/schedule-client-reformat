@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const url = process.env.API_URL;
+
 // const url = "https://schedule-client-api.herokuapp.com";
-const url = "http://localhost:5000"
+// const url = "http://localhost:5000"
 
 // const url = "http://localhost:5000";
 const newsUrl = "https://hsenews.com/wp-json/wp/v2/posts/?categories=493";
