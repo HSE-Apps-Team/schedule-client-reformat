@@ -1,4 +1,4 @@
-// import api from '../../../api';
+import {getWeather} from '../../../api/api';
 import React, { useEffect, useState } from "react";
 
 import Snowfall from 'react-snowfall';
@@ -13,22 +13,46 @@ const Weather = () => {
 
     const fetchFakeWeatherData = () => {
         // Mock weather data
-        const mockWeatherOptions = [
-            { condition: 'snow', temperature: -5 },
-            { condition: 'rain', temperature: 8 },
-            { condition: 'clear', temperature: 20 },
-            { condition: 'cloudy', temperature: 15 }
-        ];
-        
+
+        getWeather().then(response => {
+            try {
+                const data = response.data.properties.periods[0];
+
+                const simple_weather = {temperature: data.temperature}
+
+                const shortForecast = data.shortForecast.toLowerCase();
+                if (shortForecast.includes("thunder") || shortForecast.includes("t-storm")) {
+                    simple_weather.condition = "thunder"; // ⛈️
+                } else if (shortForecast.includes("blizzard") || shortForecast.includes("snow") || shortForecast.includes("flurry")) {
+                    simple_weather.condition = "snow"; // ❄️
+                } else if (shortForecast.includes("sleet") || shortForecast.includes("ice pellets")) {
+                    simple_weather.condition = "sleet"; // 🧊
+                } else if (shortForecast.includes("rain") || shortForecast.includes("shower") || shortForecast.includes("drizzle")) {
+                    simple_weather.condition = "rain"; // 🌧️
+                } else if (shortForecast.includes("cloudy")) {
+                    simple_weather.condition = "cloudy"; // ☁️
+                } else if (shortForecast.includes("sunny") || shortForecast.includes("clear")) {
+                    simple_weather.condition = "clear"; // ☀️
+                } else {
+                    // This is the fallback for any unanticipated forecast string.
+                    simple_weather.condition = "unknown"; // ❓
+                }
+
+                setWeather(simple_weather);
+            } catch (error) {
+                console.error("Error fetching weather data:", error);
+            }
+        });
+
         // Randomly select a weather condition
         // const mockWeather = mockWeatherOptions[Math.floor(Math.random() * mockWeatherOptions.length)];
         
         
         // Set the mock data to state
-        setWeather({
-            condition: 'sleet', // mockWeather.condition,
-            temperature: -5 // mockWeather.temperature
-        });
+        // setWeather({
+        //     condition: 'sleet', // mockWeather.condition,
+        //     temperature: -5 // mockWeather.temperature
+        // });
         
         // In the future, replace with actual API call:
         // api.getWeather().then(data => setWeather(data)).catch(err => console.error('Error fetching weather:', err));

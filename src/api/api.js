@@ -31,3 +31,7 @@ export const getClock = () => {
 export const getCalendar2 = () => {
   return axios.get(`${url}/announcements/calendar2`);
 };
+
+export const getWeather = () => {
+  return axios.get(`${url}/weather`);
+};
