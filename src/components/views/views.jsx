@@ -28,7 +28,11 @@ const Views = ( props ) => {
                 <Center height={"80%"}>
                     {/* {props.loading && <CircularProgress isIndeterminate size={mobile ? window.innerWidth * 0.85 : window.innerHeight * 0.85} thickness={3.5} capIsRound={true} color="var(--color-primary)" trackColor="var(--background-secondary)"/>} */}
                     {props.loading && <Loading loading={props.loading}/>}
-                    {props.view === "clock" && <Clock loading={props.loading} setLoading={props.setLoading}/>}
+                    <Box display={props.view === "clock" ? "block" : "none"}>
+                        <Clock loading={props.loading} setLoading={props.setLoading} style={{ display: props.view === "clock" ? "block" : "none" }} />
+                    </Box>
+                    {/* <Clock loading={props.loading} setLoading={props.setLoading} style={{ display: "none" }} /> */}
+                    {/* {props.view === "clock" && <Clock loading={props.loading} setLoading={props.setLoading}/>} */}
                     {props.view === "countdown" && <Countdown view={props.view} loading={props.loading} setLoading={props.setLoading} />}
                     {props.view === "calendar" && <Calendar loading={props.loading} setLoading={props.setLoading}/>}
                     {props.view === "schedule" && <Schedule loading={props.loading} setLoading={props.setLoading}/>}
