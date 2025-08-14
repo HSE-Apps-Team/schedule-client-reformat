@@ -22,7 +22,7 @@ const Weather = () => {
 
                 const shortForecast = data.shortForecast.toLowerCase();
                 if (shortForecast.includes("thunder") || shortForecast.includes("t-storm")) {
-                    simple_weather.condition = "thunder"; // ⛈️
+                    simple_weather.condition = "rain"; // ⛈️
                 } else if (shortForecast.includes("blizzard") || shortForecast.includes("snow") || shortForecast.includes("flurry")) {
                     simple_weather.condition = "snow"; // ❄️
                 } else if (shortForecast.includes("sleet") || shortForecast.includes("ice pellets")) {

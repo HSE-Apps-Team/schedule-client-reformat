@@ -12,6 +12,8 @@ import Countdown from "./countdown/countdown";
 import Settings from "./settings/settings";
 import Schedule from "./schedule/schedule";
 import Lunch from "./lunch/lunch";
+import Weather from "./weather/Weather";
+
 
 // if you want to add or change a view, you need to change its name in ViewSelector.jsx
 const Views = ( props ) => {
@@ -31,6 +33,7 @@ const Views = ( props ) => {
                     {props.view === "calendar" && <Calendar loading={props.loading} setLoading={props.setLoading}/>}
                     {props.view === "schedule" && <Schedule loading={props.loading} setLoading={props.setLoading}/>}
                     {props.view === "lunch" && <Lunch loading={props.loading} setLoading={props.setLoading}/>}
+                    {props.view === "weather" && <Weather loading={props.loading} setLoading={props.setLoading}/>}
                 </Center>
             <Box height={"10%"} width={"100%"} />
         </Box>
