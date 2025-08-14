@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const url = "https://schedule-client-api.herokuapp.com";
+const url = process.env.REACT_APP_API_URL;
+
+// const url = "https://schedule-client-api.herokuapp.com";
+// const url = "http://localhost:5000"
 
 // const url = "http://localhost:5000";
 const newsUrl = "https://hsenews.com/wp-json/wp/v2/posts/?categories=493";
@@ -29,4 +32,8 @@ export const getClock = () => {
 
 export const getCalendar2 = () => {
   return axios.get(`${url}/announcements/calendar2`);
+};
+
+export const getWeather = () => {
+  return axios.get(`${url}/weather`);
 };

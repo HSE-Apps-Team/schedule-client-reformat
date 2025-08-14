@@ -4,8 +4,12 @@ import { Box, Center } from "@chakra-ui/react";
 
 const SelectorButton = ( props ) => {
     const handleClick = () => {
-        // Only set loading to true if changing to a different view
-        if (props.name !== props.view) {
+        // since clock is always rendered, set loading to true unless switching to clock from another component 
+        // ( to keep loading true if loading clock for the first time)
+        if (props.name == "clock" && props.view !== "clock") {
+            props.setView("clock");
+        }
+        else if (props.name !== props.view) {
             props.setView(props.name);
             props.setLoading(true);
         }
