@@ -154,6 +154,31 @@ const Settings = () => {
                                             </Stack>
                                         </RadioGroup>
                                     </Flex>
+                                    <Flex justify="space-between" align="center">
+                                        <Box fontWeight="medium">Weather Effects (Beta)</Box>
+                                        <RadioGroup
+                                            id="weatherEffects"
+                                            value={String(localSettings.weatherEffects)}
+                                            onChange={(value) => handleChange("weatherEffects", value === "true")}
+                                        >
+                                            <Stack direction="row" spacing={3}>
+                                                {[{label: 'On', value: true}, {label: 'Off', value: false}].map((option) => (
+                                                    <Box 
+                                                        key={option.label}
+                                                        px={3}
+                                                        py={1}
+                                                        borderRadius="md"
+                                                        bg={localSettings.weatherEffects === option.value ? "var(--color-primary)" : "var(--accent-background)"}
+                                                        color={localSettings.weatherEffects === option.value ? 'var(--text-contrast)' : 'var(--text-secondary)'}
+                                                        cursor="pointer"
+                                                        onClick={() => handleChange("weatherEffects", option.value)}
+                                                    >
+                                                        {option.label}
+                                                    </Box>
+                                                ))}
+                                            </Stack>
+                                        </RadioGroup>
+                                    </Flex>
                                 </Stack>
 
                                 {/* Save Indicator */}

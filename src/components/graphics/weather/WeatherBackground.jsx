@@ -38,6 +38,9 @@ const Weather = () => {
                     simple_weather.condition = "unknown"; // ❓
                 }
 
+                // simple_weather.condition = "rain" // debug test
+                // console.log("Debug Weather Data:", simple_weather)
+
                 setWeather(simple_weather);
             } catch (error) {
                 console.error("Error fetching weather data:", error);

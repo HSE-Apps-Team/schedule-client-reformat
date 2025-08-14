@@ -11,8 +11,8 @@ const ThemeEffect = ( props ) => {
         <Box height="100%" width="100%">
             
             {/* {settings.confetti && <Confetti />} */}
-            {/* {settings.weather && <Weather />} */}
-            {<Weather />}
+            {settings.weatherEffects && <Weather />}
+            {/* {<Weather />} */}
         </Box>
     );
 };

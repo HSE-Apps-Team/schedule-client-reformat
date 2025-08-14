@@ -10,7 +10,8 @@ const defaultSettings = {
     theme: "dark", // 
     seniorPrank: false, // for end of school
     confetti: true, // for end of school
-    showTimerInTitle: false // for showing timer in title
+    showTimerInTitle: false, // for showing timer in title
+    weatherEffects: false
 };
 
 const SettingsContext = createContext();
