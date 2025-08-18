@@ -5,6 +5,8 @@ import {Text, Box} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { getIconForWeather } from "../../../utilities/Weather";
 
+// adds little temp and weather icon to the navbar. Just a little QoL addition.
+
 const Weather = () => {
     const [weather, setWeather] = useState(null);
 

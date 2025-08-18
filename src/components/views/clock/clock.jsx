@@ -12,6 +12,15 @@ dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/duration"));
 dayjs.extend(require("dayjs/plugin/relativeTime"));
 
+// This file does time countdown and stuff like that.  
+
+//From Nic, Clock is the main thing we do, so keeping that running is otp priority. 
+// Its really simple, using chakra's circular progress, using the timer. 
+// It's a lot of spaghetti code, and we don't really know what it all does, and its fairly easy to design except for colors. 
+
+// `Progress.jsx` makes the progress bar and adds the text. 
+
+
 // Define school status constants for better readability
 const STATUS = {
   LOADING: "LOADING",

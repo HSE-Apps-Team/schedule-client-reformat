@@ -4,6 +4,9 @@ import {motion} from "framer-motion";
 
 import { getIconForWeather } from "../../utilities/Weather";
 
+// This gets the current weather info, and displays it in the top of the weather view
+// I think it looks pretty good, but also open to new ideas for changes
+
 const CurrentWeather = ({weather}) => {
     return (
         <motion.div

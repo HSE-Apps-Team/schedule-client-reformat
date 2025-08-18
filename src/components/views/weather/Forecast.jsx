@@ -5,6 +5,10 @@ import {Text, Box} from "@chakra-ui/react";
 import {motion} from "framer-motion";
 import { getIconForWeather } from "../../utilities/Weather";
 
+// Gets the next few hours of forecast. If its being wrong, don't blame me, blame the weather service
+// it depends off the backend to update hours. So idk if it will work it will most likely be off by up to 15 mins on hour change.
+// if you wanted to go through the effort of changing that, feel free
+
 const Forecast = ({period}) => {
     // Convert ISO timestamp to readable format
     const formatTime = (isoString) => {

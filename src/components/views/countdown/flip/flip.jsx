@@ -136,6 +136,25 @@
 
 // export default Flip;
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+// /\ 
+// all of that is a previous version lol 
+
+// The Flip component creates the visually distinctive countdown timer used for special events:
+// - The animation is very CPU-intensive, so be mindful when making changes
+// - The current implementation doesn't handle the labels within the component itself
+// - Instead, labels (Days, Hours, Minutes, Seconds) are added by the parent Countdown component
+// - There are two implementations in the code - the current one and a commented-out older version
+
+
+
+
 import React, { useEffect, useRef, useState } from "react";
 import Tick from "@pqina/flip";
 import "@pqina/flip/dist/flip.min.css";

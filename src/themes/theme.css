@@ -2,6 +2,8 @@
 /* Each new theme is a new data-theme */
 /* Assign variables here */
 
+/* in order to make a new theme, i would just copy a theme attributes and add values. */
+
 :root {  /* light/default theme */
     --background: #f7fafc;
     --background-secondary: #edf2f7;
@@ -42,6 +44,24 @@
     --color-light: #e6be7a;
     --color-dark: #2a1b0d;
     --font-family: 'Segoe UI';
+}
+[data-theme="dark-earth-tones"] {
+    --background: #2a251a;
+    --background-secondary: #2f2a1f;
+    --accent-background: #403a31;
+    --text-primary: #f5f0e3;
+    --text-secondary: #c9c4b7;
+    --text-contrast: #2a251a;
+    --color-primary: #8d7b68;
+    --color-muted: #6e5f50;
+    --color-light: #ab9c8c;
+    --color-dark: #584a3c;
+    --font-family: 'Segoe UI';
+
+    --chakra-colors-chakra-body-text: #fff9f3;
+    --chakra-colors-gray-800: #fff9f3;
+    --chakra-colors-gray-700: #fff9f3;
+    --chakra-colors-gray-600: #fff9f3;
 }
 
 /* Global tags */

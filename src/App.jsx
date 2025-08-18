@@ -7,6 +7,7 @@ import Background from './components/backgrounds/Background';
 import './themes/theme.css';
 
 // Listen to John, he's always right
+// /\ Thank you nic - i also dont know why im right
 
 function App() {
 

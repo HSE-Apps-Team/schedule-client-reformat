@@ -1,6 +1,9 @@
 import { extendTheme, withDefaultColorScheme } from "@chakra-ui/react"
 // 2. Call `extendTheme` and pass your custom values
 
+// I also dont know how this works, but it does? 
+// I dont think this is used but if it does it works
+
 const colorScheme = extendTheme({
     colors: {
         colorScheme: {

@@ -14,6 +14,8 @@ import {
 } from "@chakra-ui/react";
 import { getAnnouncements } from "../../../api/api";
 
+// creates the announcements component, which displays important messages to the user, from the admin app. Idk how this works ngl, but it works.
+
 const Announcements = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [message, setMessage] = useState(null);

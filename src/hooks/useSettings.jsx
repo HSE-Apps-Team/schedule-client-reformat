@@ -1,13 +1,19 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
+// This makes a really good version of settings 
+// so that you can just call the hook, get the settings object, and get settings immediately. 
+// This is so you dont have to interface with the ever changing localStorage
+// When you add things you will thank me later!
+
 const defaultSettings = {
-    darkmode: false,
-    royalLunch: "A",  // Old setting key
-    grayLunch: "A",   // Old setting key
+    // darkmode: false,
+    // royalLunch: "A",  // Old setting key
+    // grayLunch: "A",   // Old setting key
     blueDayLunch: "a", // New setting key (lowercase to match the settings UI)
     grayDayLunch: "a", // New setting key (lowercase to match the settings UI)
     snow: true, //for winter
-    theme: "dark", // 
+    themeMode: "dark",
+    themeStyle: "normal", // 
     seniorPrank: false, // for end of school
     confetti: true, // for end of school
     showTimerInTitle: false, // for showing timer in title

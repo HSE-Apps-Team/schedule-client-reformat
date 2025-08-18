@@ -4,6 +4,11 @@ import { Box } from "@chakra-ui/react";
 
 import SelectorButton from "./SelectorButton";
 
+// This is what allows the user to switch between different views, 
+// when clicking an icon it chooses that view from names (the arrays match up)
+
+// weird implementation ngl. This is from the old version.
+
 const ViewSelector = ( props ) => {
 
     const icons = [

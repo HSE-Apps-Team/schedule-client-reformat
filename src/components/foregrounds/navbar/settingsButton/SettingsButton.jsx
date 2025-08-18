@@ -4,6 +4,8 @@ import { Box, Button, Modal, ModalBody, ModalOverlay, ModalContent, ModalHeader,
 
 import Settings from "../../../views/settings/settings.jsx"
 
+// creates the settings button for the navbar
+
 const SettingsButton = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (

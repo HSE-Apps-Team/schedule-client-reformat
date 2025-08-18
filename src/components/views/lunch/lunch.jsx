@@ -7,6 +7,11 @@ import { motion } from "framer-motion"
 import useMedia from '../../../hooks/useMedia'
 import { getLunch } from '../../../api/api'
 
+// DEPRECATED
+// here for future use
+
+// this was deleted because lunch hadn't been used in years. so yeah. Replaced with weather. 
+
 
 const Lunch = ({ loading, setLoading }) => {
     const MotionBox = motion(Box)

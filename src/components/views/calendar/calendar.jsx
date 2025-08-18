@@ -3,6 +3,15 @@ import { Box, Text, Tabs, TabList, Tab, TabPanels, TabPanel, Image } from "@chak
 import { getCalendar2 } from "../../../api/api.js";// Assuming this fetches the data from the API
 import useMedia from "../../../hooks/useMedia.js";
 
+
+// According to Nic, the designing is very annoying. 
+// This way made to specifcally fit allowing new calendars 
+// ontop of previous functionality of just displaying one image calendar. 
+
+// This is going through HSE Admin and HSE Schedule API, so make sure changes are good for everything. 
+
+// This is was changed from the original view so that there can be multiple calendars or views.
+
 const CalendarSelector = ({ loading, setLoading }) => {
     const mobile = useMedia(
         ["(min-width: 750px)", "(max-width: 750px)"],

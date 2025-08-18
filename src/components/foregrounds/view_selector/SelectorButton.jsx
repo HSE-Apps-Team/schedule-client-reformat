@@ -2,6 +2,8 @@ import React from "react";
 
 import { Box, Center } from "@chakra-ui/react";
 
+// Idk why this is here, but it is the thing that actually handles the clicks for some reason
+
 const SelectorButton = ( props ) => {
     const handleClick = () => {
         // since clock is always rendered, set loading to true unless switching to clock from another component 

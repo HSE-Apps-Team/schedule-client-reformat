@@ -8,6 +8,11 @@ import 'react-rain-animation/lib/style.css';
 
 import { Box } from "@chakra-ui/react";
 
+
+// Does the rain and snow and stuff. Looks cool, could be awful, currently beta feature. 
+// I honestly haven't tested this! 
+
+
 const Weather = () => {
     const [weather, setWeather] = useState(null);
 

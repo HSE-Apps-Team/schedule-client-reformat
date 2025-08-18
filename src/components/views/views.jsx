@@ -15,6 +15,13 @@ import Lunch from "./lunch/lunch";
 import Weather from "./weather/Weather";
 
 
+
+// This component acts as the central view manager for the application. To add a new view, you'll need to:
+//   1. Update the conditional rendering logic in this component, like adding the view selector arrays in views.jsx
+//   2. Add the corresponding view component in the views directory
+//   3. Update the ViewSelector,jsx component to include the new view option
+
+
 // if you want to add or change a view, you need to change its name in ViewSelector.jsx
 const Views = ( props ) => {
     const mobile = useMedia(

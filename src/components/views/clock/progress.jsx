@@ -4,6 +4,11 @@ import dayjs from "dayjs";
 import useMedia from "../../../hooks/useMedia";
 // useSettings is not strictly needed in Progress anymore if lunchType is passed from Clock
 
+// good luck trying to change this. I used ai because it was so bad. This was from the previous version. Its too ugly to change without a full refactor AGAIN.
+
+// From Nic, I mean it only works with clock, used by clock, sets up circular progress bar, 
+// I think it handles some cases and not all, and they share functionality on some stuff. Good luck
+
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
 dayjs.extend(require("dayjs/plugin/duration"));
 
