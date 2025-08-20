@@ -8,6 +8,11 @@ import useMedia from "../../../hooks/useMedia";
 
 import { Text, Box, Center } from "@chakra-ui/react";
 
+// From Nic, it does practically nothing, its just Nic being a good React boy, and makes it organized. 
+// It makes sure that we didn't throw anything anywhere like the devs before us.
+
+// You should have seen the old version, it was atrocious...
+
 
 const Countdown = ({ loading, setLoading, view, setConfetti }) => {
 //  const vh = use100vh();

@@ -5,6 +5,15 @@ import { Box, Text, VStack, HStack, useColorMode } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useSettings } from "../../../hooks/useSettings.jsx";
 
+//The Schedule component provides a visual representation of the day's classes and special periods. 
+// It's designed to be responsive and highlight the user's lunch period based on their settings. 
+// The component handles both regular schedules and special schedules through the same interface.
+
+// This is from the previous version of Hse Schedule, that nic and i (john) updated. 
+// I honestly dont know how this one works entirely, but it works. 
+// It will be pain to change it tho.
+
+
 const Schedule = ({ overrideLunch, loading, setLoading }) => {
   const MotionBox = motion(Box);
   const mobile = useMedia(["(min-width: 750px)", "(max-width: 750px)"], [false, true]);

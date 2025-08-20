@@ -2,6 +2,8 @@ import React from "react";
 
 import { Box, Image, Text } from "@chakra-ui/react";
 
+// creates the logo for the navbar
+
 const Logo = () => {
     return (
         <a href="/">

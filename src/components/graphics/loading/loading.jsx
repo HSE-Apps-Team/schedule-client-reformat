@@ -1,6 +1,21 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+// does cool loading animation where the logo spins and fades in. Pretty cool. 
+
+// The idea for this spawned when I was thinking about how to make the loading experience more engaging for users.
+
+// I wanted to create a visual representation of loading that was both functional and aesthetically pleasing.
+
+// The loading animation consists of a logo that spins and fades in, providing a smooth and engaging experience for users.
+
+// This approach not only enhances the visual appeal but also helps to communicate the loading state effectively.
+
+// /\ 
+// ai rambling autocomplete i just let happen
+
+
+
 const Loading = () => {
   return (
         <div className="loading-container">

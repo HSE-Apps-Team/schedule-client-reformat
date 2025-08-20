@@ -5,6 +5,8 @@ import Confetti from "../../../graphics/confetti/confetti";
 import { useSettings } from "../../../../hooks/useSettings";
 import Weather from "../../../graphics/weather/WeatherBackground";
 
+// adds themes in the background, so that it will look cool
+
 const ThemeEffect = ( props ) => {
     const { settings } = useSettings();
     return (

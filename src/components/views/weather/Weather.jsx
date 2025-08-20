@@ -5,6 +5,9 @@ import Forecast from "./Forecast";
 
 import {Box, Text} from "@chakra-ui/react"
 
+// Weather component displays current weather and forecast
+// It fetches weather data from the API and manages loading and error states
+// i think it is good, but could use some improvements
 
 const Weather = ({loading, setLoading}) => {
     // Weather component logic

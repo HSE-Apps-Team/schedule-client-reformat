@@ -1,3 +1,12 @@
+// Literally only does getting the icon for weather. Needed it in multiple spots, and i followed DRY. Your welcome. 
+
+// Ps if you dont know what "DRY" means, use Google if google exists as a search engine when you search. 
+// If its only ai in the futuer, i guess you can ask it.
+
+// I'm predicting google will make the search engine unbearable by like 2028 or something - john - august 2025. 
+// Dang whoever is taking this over wasn't in high school when ai came out lol
+
+
 export const getIconForWeather = (shortForecast, isDaytime) => {
         const forecast = shortForecast.toLowerCase();
 

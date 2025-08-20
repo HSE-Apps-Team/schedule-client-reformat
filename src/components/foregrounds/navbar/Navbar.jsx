@@ -6,6 +6,8 @@ import SettingsButton from "./settingsButton/SettingsButton";
 import Logo from "./logo/Logo";
 import Weather from "./weather/Weather";
 
+// creates the navbar. In the foreground. looks good imo
+
 const Navbar = () => {
     return (
         <Box display={"flex"} flexDirection={"row"} justifyContent={"space-between"} height={"100%"} alignItems={"center"} padding={"10px"}>

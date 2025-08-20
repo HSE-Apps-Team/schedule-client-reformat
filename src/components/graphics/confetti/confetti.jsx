@@ -1,6 +1,10 @@
 import React from 'react'
 import Confetti from 'react-confetti'
 
+
+// adds confetti. Might make it functional that a setting for this appears when its the last week of May!
+
+
 export default () => {
   return (
     <Confetti

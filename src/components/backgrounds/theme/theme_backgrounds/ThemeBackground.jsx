@@ -5,6 +5,9 @@ import { Box } from "@chakra-ui/react";
 
 import useMedia from "../../../../hooks/useMedia";
 
+// This was for senior prank. But you could also use it to add like a cool promo for hse in the background
+// see gigachad.gif and miku.png for info for the senior prank in the public folder
+
 const ThemeBackground = () => {
     const { settings } = useSettings();
     const mobile = useMedia(['(min-width: 750px)', '(max-width: 750px)'], [false, true])
