@@ -23,7 +23,7 @@ const CalendarView = ({ loading, setLoading }) => {
 
     return (
         <Box display={"flex"} flexDirection={"column"} width={"75%"} alignItems={"center"}>
-            <Box>
+            <Box width={"53%"}>
                 <CalendarNavbar month={month} setMonth={setMonth} />
             </Box>
             <Box display={"flex"} flexDirection={"row"} gap={10} width={"100%"} justifyContent={"center"} pb={10}>
