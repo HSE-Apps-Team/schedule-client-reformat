@@ -10,34 +10,37 @@ const CalendarNavbar = ({ month, setMonth }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" width="100%">
+        <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" width="100%" bg={"var(--background-secondary)"} borderRadius={"lg"} p={4}>
             {/* Left: Empty or for future use */}
-            <Box width="80px" />
+            <Box width="80px"> 
+                {/* <Text fontSize={"md"}>In Beta!</Text>  */}
+            
+            </Box>
             {/* Center: Month navigation */}
             <Box display="flex" flexDirection="row" alignItems="center" mt={2} gap={"3"}>
-                <button 
+                <Button 
                     onClick={() => setMonth(prev => prev - 1)}
                     style={{ 
-                        fontSize: '1.2rem', 
                         background: 'none', 
                         border: 'none', 
                         cursor: 'pointer' 
                     }}
+                    fontSize={"3xl"}
                 >
                     &larr;
-                </button>
+                </Button>
                 <Text fontSize={"3xl"} textAlign="center" minWidth="120px">{monthNames[month]}</Text>
-                <button 
+                <Button 
                     onClick={() => setMonth(prev => prev + 1)}
-                    style={{ 
-                        fontSize: '1.2rem', 
+                    style={{
                         background: 'none', 
                         border: 'none', 
                         cursor: 'pointer' 
                     }}
+                    fontSize={"3xl"}
                 >
                     &rarr;
-                </button>
+                </Button>
             </Box>
             {/* Right: Button */}
             <Box>

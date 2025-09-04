@@ -52,7 +52,7 @@ const CalendarSidebar = ({ daySelected}) => {
     return (
         <>
             {daySelected && (
-                <Box height={"100%"} bg={"var(--background-secondary)"} p={4} borderRadius={10} display={"flex"} flexDirection={"column"} justifyContent={"space-between"}>
+                <Box height={"100%"} bg={"var(--background-secondary)"} p={4} borderRadius={"lg"} display={"flex"} flexDirection={"column"} justifyContent={"space-between"}>
                     <Box>
                         <Text fontSize={"lg"} p={2}>Events on {daySelected instanceof Date ? daySelected.toLocaleDateString() : String(daySelected)}</Text>
                         {events.length === 0 ? (

@@ -35,7 +35,7 @@ const DayKey = () => {
 	return (
 		<Box 
             p={4} 
-            borderRadius={10} 
+            borderRadius={"lg"} 
             bgColor="var(--background-secondary)"
         >
 			<Text fontSize={"lg"} mb={2}>Day Types</Text>

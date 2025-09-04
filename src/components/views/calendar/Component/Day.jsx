@@ -8,7 +8,7 @@ const CalendarDay = ({ date, isSelected, onClick, children, style, dayColor, eve
             minHeight={"20"}
             borderBottom={`10px solid ${dayColor}`}
             textAlign="center"
-            bg={isSelected ? "var(--accent-background)" : "var(--background-primary)"}
+            bg={isSelected ? "var(--accent-background)" : "var(--background-secondary)"}
             borderRadius="md"
             cursor="pointer"
             onClick={onClick}
@@ -17,6 +17,7 @@ const CalendarDay = ({ date, isSelected, onClick, children, style, dayColor, eve
             flexDirection="column"
             justifyContent="center"
             alignItems="center"
+            margin={1}
         >
             {/* Event dots at the top, left-aligned */}
             {eventColors && eventColors.length > 0 && (
