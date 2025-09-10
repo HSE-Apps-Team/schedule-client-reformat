@@ -20,15 +20,52 @@ const CalendarView = ({ loading, setLoading }) => {
         setLoading(false);
     }, []);
 
+    const [isMobile, setIsMobile] = useState(false);
 
+    useEffect(() => {
+        const checkIfMobile = () => {
+            let mobile = false;
+            if (window.innerWidth < 1000) {
+                mobile = true;
+            }
+            else if (window.innerHeight < 625) {
+                mobile = true;
+            }
+            setIsMobile(mobile);
+        };
+        
+        checkIfMobile();
+        window.addEventListener('resize', checkIfMobile);
+        
+        return () => {
+            window.removeEventListener('resize', checkIfMobile);
+        };
+    }, []);
+
+    if (isMobile)  {
+        return (
+            <Box display={"flex"} flexDirection={"column"} width={"100%"} alignItems={"center"} p={4} gap={4}>
+                <Text fontSize={"xl"} textAlign={"center"}>
+                    Sorry! Calendar is not supported on portrait mode. Please use a computer or rotate iPad to landscape mode. If you would like this functionality, please{" "}
+                    <Text as="a" color="blue.500" href="https://forms.office.com/Pages/ResponsePage.aspx?id=PkZ4tvvZX0eBU43PqJYEfW78XFXJ5Q5Fsb3Z-zQt2UBUOFFFNjdPS1dWWTJVVVZTVDhXRVQ5TVhXVS4u" textDecoration="underline">
+                        tell us here
+                    </Text>
+                </Text>
+            </Box>
+        );
+    }
     return (
         <Box display={"flex"} flexDirection={"column"} width={"75%"} alignItems={"center"}>
-            <Box width={"53%"}>
+            <Box width={"53%"} alignItems={"center"} display={"flex"} flexDirection={"column"}>
                 <CalendarNavbar month={month} setMonth={setMonth} />
+                <Text color={"var(--text-secondary)"} fontSize={"sm"}>
+                    Calendar is currently in a testing beta. Report bugs and errors <u><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=PkZ4tvvZX0eBU43PqJYEfW78XFXJ5Q5Fsb3Z-zQt2UBUOFFFNjdPS1dWWTJVVVZTVDhXRVQ5TVhXVS4u">here.</a></u>
+                </Text>
             </Box>
             <Box display={"flex"} flexDirection={"row"} gap={10} width={"100%"} justifyContent={"center"} pb={10}>
                 <Box flex={"2"} display={"flex"} flexDirection={"column"} alignContent={"flex-end"}>
                     <DayKey />
+
                 </Box>
                 <Box flex={"5"}>
                     <Calendar month={month} year={year} daySelected={daySelected} setDaySelected={setDaySelected} />
@@ -45,6 +82,7 @@ const CalendarView = ({ loading, setLoading }) => {
                 </Box>
             </Box>
         </Box>
+
     )
 
 }

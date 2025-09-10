@@ -1,6 +1,6 @@
 import {Text, Box, Button, Modal, ModalBody, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalCloseButton} from "@chakra-ui/react";
 import { useState } from "react";
-import CalendarSelector from "./Images";
+import CalendarSelector from "./ImagesModal";
 
 const CalendarNavbar = ({ month, setMonth }) => {
     const monthNames = [
@@ -50,8 +50,8 @@ const CalendarNavbar = ({ month, setMonth }) => {
             </Box>
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
                 <ModalOverlay />
-                    <ModalContent width="80vw" maxWidth="80vw">
-                    <ModalHeader>Official</ModalHeader>
+                    <ModalContent width="80vw" maxWidth="600px">
+                    <ModalHeader>Official Calendars</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         <CalendarSelector />
