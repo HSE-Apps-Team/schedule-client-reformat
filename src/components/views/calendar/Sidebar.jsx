@@ -56,7 +56,7 @@ const CalendarSidebar = ({ daySelected}) => {
                     <Box>
                         <Text fontSize={"lg"} p={2}>Events on {daySelected instanceof Date ? daySelected.toLocaleDateString() : String(daySelected)}</Text>
                         {events.length === 0 ? (
-                            <Text p={2}>Nothing is going on at HSE</Text>
+                            <Text p={2}>Nothing is going on</Text>
                         ) : (
                             events.map((event, idx) => {
                                 const color = getTypeColorByName(event.eventType);
