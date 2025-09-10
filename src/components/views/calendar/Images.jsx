@@ -56,7 +56,7 @@ const CalendarSelector = ({ loading, setLoading }) => {
     }
 
     return (
-        <Box width={ mobile ? "90%" : "50%" } margin={"auto"} overflowY={"scroll"} height={"85vh"}
+        <Box width={ mobile ? "90%" : "50%" } margin={"auto"} overflowY={"scroll"}
         sx={{
             msOverflowStyle: 'none',
             scrollbarWidth: 'none',

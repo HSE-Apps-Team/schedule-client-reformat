@@ -6,7 +6,7 @@ import useMedia from "../../hooks/useMedia";
 
 import Loading from "../graphics/loading/loading";
 
-import Calendar from "./calendar/calendar";
+import CalendarView from "./calendar/CalendarView";
 import Clock from "./clock/clock";
 import Countdown from "./countdown/countdown";
 import Settings from "./settings/settings";
@@ -41,7 +41,7 @@ const Views = ( props ) => {
                     {/* <Clock loading={props.loading} setLoading={props.setLoading} style={{ display: "none" }} /> */}
                     {/* {props.view === "clock" && <Clock loading={props.loading} setLoading={props.setLoading}/>} */}
                     {props.view === "countdown" && <Countdown view={props.view} loading={props.loading} setLoading={props.setLoading} />}
-                    {props.view === "calendar" && <Calendar loading={props.loading} setLoading={props.setLoading}/>}
+                    {props.view === "calendar" && <CalendarView loading={props.loading} setLoading={props.setLoading}/>}
                     {props.view === "schedule" && <Schedule loading={props.loading} setLoading={props.setLoading}/>}
                     {props.view === "lunch" && <Lunch loading={props.loading} setLoading={props.setLoading}/>}
                     {props.view === "weather" && <Weather loading={props.loading} setLoading={props.setLoading}/>}

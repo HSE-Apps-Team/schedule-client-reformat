@@ -37,3 +37,21 @@ export const getCalendar2 = () => {
 export const getWeather = () => {
   return axios.get(`${url}/weather`);
 };
+
+export const getEvents2 = (start, end) => {
+  return axios.get(`${url}/calendar/events`, {
+    params: { start, end }
+  });
+};
+
+// Fetch event types (with colors)
+export const getEventTypes = () => {
+  return axios.get(`${url}/calendar/event_types`);
+};
+
+// Fetch day cache
+export const getDayCache = (start, end) => {
+  return axios.get(`${url}/calendar/day_cache`, {
+    params: { start, end }
+  });
+};
