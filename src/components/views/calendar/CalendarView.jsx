@@ -5,6 +5,8 @@ import CalendarNavbar from "./Navbar";
 import Calendar from "./Component/Calendar";
 import CalendarSidebar from "./Sidebar";
 import EventKey from "./EventKey";
+
+import CalendarSelector from "./Images"
 import DayKey from "./DayKey";
 const CalendarView = ({ loading, setLoading }) => {
     const [month, setMonth] = useState("");
@@ -45,8 +47,9 @@ const CalendarView = ({ loading, setLoading }) => {
     if (isMobile)  {
         return (
             <Box display={"flex"} flexDirection={"column"} width={"100%"} alignItems={"center"} p={4} gap={4}>
-                <Text fontSize={"xl"} textAlign={"center"}>
-                    Sorry! Calendar is not supported on portrait mode. Please use a computer or rotate iPad to landscape mode. If you would like this functionality, please{" "}
+                <CalendarSelector loading={loading} setLoading={setLoading} />
+                <Text fontSize={"sm"} textAlign={"center"} width={"70%"} color={"var(--text-secondary)"}>
+                    Interactive Calendar does not currently work on mobile. If you would like this changed,{" "}
                     <Text as="a" color="blue.500" href="https://forms.office.com/Pages/ResponsePage.aspx?id=PkZ4tvvZX0eBU43PqJYEfW78XFXJ5Q5Fsb3Z-zQt2UBUOFFFNjdPS1dWWTJVVVZTVDhXRVQ5TVhXVS4u" textDecoration="underline">
                         tell us here
                     </Text>
