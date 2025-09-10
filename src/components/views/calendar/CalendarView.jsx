@@ -46,7 +46,7 @@ const CalendarView = ({ loading, setLoading }) => {
 
     if (isMobile)  {
         return (
-            <Box display={"flex"} flexDirection={"column"} width={"100%"} alignItems={"center"} p={4} gap={4}>
+            <Box display={"flex"} flexDirection={"column"} width={"100%"} alignItems={"center"} p={4} gap={4} >
                 <CalendarSelector loading={loading} setLoading={setLoading} />
                 <Text fontSize={"sm"} textAlign={"center"} width={"70%"} color={"var(--text-secondary)"}>
                     Interactive Calendar does not currently work on Portrait view. If you would like this changed,{" "}
@@ -58,7 +58,7 @@ const CalendarView = ({ loading, setLoading }) => {
         );
     }
     return (
-        <Box display={"flex"} flexDirection={"column"} width={"75%"} alignItems={"center"}>
+        <Box display={"flex"} flexDirection={"column"} width={"75%"} alignItems={"center"} marginTop={"50"} >
             <Box width={"53%"} alignItems={"center"} display={"flex"} flexDirection={"column"}>
                 <CalendarNavbar month={month} setMonth={setMonth} />
                 <Text color={"var(--text-secondary)"} fontSize={"sm"}>
@@ -70,7 +70,7 @@ const CalendarView = ({ loading, setLoading }) => {
                     <DayKey />
 
                 </Box>
-                <Box flex={"5"}>
+                <Box flex={"5"} width={"100%"} >
                     <Calendar month={month} year={year} daySelected={daySelected} setDaySelected={setDaySelected} />
 
                 </Box>
@@ -85,7 +85,6 @@ const CalendarView = ({ loading, setLoading }) => {
                 </Box>
             </Box>
         </Box>
-
     )
 
 }

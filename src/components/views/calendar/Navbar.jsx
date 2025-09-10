@@ -29,7 +29,7 @@ const CalendarNavbar = ({ month, setMonth }) => {
                 >
                     &larr;
                 </Button>
-                <Text fontSize={"3xl"} textAlign="center" minWidth="120px">{monthNames[month]}</Text>
+                <Text fontSize={"3xl"} textAlign="center" minWidth="120px">{monthNames[month%12]}</Text>
                 <Button 
                     onClick={() => setMonth(prev => prev + 1)}
                     style={{
