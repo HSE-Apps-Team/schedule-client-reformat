@@ -49,7 +49,7 @@ const CalendarView = ({ loading, setLoading }) => {
             <Box display={"flex"} flexDirection={"column"} width={"100%"} alignItems={"center"} p={4} gap={4}>
                 <CalendarSelector loading={loading} setLoading={setLoading} />
                 <Text fontSize={"sm"} textAlign={"center"} width={"70%"} color={"var(--text-secondary)"}>
-                    Interactive Calendar does not currently work on mobile. If you would like this changed,{" "}
+                    Interactive Calendar does not currently work on Portrait view. If you would like this changed,{" "}
                     <Text as="a" color="blue.500" href="https://forms.office.com/Pages/ResponsePage.aspx?id=PkZ4tvvZX0eBU43PqJYEfW78XFXJ5Q5Fsb3Z-zQt2UBUOFFFNjdPS1dWWTJVVVZTVDhXRVQ5TVhXVS4u" textDecoration="underline">
                         tell us here
                     </Text>
