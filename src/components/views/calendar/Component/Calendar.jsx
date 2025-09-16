@@ -92,11 +92,11 @@ const Calendar = ({ month, year, daySelected, setDaySelected }) => {
     }
 
     return (
-        <Box>
-            <Box display="grid" gridTemplateColumns="repeat(7, 1fr)" gridGap={1} fontSize={"2xl"}>
+        <Box display="flex" alignContent="center" justifyContent="center">
+            <Box display="grid" gridTemplateColumns="repeat(7, 1fr)" gridGap={1} fontSize={"xl"} maxWidth={"min-content"}>
                 {/* Week day headers */}
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                    <Box key={day} p={2} textAlign="center">
+                    <Box key={day} p={1} textAlign="center">
                         <Text fontWeight="bold">{day}</Text>
                     </Box>
                 ))}

@@ -16,6 +16,11 @@
     --color-light: #7ab7e6;
     --color-dark: #033358;
     --font-family: 'Segoe UI';
+
+    --chakra-colors-chakra-body-text: #1a202c;
+    --chakra-colors-gray-800: #1a202c;
+    --chakra-colors-gray-700: #2d3748;
+    --chakra-colors-gray-600: #4a5568;
 }
 
 [data-theme="dark"] {
@@ -30,6 +35,10 @@
     --color-light: #7ab7e6;
     --color-dark: #033358;
     --font-family: 'Segoe UI';
+    --chakra-colors-chakra-body-text: #fff9f3;
+    --chakra-colors-gray-800: #fff9f3;
+    --chakra-colors-gray-700: #fff9f3;
+    --chakra-colors-gray-600: #fff9f3;
 }
 
 [data-theme="earth-tones"] {
@@ -44,6 +53,11 @@
     --color-light: #e6be7a;
     --color-dark: #2a1b0d;
     --font-family: 'Segoe UI';
+
+    --chakra-colors-chakra-body-text: #2c251a;
+    --chakra-colors-gray-800: #2c251a;
+    --chakra-colors-gray-700: #2c251a;
+    --chakra-colors-gray-600: #2c251a;
 }
 [data-theme="dark-earth-tones"] {
     --background: #2a251a;

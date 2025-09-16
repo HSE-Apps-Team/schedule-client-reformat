@@ -3,6 +3,9 @@ import { Box, Text, Button, Link, VStack } from "@chakra-ui/react";
 import { getCalendar2 } from "../../../api/api.js";// Assuming this fetches the data from the API
 import useMedia from "../../../hooks/useMedia.js";
 
+// Get API URL from environment
+const apiUrl = process.env.REACT_APP_API_URL;
+
 
 // According to Nic, the designing is very annoying. 
 // This way made to specifcally fit allowing new calendars 
@@ -13,10 +16,6 @@ import useMedia from "../../../hooks/useMedia.js";
 // This is was changed from the original view so that there can be multiple calendars or views.
 
 const CalendarSelector = ({ loading, setLoading }) => {
-    const mobile = useMedia(
-        ["(min-width: 750px)", "(max-width: 750px)"],
-        [false, true]
-    );
       
     const [calendars, setCalendars] = useState([]);
     // No need for selectedCalendarIndex or tab state
@@ -56,7 +55,7 @@ const CalendarSelector = ({ loading, setLoading }) => {
     }
 
     return (
-        <Box width={ mobile ? "90%" : "90%" } margin={"auto"} overflowY={"scroll"}
+        <Box width={"90%"} margin={"auto"} overflowY={"scroll"}
             sx={{
                 msOverflowStyle: 'none',
                 scrollbarWidth: 'none',
@@ -73,15 +72,16 @@ const CalendarSelector = ({ loading, setLoading }) => {
                 {calendars.map((calendar) => (
                     <Box key={calendar._id} p={4} bg="var(--accent-background)" borderRadius="10px" boxShadow="md" display="flex" alignItems="center" justifyContent="space-between">
                         <Text fontWeight="semibold">{calendar.name}</Text>
-                        <Button
-                            as={Link}
-                            href={calendar.imgUrl}
+                        <Link
+                            href={`${apiUrl}/announcements/calendar2/${calendar._id}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            variant="outline"
+                            _hover={{ textDecoration: "none" }}
                         >
-                            Open in New Tab
-                        </Button>
+                            <Button variant="outline">
+                                Open in New Tab
+                            </Button>
+                        </Link>
                     </Box>
                 ))}
             </VStack>

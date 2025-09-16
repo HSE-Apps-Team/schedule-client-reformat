@@ -10,14 +10,14 @@ const CalendarNavbar = ({ month, setMonth }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" width="100%" bg={"var(--background-secondary)"} borderRadius={"lg"} p={4}>
+        <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" width="100%" bg={"var(--background-secondary)"} borderRadius={"lg"} p={3}>
             {/* Left: Empty or for future use */}
             <Box width="80px"> 
                 {/* <Text fontSize={"md"}>In Beta!</Text>  */}
             
             </Box>
             {/* Center: Month navigation */}
-            <Box display="flex" flexDirection="row" alignItems="center" mt={2} gap={"3"}>
+            <Box display="flex" flexDirection="row" alignItems="center" mt={2}>
                 <Button 
                     onClick={() => setMonth(prev => prev - 1)}
                     style={{ 
@@ -25,11 +25,12 @@ const CalendarNavbar = ({ month, setMonth }) => {
                         border: 'none', 
                         cursor: 'pointer' 
                     }}
+                    color={"var(--text-primary)"}
                     fontSize={"3xl"}
                 >
                     &larr;
                 </Button>
-                <Text fontSize={"3xl"} textAlign="center" minWidth="120px">{monthNames[month%12]}</Text>
+                <Text fontSize={"3xl"} textAlign="center" minWidth="120px">{monthNames[Math.abs(month%12)]}</Text>
                 <Button 
                     onClick={() => setMonth(prev => prev + 1)}
                     style={{
@@ -37,6 +38,7 @@ const CalendarNavbar = ({ month, setMonth }) => {
                         border: 'none', 
                         cursor: 'pointer' 
                     }}
+                    color={"var(--text-primary)"}
                     fontSize={"3xl"}
                 >
                     &rarr;
@@ -44,7 +46,7 @@ const CalendarNavbar = ({ month, setMonth }) => {
             </Box>
             {/* Right: Button */}
             <Box>
-                <Button onClick={() => setIsOpen(true)}>
+                <Button onClick={() => setIsOpen(true)} size={"sm"}>
                     Official
                 </Button>
             </Box>

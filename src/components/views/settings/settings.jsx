@@ -253,7 +253,7 @@ const Settings = () => {
                 <Box mt={4} borderTop="1px" borderColor="gray.300" pt={4}>
                     <Flex justify="space-between" align="center">
                         <Box fontSize="sm" width={"60%"}>
-                          This is the new HSE Schedule app. Share your feedback or suggestions!
+                        Share your feedback or suggestions!
                         </Box>
                         <Button 
                             as="a" 
