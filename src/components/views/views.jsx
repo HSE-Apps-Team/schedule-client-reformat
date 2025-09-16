@@ -31,7 +31,7 @@ const Views = ( props ) => {
 
     return (
         <Box height={"100vh"}>
-            <Box height={"10%"} width={"100%"} />
+            <Box height={"10%"} width={"100%"} overflow={"hidden"} />
                 <Center height={"80%"}>
                     {/* {props.loading && <CircularProgress isIndeterminate size={mobile ? window.innerWidth * 0.85 : window.innerHeight * 0.85} thickness={3.5} capIsRound={true} color="var(--color-primary)" trackColor="var(--background-secondary)"/>} */}
                     {props.loading && <Loading loading={props.loading}/>}

@@ -5,10 +5,13 @@ import CalendarNavbar from "./Navbar";
 import Calendar from "./Component/Calendar";
 import CalendarSidebar from "./Sidebar";
 import EventKey from "./EventKey";
+import { useDeviceType } from "../../../hooks/useDeviceType";
 
 import CalendarSelector from "./Images"
 import DayKey from "./DayKey";
 const CalendarView = ({ loading, setLoading }) => {
+    const { view, setView } = useState(0);
+    const { deviceType } = useDeviceType();
     const [month, setMonth] = useState("");
     const [daySelected, setDaySelected] = useState("");
     const [year, setYear] = useState("");
@@ -21,30 +24,9 @@ const CalendarView = ({ loading, setLoading }) => {
 
         setLoading(false);
     }, []);
+    
 
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const checkIfMobile = () => {
-            let mobile = false;
-            if (window.innerWidth < 1000) {
-                mobile = true;
-            }
-            else if (window.innerHeight < 625) {
-                mobile = true;
-            }
-            setIsMobile(mobile);
-        };
-        
-        checkIfMobile();
-        window.addEventListener('resize', checkIfMobile);
-        
-        return () => {
-            window.removeEventListener('resize', checkIfMobile);
-        };
-    }, []);
-
-    if (isMobile)  {
+    if (deviceType == 2 || view == 1)  {
         return (
             <Box display={"flex"} flexDirection={"column"} width={"100%"} alignItems={"center"} p={4} gap={4} >
                 <CalendarSelector loading={loading} setLoading={setLoading} />
@@ -58,34 +40,36 @@ const CalendarView = ({ loading, setLoading }) => {
         );
     }
     return (
-        <Box display={"flex"} flexDirection={"column"} width={"75%"} alignItems={"center"} marginTop={"50"} >
-            <Box width={"53%"} alignItems={"center"} display={"flex"} flexDirection={"column"}>
-                <CalendarNavbar month={month} setMonth={setMonth} />
-                <Text color={"var(--text-secondary)"} fontSize={"sm"}>
-                    Calendar is currently in a testing beta. Report bugs and errors <u><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=PkZ4tvvZX0eBU43PqJYEfW78XFXJ5Q5Fsb3Z-zQt2UBUOFFFNjdPS1dWWTJVVVZTVDhXRVQ5TVhXVS4u">here.</a></u>
-                </Text>
-            </Box>
-            <Box display={"flex"} flexDirection={"row"} gap={10} width={"100%"} justifyContent={"center"} pb={10}>
-                <Box flex={"2"} display={"flex"} flexDirection={"column"} alignContent={"flex-end"}>
-                    <DayKey />
-
+        <Box display={"flex"} flexDirection={"row"} width={"100%"} height={"100%"} alignItems={"flex-start"} justifyContent={"center"}>
+            <Box display={"flex"} flexDirection={"column"} width={"75%"} alignItems={"center"} marginTop={5} >
+                <Box width={"53%"} minWidth={"fit-content"} alignItems={"center"} display={"flex"} flexDirection={"column"}>
+                    <CalendarNavbar month={month} setMonth={setMonth} setView={setView} />
+                    <Text color={"var(--text-secondary)"} fontSize={"xs"}>
+                        Calendar is currently in a testing beta. Report bugs and errors <u><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=PkZ4tvvZX0eBU43PqJYEfW78XFXJ5Q5Fsb3Z-zQt2UBUOFFFNjdPS1dWWTJVVVZTVDhXRVQ5TVhXVS4u">here.</a></u>
+                    </Text>
                 </Box>
-                <Box flex={"5"} width={"100%"} >
-                    <Calendar month={month} year={year} daySelected={daySelected} setDaySelected={setDaySelected} />
+                <Box display={"flex"} flexDirection={"row"} gap={10} width={"100%"} justifyContent={"center"}>
+                    <Box flex={"2"} display={"flex"} flexDirection={"column"} alignContent={"flex-end"}>
+                        <DayKey />
 
-                </Box>
-                <Box 
-                    flex={"2"} 
-                    // display={"flex"} 
-                    // flexDirection={"column"} 
-                    // justifyContent={"space-between"}
-                >
-                    <CalendarSidebar daySelected={daySelected} month={month} year={year} />
-                    {/* <EventKey /> */}
+                    </Box>
+                    <Box flex={"5"} height={"70vh"} minW={deviceType > 0 ? "550px" : "675px"} overflowY={"scroll"} paddingBottom={"60px"}>
+                        <Calendar month={month} year={year} daySelected={daySelected} setDaySelected={setDaySelected} />
+
+                    </Box>
+                    <Box 
+                        flex={"2"} 
+                        // display={"flex"} 
+                        // flexDirection={"column"} 
+                        // justifyContent={"space-between"}
+                        >
+                        <CalendarSidebar daySelected={daySelected} month={month} year={year} />
+                        {/* <EventKey /> */}
+                    </Box>
                 </Box>
             </Box>
         </Box>
-    )
+    );
 
 }
 

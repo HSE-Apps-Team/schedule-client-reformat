@@ -1,11 +1,16 @@
 import {Box, Text} from "@chakra-ui/react";
+import { useDeviceType} from "../../../../hooks/useDeviceType";
 
 const CalendarDay = ({ date, isSelected, onClick, children, style, dayColor, eventColors = [] }) => {
+    const { deviceType } = useDeviceType();
+
+    console.log("Current device type:", deviceType);
+
     return (
         <Box
             p={2}
-            minWidth={"20"}
-            minHeight={"20"}
+            width={ deviceType == 0 ? "20" : "16"}
+            height={ deviceType == 0 ? "20" : "16"}
             borderBottom={`10px solid ${dayColor}`}
             textAlign="center"
             bg={isSelected ? "var(--accent-background)" : "var(--background-secondary)"}
@@ -33,7 +38,7 @@ const CalendarDay = ({ date, isSelected, onClick, children, style, dayColor, eve
                     ))}
                 </Box>
             )}
-            <Text fontSize="xl">{children}</Text>
+            <Text fontSize="lg">{children}</Text>
         </Box>
     );
 };
