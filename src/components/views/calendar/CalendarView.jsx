@@ -44,18 +44,17 @@ const CalendarView = ({ loading, setLoading }) => {
             <Box 
                 display={"flex"}
                 flexDirection={"column"}
-                height=""
+                height="1000px"
                 gap={2}
                 boxSizing={"border-box"}
-                minHeight={"min-content"}
-                paddingTop={52}
-                paddingBottom={20}
+                paddingTop={60}
+                marginBottom={0}
+
             >
                 <Box minWidth="300px">
                     <CalendarNavbar month={month} setMonth={setMonth} setView={setView} />
                 </Box>
                 <Box 
-                    overflowY={"auto"} 
                     width={"100%"}
                     boxSizing={"border-box"}
                 >
