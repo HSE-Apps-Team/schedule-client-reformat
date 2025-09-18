@@ -4,6 +4,8 @@ import { Box, Text } from "@chakra-ui/react";
 import CalendarDay from "./Day";
 import { getDayCache, getEvents2, getEventTypes } from "../../../../api/api";
 
+import { useDeviceType } from "../../../../hooks/useDeviceType";
+
 // Dynamic Calendar Component, allows for custom styling of all attributes
 
 const DAY_COLORS = {
@@ -28,6 +30,8 @@ const Calendar = ({ month, year, daySelected, setDaySelected }) => {
     const [dayCache, setDayCache] = useState([]);
     const [eventsByDate, setEventsByDate] = useState({});
     const [eventTypes, setEventTypes] = useState([]);
+
+    const { deviceType } = useDeviceType();
 
     useEffect(() => {
         // Get the full range for the calendar grid (including prev/next month days)
@@ -93,7 +97,7 @@ const Calendar = ({ month, year, daySelected, setDaySelected }) => {
 
     return (
         <Box display="flex" alignContent="center" justifyContent="center">
-            <Box display="grid" gridTemplateColumns="repeat(7, 1fr)" gridGap={1} fontSize={"xl"} maxWidth={"min-content"}>
+            <Box display="grid" gridTemplateColumns="repeat(7, 1fr)" gridGap={deviceType === 2 ? "0" : 1} fontSize={"xl"} maxWidth={"min-content"}>
                 {/* Week day headers */}
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
                     <Box key={day} p={1} textAlign="center">

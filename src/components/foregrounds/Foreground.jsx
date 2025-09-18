@@ -12,11 +12,11 @@ const Foreground = ( props ) => {
     return (
         <Box>
             <Announcements />
-            <Box height={"10vh"}>
+            <Box height={"10vh"} pointerEvents={"auto"}>
                 <Navbar />
             </Box>
             <Center position="absolute" top={"90vh"} width={"100%"}>
-                <Box>
+                <Box pointerEvents={"auto"}>
                     <ViewSelector view={props.view} setView={props.setView} setLoading={props.setLoading} width={"fit-content"}/>
                 </Box>
             </Center>
