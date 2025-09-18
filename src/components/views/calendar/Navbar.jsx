@@ -1,6 +1,7 @@
 import {Text, Box, Button, Modal, ModalBody, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalCloseButton} from "@chakra-ui/react";
 import { useState } from "react";
 import CalendarSelector from "./ImagesModal";
+import { useDeviceType } from "../../../hooks/useDeviceType";
 
 const CalendarNavbar = ({ month, setMonth }) => {
     const monthNames = [
@@ -8,6 +9,9 @@ const CalendarNavbar = ({ month, setMonth }) => {
         'July', 'August', 'September', 'October', 'November', 'December'
     ];
     const [isOpen, setIsOpen] = useState(false);
+    const { deviceType } = useDeviceType();
+
+
 
     return (
         <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" width="100%" bg={"var(--background-secondary)"} borderRadius={"lg"} p={3}>
@@ -26,11 +30,11 @@ const CalendarNavbar = ({ month, setMonth }) => {
                         cursor: 'pointer' 
                     }}
                     color={"var(--text-primary)"}
-                    fontSize={"3xl"}
+                    fontSize={deviceType !== 2 ? "3xl" : "xl"}
                 >
                     &larr;
                 </Button>
-                <Text fontSize={"3xl"} textAlign="center" minWidth="120px">{monthNames[Math.abs(month%12)]}</Text>
+                <Text fontSize={deviceType !== 2 ? "3xl" : "xl"} textAlign="center" minWidth="120px">{monthNames[Math.abs(month%12)]}</Text>
                 <Button 
                     onClick={() => setMonth(prev => prev + 1)}
                     style={{
@@ -39,7 +43,7 @@ const CalendarNavbar = ({ month, setMonth }) => {
                         cursor: 'pointer' 
                     }}
                     color={"var(--text-primary)"}
-                    fontSize={"3xl"}
+                    fontSize={deviceType !== 2 ? "3xl" : "xl"}
                 >
                     &rarr;
                 </Button>

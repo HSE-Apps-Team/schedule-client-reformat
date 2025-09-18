@@ -9,8 +9,8 @@ const CalendarDay = ({ date, isSelected, onClick, children, style, dayColor, eve
     return (
         <Box
             p={2}
-            width={ deviceType == 0 ? "20" : "16"}
-            height={ deviceType == 0 ? "20" : "16"}
+            width={ deviceType == 0 ? "20" : deviceType == 2 ? "12" : "16"}
+            height={ deviceType == 0 ? "20" : deviceType == 2 ? "12" : "16"}
             borderBottom={`10px solid ${dayColor}`}
             textAlign="center"
             bg={isSelected ? "var(--accent-background)" : "var(--background-secondary)"}

@@ -26,7 +26,7 @@ const CalendarView = ({ loading, setLoading }) => {
     }, []);
     
 
-    if (deviceType == 2 || view == 1)  {
+    if (false)  {
         return (
             <Box display={"flex"} flexDirection={"column"} width={"100%"} alignItems={"center"} p={4} gap={4} >
                 <CalendarSelector loading={loading} setLoading={setLoading} />
@@ -39,6 +39,41 @@ const CalendarView = ({ loading, setLoading }) => {
             </Box>
         );
     }
+    if (deviceType == 2 || view == 1) {
+        return (
+            <Box 
+                display={"flex"}
+                flexDirection={"column"}
+                height="1000px"
+                gap={2}
+                boxSizing={"border-box"}
+                paddingTop={60}
+                marginBottom={0}
+
+            >
+                <Box minWidth="300px">
+                    <CalendarNavbar month={month} setMonth={setMonth} setView={setView} />
+                </Box>
+                <Box 
+                    width={"100%"}
+                    boxSizing={"border-box"}
+                >
+                    <Calendar month={month} year={year} daySelected={daySelected} setDaySelected={setDaySelected} />
+                    <Box
+                        display={"flex"}
+                        justifyContent={"space-around"}
+                        flexDirection={"row"}
+                        marginTop={2}
+                        paddingX={2}
+                    >
+                        <CalendarSidebar daySelected={daySelected} month={month} year={year} />
+                        <DayKey />
+                    </Box>
+                </Box>
+            </Box>
+        );
+    }
+
     return (
         <Box display={"flex"} flexDirection={"row"} width={"100%"} height={"100%"} alignItems={"flex-start"} justifyContent={"center"}>
             <Box display={"flex"} flexDirection={"column"} width={"75%"} alignItems={"center"} marginTop={5} >
