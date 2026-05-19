@@ -8,11 +8,11 @@ import Weather from "../../../graphics/weather/WeatherBackground";
 // adds themes in the background, so that it will look cool
 
 const ThemeEffect = ( props ) => {
-    const { settings } = useSettings();
+    const { settings, breakClockConfetti } = useSettings();
     return (
         <Box height="100%" width="100%">
             
-            {/* {settings.confetti && <Confetti />} */}
+            {breakClockConfetti && <Confetti />}
             {settings.weatherEffects && <Weather />}
             {/* {<Weather />} */}
         </Box>

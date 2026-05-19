@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { getClock } from "../api/api";
 
 // This makes a really good version of settings 
 // so that you can just call the hook, get the settings object, and get settings immediately. 
@@ -15,9 +16,16 @@ const defaultSettings = {
     themeMode: "dark",
     themeStyle: "normal", // 
     seniorPrank: false, // for end of school
-    confetti: true, // for end of school
     showTimerInTitle: false, // for showing timer in title
     weatherEffects: false
+};
+
+const sanitizeSettings = (storedSettings = {}) => {
+    const { confetti: _confetti, ...rest } = storedSettings;
+    return {
+        ...defaultSettings,
+        ...rest,
+    };
 };
 
 const SettingsContext = createContext();
@@ -25,19 +33,46 @@ const SettingsContext = createContext();
 export const SettingsProvider = ({ children }) => {
     const [settings, setSettings] = useState(() => {
         const storedSettings = localStorage.getItem("settings");
-        return storedSettings ? JSON.parse(storedSettings) : defaultSettings;
+        return storedSettings ? sanitizeSettings(JSON.parse(storedSettings)) : defaultSettings;
     });
+    const [breakClockConfetti, setBreakClockConfetti] = useState(false);
+
+    useEffect(() => {
+        const syncBreakClock = async () => {
+            try {
+                const response = await getClock();
+                const endDate = response?.data?.End_Date;
+
+                if (!endDate) {
+                    setBreakClockConfetti(false);
+                    return;
+                }
+
+                setBreakClockConfetti(Date.now() >= new Date(endDate).getTime());
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        syncBreakClock();
+        const intervalId = setInterval(syncBreakClock, 15000);
+
+        return () => clearInterval(intervalId);
+    }, []);
 
     useEffect(() => {
         localStorage.setItem("settings", JSON.stringify(settings));
     }, [settings]);
 
     const updateSettings = (newSettings) => {
-        setSettings((prevSettings) => ({ ...prevSettings, ...newSettings }));
+        setSettings((prevSettings) => {
+            const { confetti: _confetti, ...safeSettings } = newSettings;
+            return sanitizeSettings({ ...prevSettings, ...safeSettings });
+        });
     };
 
     return (  
-        <SettingsContext.Provider value={{ settings, updateSettings }}>
+        <SettingsContext.Provider value={{ settings, updateSettings, breakClockConfetti, setBreakClockConfetti }}>
             {children}
         </SettingsContext.Provider>
     );

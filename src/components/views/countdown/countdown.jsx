@@ -14,7 +14,7 @@ import { Text, Box, Center } from "@chakra-ui/react";
 // You should have seen the old version, it was atrocious...
 
 
-const Countdown = ({ loading, setLoading, view, setConfetti }) => {
+const Countdown = ({ loading, setLoading, view }) => {
 //  const vh = use100vh();
   const mobile = useMedia(
     ["(min-width: 750px)", "(max-width: 750px)"],
@@ -48,7 +48,7 @@ const Countdown = ({ loading, setLoading, view, setConfetti }) => {
     <Box display={"flex"} height={"100%"} flexDirection={"column"} justifyContent={"center"} paddingBottom={"200px"}>
       <Text fontSize={mobile ? "3xl" : "6xl"} paddingBottom={"10px"} textAlign={"center"}>{name}</Text>
       <Box display={"flex"} alignItems={"center"} flexDirection={"column"}>
-        <Flip to={endDate} mobile={mobile} view={view} loading={loading} setLoading={setLoading} setConfetti={setConfetti}/>
+        <Flip to={endDate} mobile={mobile} view={view} loading={loading} setLoading={setLoading}/>
         <Box display={"flex"} flexDirection={"row"} width={"70vw"} justifyContent={"space-around"} fontSize={"3vw"}>
           <Center width={"25%"} margin={"0 0.5vw"}>Days</Center>
           <Center width={"25%"} margin={"0 0.5vw"}>Hours</Center>

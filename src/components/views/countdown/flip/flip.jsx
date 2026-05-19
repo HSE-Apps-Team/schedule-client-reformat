@@ -158,11 +158,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import Tick from "@pqina/flip";
 import "@pqina/flip/dist/flip.min.css";
+import { useSettings } from "../../../../hooks/useSettings";
 
 const Flip = ({ to, loading, setLoading }) => {
     const divRef = useRef();
     const tickRef = useRef();
     const [tickValue, setTickValue] = useState("0000"); // This creates a 00:00:00:00 format
+    const { setBreakClockConfetti } = useSettings();
 
     useEffect(() => {
         const didInit = (tick) => {
@@ -185,14 +187,20 @@ const Flip = ({ to, loading, setLoading }) => {
             format: ['d', 'h', 'm', 's'],
         });
 
+        const targetTime = new Date(to).getTime();
+        const isPastTarget = () => Date.now() >= targetTime;
+
+        setBreakClockConfetti(isPastTarget());
+
         counter.onupdate = function(value) {
             setTickValue(value);
+            setBreakClockConfetti(isPastTarget());
         };
         counter.onend = function() {
-            // setConfetti(true);
+            setBreakClockConfetti(true);
         };
 
-    }, [to]);
+    }, [to, setBreakClockConfetti]);
 
     useEffect(() => {
         if (tickRef.current) {
