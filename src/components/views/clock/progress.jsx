@@ -37,6 +37,16 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime, userL
       const userLunchPeriod = period.lunchPeriods[userLunchType];
 
       switch (lunchStatus) { // Use lunchStatus directly as a string
+        // Bag drop off only exists on B lunch (added for 4 to 3 lunch switch)
+        case "BAG_DROP_OFF":
+          if (userLunchPeriod.bagDropOff) {
+            // Progress within the bag drop off window itself
+            range = userLunchPeriod.bagDropOff.endTimeUnix - userLunchPeriod.bagDropOff.startTimeUnix;
+            diffFromStart = currentTime - userLunchPeriod.bagDropOff.startTimeUnix;
+            targetPeriod = userLunchPeriod.bagDropOff;
+            break;
+          }
+          // fall through to BEFORE behavior if bagDropOff is somehow missing
         case "DURING":
           // Progress within the user's specific lunch period
           range = userLunchPeriod.endTimeUnix - userLunchPeriod.startTimeUnix;
@@ -98,6 +108,8 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime, userL
         >
           {period.lunchPeriods && userLunchType // Use userLunchType for display
             ? {
+              // Bag drop off only exists on B lunch (added for 4 to 3 lunch switch)
+              BAG_DROP_OFF: `Until Bag Drop Off Ends`,
               DURING: `Until ${userLunchType} Lunch Ends`,
               BEFORE: `Until ${userLunchType} Lunch`,
               // Bag pickup only exists on D lunch (added for 4 to 3 lunch switch)

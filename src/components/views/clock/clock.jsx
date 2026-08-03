@@ -38,6 +38,8 @@ const LUNCH_STATUS = {
   AFTER: "AFTER",
   // BAG_PICKUP is only reachable for D lunch, since bagPickup only ever exists on lunchPeriods.D
   BAG_PICKUP: "BAG_PICKUP",
+  // BAG_DROP_OFF is only reachable for B lunch, since bagDropOff only ever exists on lunchPeriods.B
+  BAG_DROP_OFF: "BAG_DROP_OFF",
 };
 
 const Clock = ({ loading, setLoading }) => {
@@ -104,7 +106,14 @@ const Clock = ({ loading, setLoading }) => {
       return LUNCH_STATUS.NONE;
     }
 
-    if (time < userLunchPeriod.startTimeUnix) {
+    if (
+      // Bag drop off only exists on B lunch (added for 4 to 3 lunch switch)
+      userLunchPeriod.bagDropOff &&
+      time >= userLunchPeriod.bagDropOff.startTimeUnix &&
+      time < userLunchPeriod.bagDropOff.endTimeUnix
+    ) {
+      return LUNCH_STATUS.BAG_DROP_OFF;
+    } else if (time < userLunchPeriod.startTimeUnix) {
       return LUNCH_STATUS.BEFORE;
     } else if (time >= userLunchPeriod.startTimeUnix && time < userLunchPeriod.endTimeUnix) {
       return LUNCH_STATUS.DURING;
@@ -144,6 +153,14 @@ const Clock = ({ loading, setLoading }) => {
               ...value.bagPickup,
               startTimeUnix: dayjs(value.bagPickup.startTime, "h:mm A").valueOf(),
               endTimeUnix: dayjs(value.bagPickup.endTime, "h:mm A").valueOf(),
+            };
+          }
+          // Bag drop off only exists on B lunch (added for 4 to 3 lunch switch)
+          if (value.bagDropOff) {
+            acc[key].bagDropOff = {
+              ...value.bagDropOff,
+              startTimeUnix: dayjs(value.bagDropOff.startTime, "h:mm A").valueOf(),
+              endTimeUnix: dayjs(value.bagDropOff.endTime, "h:mm A").valueOf(),
             };
           }
           return acc;
@@ -204,7 +221,14 @@ const Clock = ({ loading, setLoading }) => {
     const currentLunchStatus = getLunchStatus(currentPeriod, currentTime);
     const userSpecificLunchPeriod = currentPeriod.lunchPeriods ? currentPeriod.lunchPeriods[userLunchType] : null;
     
-    if (userSpecificLunchPeriod && currentLunchStatus === LUNCH_STATUS.DURING) {
+    if (
+      // Bag drop off only exists on B lunch (added for 4 to 3 lunch switch)
+      userSpecificLunchPeriod?.bagDropOff &&
+      currentLunchStatus === LUNCH_STATUS.BAG_DROP_OFF
+    ) {
+      const bagDropOffRemaining = userSpecificLunchPeriod.bagDropOff.endTimeUnix - currentTime;
+      return `${formatTimeRemaining(bagDropOffRemaining)} until bag drop off ends`;
+    } else if (userSpecificLunchPeriod && currentLunchStatus === LUNCH_STATUS.DURING) {
       // Calculate time until lunch ends
       const lunchRemaining = userSpecificLunchPeriod.endTimeUnix - currentTime;
       return `${formatTimeRemaining(lunchRemaining)} until lunch ends`;
@@ -343,7 +367,13 @@ const Clock = ({ loading, setLoading }) => {
       const userSpecificLunchPeriod = period.lunchPeriods ? period.lunchPeriods[userLunchType] : null;
 
       if (userSpecificLunchPeriod) {
-        if (currentLunchStatus === LUNCH_STATUS.DURING) {
+        if (
+          // Bag drop off only exists on B lunch (added for 4 to 3 lunch switch)
+          currentLunchStatus === LUNCH_STATUS.BAG_DROP_OFF &&
+          userSpecificLunchPeriod.bagDropOff
+        ) {
+          relevantEndTime = userSpecificLunchPeriod.bagDropOff.endTimeUnix;
+        } else if (currentLunchStatus === LUNCH_STATUS.DURING) {
           relevantEndTime = userSpecificLunchPeriod.endTimeUnix;
         } else if (currentLunchStatus === LUNCH_STATUS.BEFORE) {
           relevantEndTime = userSpecificLunchPeriod.startTimeUnix;
