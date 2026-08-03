@@ -122,13 +122,14 @@ const Settings = () => {
                             onChange={(value) => handleChange("blueDayLunch", value)}
                         >
                             <Stack direction="row" spacing={3}>
-                                {['a', 'b', 'c', 'd'].map((value) => (
-                                    <Box 
-                                        key={value} 
-                                        px={3} 
-                                        py={1} 
-                                        borderRadius="md" 
-                                        bg={localSettings.blueDayLunch === value ? "var(--color-primary)" : "var(--accent-background)"} 
+                                {/* ['a', 'b', 'c', 'd'] commented out for 4 to 3 lunch switch */}
+                                {['b', 'c', 'd'].map((value) => (
+                                    <Box
+                                        key={value}
+                                        px={3}
+                                        py={1}
+                                        borderRadius="md"
+                                        bg={localSettings.blueDayLunch === value ? "var(--color-primary)" : "var(--accent-background)"}
                                         color={localSettings.blueDayLunch === value ? 'var(--text-contrast)' : 'var(--text-secondary)'}
                                         cursor="pointer"
                                         onClick={() => handleChange("blueDayLunch", value)}
@@ -147,13 +148,14 @@ const Settings = () => {
                             onChange={(value) => handleChange("grayDayLunch", value)}
                         >
                             <Stack direction="row" spacing={3}>
-                                {['a', 'b', 'c', 'd'].map((value) => (
-                                    <Box 
-                                        key={value} 
-                                        px={3} 
-                                        py={1} 
-                                        borderRadius="md" 
-                                        bg={localSettings.grayDayLunch === value ? "var(--color-primary)" : "var(--accent-background)"} 
+                                {/* ['a', 'b', 'c', 'd'] commented out for 4 to 3 lunch switch */}
+                                {['b', 'c', 'd'].map((value) => (
+                                    <Box
+                                        key={value}
+                                        px={3}
+                                        py={1}
+                                        borderRadius="md"
+                                        bg={localSettings.grayDayLunch === value ? "var(--color-primary)" : "var(--accent-background)"}
                                         color={localSettings.grayDayLunch === value ? 'var(--text-contrast)' : 'var(--text-secondary)'}
                                         cursor="pointer"
                                         onClick={() => handleChange("grayDayLunch", value)}

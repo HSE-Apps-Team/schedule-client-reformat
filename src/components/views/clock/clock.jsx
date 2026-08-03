@@ -36,6 +36,8 @@ const LUNCH_STATUS = {
   BEFORE: "BEFORE",
   DURING: "DURING",
   AFTER: "AFTER",
+  // BAG_PICKUP is only reachable for D lunch, since bagPickup only ever exists on lunchPeriods.D
+  BAG_PICKUP: "BAG_PICKUP",
 };
 
 const Clock = ({ loading, setLoading }) => {
@@ -106,6 +108,13 @@ const Clock = ({ loading, setLoading }) => {
       return LUNCH_STATUS.BEFORE;
     } else if (time >= userLunchPeriod.startTimeUnix && time < userLunchPeriod.endTimeUnix) {
       return LUNCH_STATUS.DURING;
+    } else if (
+      // Bag pickup only exists on D lunch (added for 4 to 3 lunch switch)
+      userLunchPeriod.bagPickup &&
+      time >= userLunchPeriod.bagPickup.startTimeUnix &&
+      time < userLunchPeriod.bagPickup.endTimeUnix
+    ) {
+      return LUNCH_STATUS.BAG_PICKUP;
     } else {
       return LUNCH_STATUS.AFTER;
     }
@@ -129,6 +138,14 @@ const Clock = ({ loading, setLoading }) => {
             startTimeUnix: dayjs(value.startTime, "h:mm A").valueOf(),
             endTimeUnix: dayjs(value.endTime, "h:mm A").valueOf(),
           };
+          // Bag pickup only exists on D lunch (added for 4 to 3 lunch switch)
+          if (value.bagPickup) {
+            acc[key].bagPickup = {
+              ...value.bagPickup,
+              startTimeUnix: dayjs(value.bagPickup.startTime, "h:mm A").valueOf(),
+              endTimeUnix: dayjs(value.bagPickup.endTime, "h:mm A").valueOf(),
+            };
+          }
           return acc;
         }, {});
       }
@@ -195,6 +212,13 @@ const Clock = ({ loading, setLoading }) => {
       // Calculate time until lunch starts
       const timeToLunch = userSpecificLunchPeriod.startTimeUnix - currentTime;
       return `${formatTimeRemaining(timeToLunch)} until lunch starts`;
+    } else if (
+      // Bag pickup only exists on D lunch (added for 4 to 3 lunch switch)
+      userSpecificLunchPeriod?.bagPickup &&
+      currentLunchStatus === LUNCH_STATUS.BAG_PICKUP
+    ) {
+      const bagPickupRemaining = userSpecificLunchPeriod.bagPickup.endTimeUnix - currentTime;
+      return `${formatTimeRemaining(bagPickupRemaining)} until bag pickup ends`;
     } else {
       return `${formatTimeRemaining(remaining)} until ${currentPeriod.periodName} ends`;
     }
@@ -323,6 +347,12 @@ const Clock = ({ loading, setLoading }) => {
           relevantEndTime = userSpecificLunchPeriod.endTimeUnix;
         } else if (currentLunchStatus === LUNCH_STATUS.BEFORE) {
           relevantEndTime = userSpecificLunchPeriod.startTimeUnix;
+        } else if (
+          // Bag pickup only exists on D lunch (added for 4 to 3 lunch switch)
+          currentLunchStatus === LUNCH_STATUS.BAG_PICKUP &&
+          userSpecificLunchPeriod.bagPickup
+        ) {
+          relevantEndTime = userSpecificLunchPeriod.bagPickup.endTimeUnix;
         } else if (currentLunchStatus === LUNCH_STATUS.AFTER) {
           relevantEndTime = period.endTimeUnix;
         } else {

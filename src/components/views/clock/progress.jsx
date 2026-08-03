@@ -48,8 +48,18 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime, userL
           range = userLunchPeriod.startTimeUnix - period.startTimeUnix;
           diffFromStart = currentTime - period.startTimeUnix;
           break;
+        // Bag pickup only exists on D lunch (added for 4 to 3 lunch switch)
+        case "BAG_PICKUP":
+          if (userLunchPeriod.bagPickup) {
+            // Progress within the bag pickup window itself
+            range = userLunchPeriod.bagPickup.endTimeUnix - userLunchPeriod.bagPickup.startTimeUnix;
+            diffFromStart = currentTime - userLunchPeriod.bagPickup.startTimeUnix;
+            targetPeriod = userLunchPeriod.bagPickup;
+            break;
+          }
+          // fall through to AFTER behavior if bagPickup is somehow missing
         case "AFTER":
-          // Progress from the end of lunch until the end of the current period
+          // Progress from the end of lunch (or bag pickup) until the end of the current period
           range = period.endTimeUnix - userLunchPeriod.endTimeUnix;
           diffFromStart = currentTime - userLunchPeriod.endTimeUnix;
           // Ensure diffFromStart doesn't go negative if currentTime is exactly at lunch end
@@ -90,6 +100,8 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime, userL
             ? {
               DURING: `Until ${userLunchType} Lunch Ends`,
               BEFORE: `Until ${userLunchType} Lunch`,
+              // Bag pickup only exists on D lunch (added for 4 to 3 lunch switch)
+              BAG_PICKUP: `Until Bag Pickup Ends`,
               AFTER: nextPeriod ? `Until ${period.periodName} Ends` : `Until School Ends`,
             }[lunchStatus] // Use lunchStatus directly
             : `Until ${period.periodName} Ends`}

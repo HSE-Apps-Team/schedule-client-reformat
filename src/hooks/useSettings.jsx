@@ -10,21 +10,32 @@ const defaultSettings = {
     // darkmode: false,
     // royalLunch: "A",  // Old setting key
     // grayLunch: "A",   // Old setting key
-    blueDayLunch: "a", // New setting key (lowercase to match the settings UI)
-    grayDayLunch: "a", // New setting key (lowercase to match the settings UI)
+    // blueDayLunch: "a", // commented out for 4 to 3 lunch switch
+    // grayDayLunch: "a", // commented out for 4 to 3 lunch switch
+    blueDayLunch: "b", // New setting key (lowercase to match the settings UI)
+    grayDayLunch: "b", // New setting key (lowercase to match the settings UI)
     snow: true, //for winter
     themeMode: "dark",
-    themeStyle: "normal", // 
+    themeStyle: "normal", //
     seniorPrank: false, // for end of school
     showTimerInTitle: false, // for showing timer in title
     weatherEffects: false
 };
 
+// commented out for 4 to 3 lunch switch: "a" is no longer a valid lunch letter,
+// so any user with a previously stored "a" is migrated to "b" below.
+const migrateLunchLetter = (lunch) => (lunch === "a" ? "b" : lunch);
+
 const sanitizeSettings = (storedSettings = {}) => {
     const { confetti: _confetti, ...rest } = storedSettings;
-    return {
+    const merged = {
         ...defaultSettings,
         ...rest,
+    };
+    return {
+        ...merged,
+        blueDayLunch: migrateLunchLetter(merged.blueDayLunch),
+        grayDayLunch: migrateLunchLetter(merged.grayDayLunch),
     };
 };
 
