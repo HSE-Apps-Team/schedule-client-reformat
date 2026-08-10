@@ -79,9 +79,6 @@ const CalendarView = ({ loading, setLoading }) => {
             <Box display={"flex"} flexDirection={"column"} width={"75%"} alignItems={"center"} marginTop={5} >
                 <Box width={"53%"} minWidth={"fit-content"} alignItems={"center"} display={"flex"} flexDirection={"column"}>
                     <CalendarNavbar month={month} setMonth={setMonth} setView={setView} />
-                    <Text color={"var(--text-secondary)"} fontSize={"xs"}>
-                        Calendar is currently in a testing beta. Report bugs and errors <u><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=PkZ4tvvZX0eBU43PqJYEfW78XFXJ5Q5Fsb3Z-zQt2UBUOFFFNjdPS1dWWTJVVVZTVDhXRVQ5TVhXVS4u">here.</a></u>
-                    </Text>
                 </Box>
                 <Box display={"flex"} flexDirection={"row"} gap={10} width={"100%"} justifyContent={"center"}>
                     <Box flex={"2"} display={"flex"} flexDirection={"column"} alignContent={"flex-end"}>
