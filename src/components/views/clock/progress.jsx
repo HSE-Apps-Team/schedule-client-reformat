@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react"; // Added useCal
 import { CircularProgress, CircularProgressLabel, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import useMedia from "../../../hooks/useMedia";
+import { useSettings } from "../../../hooks/useSettings";
 // useSettings is not strictly needed in Progress anymore if lunchType is passed from Clock
 
 // good luck trying to change this. I used ai because it was so bad. This was from the previous version. Its too ugly to change without a full refactor AGAIN.
@@ -26,8 +27,13 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime, userL
   // }, [settings]);
 
 
-  const genPercent = useCallback(() => { // Wrap in useCallback for performance
-    if (!period) return 0;
+  const { settings } = useSettings();
+
+  // Returns { range, diffFromStart } for the currently active countdown segment
+  // (regular period, lunch, bag drop off/pickup, etc.) so both the percentage
+  // and the remaining-time check use identical logic.
+  const genSegment = useCallback(() => {
+    if (!period) return null;
 
     let range, diffFromStart;
     let targetPeriod = period; // Default to the current period
@@ -86,12 +92,31 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime, userL
       diffFromStart = currentTime - period.startTimeUnix;
     }
 
+    return { range, diffFromStart };
+  }, [period, currentTime, lunchStatus, userLunchType]); // Add dependencies
+
+  const genPercent = useCallback(() => {
+    const segment = genSegment();
+    if (!segment) return 0;
+    const { range, diffFromStart } = segment;
+
     // Handle division by zero for very short periods or if range is 0 for some reason
     if (range <= 0) return 100; // Or 0, depending on desired behavior for zero-length periods
 
     const percentage = (diffFromStart / range) * 100;
     return Math.min(100, Math.max(0, percentage)); // Clamp between 0 and 100
-  }, [period, currentTime, lunchStatus, userLunchType]); // Add dependencies
+  }, [genSegment]);
+
+  const isCountdownWarning = useCallback(() => {
+    const warningMinutes = settings.countdownWarningMinutes;
+    if (!warningMinutes) return false;
+    const segment = genSegment();
+    if (!segment) return false;
+    const { range, diffFromStart } = segment;
+    if (range <= 0) return false;
+    const remainingMs = range - diffFromStart;
+    return remainingMs > 0 && remainingMs <= warningMinutes * 60 * 1000;
+  }, [genSegment, settings.countdownWarningMinutes]);
 
   const renderTimerText = () => {
     if (!period) return "Loading...";
@@ -121,11 +146,13 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime, userL
       </>
     );
   };
+  const warning = isCountdownWarning();
+
   return (
     <div>
       <CircularProgress
         trackColor="var(--background-secondary)"
-        color="var(--color-primary)"
+        color={warning ? "#d10f41" : "var(--color-primary)"}
         thickness={3.5}
         size={mobile ? window.innerWidth * 0.85 : 580}
         value={genPercent()}

@@ -216,6 +216,31 @@ const Settings = () => {
                             </Stack>
                         </RadioGroup>
                     </Flex>
+                    <Flex justify="space-between" align="center">
+                        <Box fontWeight="medium">Countdown Warning (Mins left)</Box>
+                        <RadioGroup
+                            id="countdownWarningMinutes"
+                            value={String(localSettings.countdownWarningMinutes)}
+                            onChange={(value) => handleChange("countdownWarningMinutes", Number(value))}
+                        >
+                            <Stack direction="row" spacing={3}>
+                                {[{label: 'Off', value: 0}, {label: '1', value: 1}, {label: '2', value: 2}, {label: '5', value: 5}].map((option) => (
+                                    <Box
+                                        key={option.label}
+                                        px={3}
+                                        py={1}
+                                        borderRadius="md"
+                                        bg={localSettings.countdownWarningMinutes === option.value ? "var(--color-primary)" : "var(--accent-background)"}
+                                        color={localSettings.countdownWarningMinutes === option.value ? 'var(--text-contrast)' : 'var(--text-secondary)'}
+                                        cursor="pointer"
+                                        onClick={() => handleChange("countdownWarningMinutes", option.value)}
+                                    >
+                                        {option.label}
+                                    </Box>
+                                ))}
+                            </Stack>
+                        </RadioGroup>
+                    </Flex>
                     </Stack>
 
                     {/* Save Indicator */}

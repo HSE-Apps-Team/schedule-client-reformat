@@ -19,7 +19,8 @@ const defaultSettings = {
     themeStyle: "normal", //
     seniorPrank: false, // for end of school
     showTimerInTitle: false, // for showing timer in title
-    weatherEffects: false
+    weatherEffects: false,
+    countdownWarningMinutes: 0, // opt-in: red border on countdown circle when remaining time <= this many minutes. 0 = off
 };
 
 // commented out for 4 to 3 lunch switch: "a" is no longer a valid lunch letter,
