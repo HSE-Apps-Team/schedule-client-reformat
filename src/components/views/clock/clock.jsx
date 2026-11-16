@@ -6,6 +6,7 @@ import { getSchedule } from "../../../api/api.js";
 
 import { Box, Text, VStack, CircularProgress, Skeleton } from "@chakra-ui/react";
 import { useSettings } from "../../../hooks/useSettings";
+import { getPeriodLabel } from "../../../data/classes.js";
 
 // Import dayjs plugins
 dayjs.extend(require("dayjs/plugin/customParseFormat"));
@@ -244,9 +245,9 @@ const Clock = ({ loading, setLoading }) => {
       const bagPickupRemaining = userSpecificLunchPeriod.bagPickup.endTimeUnix - currentTime;
       return `${formatTimeRemaining(bagPickupRemaining)} until bag pickup ends`;
     } else {
-      return `${formatTimeRemaining(remaining)} until ${currentPeriod.periodName} ends`;
+      return `${formatTimeRemaining(remaining)} until ${getPeriodLabel(currentPeriod.periodName, settings?.periodClasses)} ends`;
     }
-  }, [formatTimeRemaining, getLunchStatus, userLunchType]);
+  }, [formatTimeRemaining, getLunchStatus, userLunchType, settings?.periodClasses]);
 
 
 

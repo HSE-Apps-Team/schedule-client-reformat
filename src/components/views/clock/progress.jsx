@@ -3,6 +3,7 @@ import { CircularProgress, CircularProgressLabel, Text } from "@chakra-ui/react"
 import dayjs from "dayjs";
 import useMedia from "../../../hooks/useMedia";
 import { useSettings } from "../../../hooks/useSettings";
+import { getPeriodLabel } from "../../../data/classes.js";
 // useSettings is not strictly needed in Progress anymore if lunchType is passed from Clock
 
 // good luck trying to change this. I used ai because it was so bad. This was from the previous version. Its too ugly to change without a full refactor AGAIN.
@@ -130,6 +131,10 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime, userL
           fontSize={mobile ? "1.3rem" : "1.5rem"}
           marginTop="0"
           wordSpacing="3px"
+          // keep long class names wrapping inside the ring
+          maxWidth="72%"
+          marginX="auto"
+          lineHeight="1.25"
         >
           {period.lunchPeriods && userLunchType // Use userLunchType for display
             ? {
@@ -139,9 +144,9 @@ const Progress = ({ genText, period, nextPeriod, lunchStatus, currentTime, userL
               BEFORE: `Until ${userLunchType} Lunch`,
               // Bag pickup only exists on D lunch (added for 4 to 3 lunch switch)
               BAG_PICKUP: `Until Bag Pickup Ends`,
-              AFTER: nextPeriod ? `Until ${period.periodName} Ends` : `Until School Ends`,
+              AFTER: nextPeriod ? `Until ${getPeriodLabel(period.periodName, settings.periodClasses)} Ends` : `Until School Ends`,
             }[lunchStatus] // Use lunchStatus directly
-            : `Until ${period.periodName} Ends`}
+            : `Until ${getPeriodLabel(period.periodName, settings.periodClasses)} Ends`}
         </Text>
       </>
     );

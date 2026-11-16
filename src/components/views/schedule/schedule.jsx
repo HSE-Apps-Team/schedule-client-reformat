@@ -4,6 +4,7 @@ import useMedia from "../../../hooks/useMedia.js";
 import { Box, Text, VStack, HStack, useColorMode } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useSettings } from "../../../hooks/useSettings.jsx";
+import { getPeriodClass } from "../../../data/classes.js";
 
 //The Schedule component provides a visual representation of the day's classes and special periods. 
 // It's designed to be responsive and highlight the user's lunch period based on their settings. 
@@ -55,7 +56,7 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
       <Text justifyContent={"flex-end"} fontSize={fontSize}>{start} {addDash ? "-" : ""} {end}</Text>
   );
 
-  const renderPeriodBox = (name, startTime, endTime) => (
+  const renderPeriodBox = (name, startTime, endTime, className = null) => (
     <MotionBox
       id={"schedule"}
       borderRadius={"10px"}
@@ -68,8 +69,16 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
       justifyContent="space-between"
       alignItems="center"
     >
-      <Text fontSize="2xl">{name}</Text>
-      {renderTimeDisplay(startTime, endTime)}
+      {className ? (
+        // The user picked a class for this period: show it, with the period name underneath
+        <Box minWidth={0} marginRight="12px">
+          <Text fontSize="2xl" lineHeight="1.2" marginBottom={0}>{className}</Text>
+          <Text fontSize="sm" opacity={0.7} marginBottom={0}>{name}</Text>
+        </Box>
+      ) : (
+        <Text fontSize="2xl">{name}</Text>
+      )}
+      <Box flexShrink={0}>{renderTimeDisplay(startTime, endTime)}</Box>
     </MotionBox>
   );
 
@@ -104,7 +113,7 @@ const Schedule = ({ overrideLunch, loading, setLoading }) => {
 
             return (
               <Box key={period.periodName} width="100%" display="flex" flexDirection="column" alignItems="center">
-                {renderPeriodBox(period.periodName, period.startTime, period.endTime)}
+                {renderPeriodBox(period.periodName, period.startTime, period.endTime, getPeriodClass(period.periodName, settings.periodClasses))}
 
                 {period.lunchPeriods && (
                   <Box 
