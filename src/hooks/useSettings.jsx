@@ -21,6 +21,7 @@ const defaultSettings = {
     showTimerInTitle: false, // for showing timer in title
     weatherEffects: false,
     countdownWarningMinutes: 0, // opt-in: red border on countdown circle when remaining time <= this many minutes. 0 = off
+    periodClasses: {}, // the class the user picked for each period, e.g. { "1": "AP Chemistry" }. Missing = show "Period 1"
 };
 
 // commented out for 4 to 3 lunch switch: "a" is no longer a valid lunch letter,

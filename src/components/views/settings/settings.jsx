@@ -1,6 +1,8 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSettings } from "../../../hooks/useSettings";
+import { PERIOD_NUMBERS } from "../../../data/classes";
+import ClassPicker from "./ClassPicker";
 
 // uses useSettings to manage settings
 // If you want to add a new setting, just copy a previous setting, use ai to make it fit the new setting. 
@@ -33,6 +35,22 @@ const Settings = () => {
         setSaved(true);
         setTimeout(() => setSaved(false), 1000); // Reset after 1 second
     };
+
+    // Which period's class search is open right now (only one at a time), or null
+    const [openPeriod, setOpenPeriod] = React.useState(null);
+
+    // Sets (or clears, when className is "") the class shown in place of "Period N"
+    const handlePeriodClassChange = (periodNumber, className) => {
+        const periodClasses = { ...(localSettings.periodClasses || {}) };
+        if (className) {
+            periodClasses[periodNumber] = className;
+        } else {
+            delete periodClasses[periodNumber];
+        }
+        handleChange("periodClasses", periodClasses);
+    };
+
+    const hasPeriodClasses = Object.keys(localSettings.periodClasses || {}).length > 0;
 
     return (
         <Box>
@@ -241,6 +259,40 @@ const Settings = () => {
                             </Stack>
                         </RadioGroup>
                     </Flex>
+
+                    {/* My Classes: swap "Period N" for a class from the school's course list */}
+                    <Box borderTop="1px" borderColor="var(--accent-background)" pt={4}>
+                        <Flex justify="space-between" align="center" mb={1}>
+                            <Box fontWeight="medium">My Classes</Box>
+                            {hasPeriodClasses && (
+                                <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() => {
+                                        setOpenPeriod(null);
+                                        handleChange("periodClasses", {});
+                                    }}
+                                >
+                                    Reset
+                                </Button>
+                            )}
+                        </Flex>
+                        <Text fontSize="sm" color="var(--text-secondary)" mb={3}>
+                            Pick a class for each period and it will show up on the schedule and clock.
+                        </Text>
+                        <Stack spacing={2}>
+                            {PERIOD_NUMBERS.map((periodNumber) => (
+                                <ClassPicker
+                                    key={periodNumber}
+                                    periodNumber={periodNumber}
+                                    value={localSettings.periodClasses?.[periodNumber] || ""}
+                                    isOpen={openPeriod === periodNumber}
+                                    onToggle={(open) => setOpenPeriod(open ? periodNumber : null)}
+                                    onSelect={(className) => handlePeriodClassChange(periodNumber, className)}
+                                />
+                            ))}
+                        </Stack>
+                    </Box>
                     </Stack>
 
                     {/* Save Indicator */}
